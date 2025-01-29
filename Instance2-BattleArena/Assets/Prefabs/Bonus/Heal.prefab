@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8809471930685281649}
   - component: {fileID: -3406159320966670907}
   - component: {fileID: -5730680934410678774}
+  - component: {fileID: 2266107518590516383}
   m_Layer: 0
   m_Name: Heal
   m_TagString: Untagged
@@ -147,9 +148,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5bbcc4fab4b9e47adf88aecfce63fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bonusType: 0
+--- !u!114 &2266107518590516383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6850802362017872705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc7f86e9cb5d9d842bda029cf26c884d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   HealAmount: 20
-  DamageMultiplier: 0
-  SpeedMultiplier: 0
-  EffectDuration: 0
-  bonusPrefab: {fileID: 6850802362017872705}

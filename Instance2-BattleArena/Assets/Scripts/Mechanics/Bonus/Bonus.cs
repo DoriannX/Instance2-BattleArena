@@ -1,40 +1,32 @@
-using System.Collections;
 using UnityEngine;
 
 public class Bonus : MonoBehaviour
 {
-    public enum BonusType { Heal, DamageBoost, SpeedBoost }
-    public BonusType bonusType;
+    private BonusEffects _bonusEffect;  
+    private bool _isCollected = false; 
 
-    [Header("Bonus Values")]
-    public float HealAmount = 20f;
-    public float DamageMultiplier = 1.5f;
-    public float SpeedMultiplier = 1.5f;
-    public float EffectDuration = 5f;
+    private void Start()
+    {
+        _bonusEffect = GetComponent<BonusEffects>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (!_isCollected && other.CompareTag("Player"))  
         {
-            ApplyBonus();
-            RandomSpawner.Instance?.RespawnBonus(gameObject);
+            _isCollected = true;  
+            if (_bonusEffect != null)
+            {
+                _bonusEffect.ApplyEffect(other.gameObject);  
+            }
+            RandomSpawner.Instance?.RespawnBonus(gameObject); 
             Destroy(gameObject);
         }
     }
-
-    private void ApplyBonus()
+    public void Respawn(Vector3 spawnPosition)
     {
-        switch (bonusType)
-        {
-            case BonusType.Heal:
-                Debug.Log("Bonus de soin appliqué !");
-                break;
-            case BonusType.DamageBoost:
-                Debug.Log("Bonus de dégâts appliqué !");
-                break;
-            case BonusType.SpeedBoost:
-                Debug.Log("Bonus de vitesse appliqué !");
-                break;
-        }
+        transform.position = spawnPosition;  
+        gameObject.SetActive(true);  
+        _isCollected = false;  
     }
 }

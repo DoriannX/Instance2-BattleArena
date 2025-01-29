@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8809471930685281649}
   - component: {fileID: 6491339290833671459}
   - component: {fileID: 4435797172213325109}
+  - component: {fileID: 6481825026562284630}
   m_Layer: 0
   m_Name: BoostAttack
   m_TagString: Untagged
@@ -147,9 +148,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5bbcc4fab4b9e47adf88aecfce63fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bonusType: 1
-  HealAmount: 0
+--- !u!114 &6481825026562284630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6850802362017872705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05df0977aa8e2947baebde4b2c9cde1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   DamageMultiplier: 1.5
-  SpeedMultiplier: 0
-  EffectDuration: 5
-  bonusPrefab: {fileID: 6850802362017872705}
