@@ -27,8 +27,14 @@ public class ExpManager : MonoBehaviour
     [SerializeField] private Sprite _spriteLevel10;
     [SerializeField] private Sprite _spriteLevel20;
 
+    private Sprite _defaultSprite;
+
     private void Start()
     {
+        if (_characterSprite != null)
+        {
+            _defaultSprite = _characterSprite.sprite;
+        }
         UpdateUI();
     }
 
@@ -93,6 +99,16 @@ public class ExpManager : MonoBehaviour
     private void Update()
     {
         UpdateUI();
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            GainExperience(50);
+        }
+
+        if (Input.GetKeyUp(KeyCode.H)) 
+        {
+            ResetProgress();
+        }
     }
 
     private void UpdateUI()
@@ -117,10 +133,13 @@ public class ExpManager : MonoBehaviour
     {
         _level = 1;
         _currentExp = 0;
-        _expToLevel = _addExpToNextLevel; 
+        _expToLevel = _addExpToNextLevel;
 
+        if (_characterSprite != null && _defaultSprite != null)
+        {
+            _characterSprite.sprite = _defaultSprite;
+        }
         //resetStatsClass !!
-
         UpdateUI(); 
     }
 
