@@ -35,7 +35,6 @@ public class ExpManager : MonoBehaviour
         {
             _defaultSprite = _characterSprite.sprite;
         }
-
         UpdateUI();
     }
 
