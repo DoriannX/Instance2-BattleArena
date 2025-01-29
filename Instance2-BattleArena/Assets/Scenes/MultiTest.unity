@@ -1348,6 +1348,7 @@ GameObject:
   - component: {fileID: 1264935636}
   - component: {fileID: 1264935635}
   - component: {fileID: 1264935638}
+  - component: {fileID: 1264935639}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1367,7 +1368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6960e84d07fb87f47956e7a81d71c4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ProtocolType: 0
+  m_ProtocolType: 1
   m_UseWebSockets: 0
   m_UseEncryption: 0
   m_MaxPacketQueueSize: 128
@@ -1422,6 +1423,7 @@ MonoBehaviour:
     NetworkTopology: 0
     UseCMBService: 0
     AutoSpawnPlayerPrefabClientSide: 1
+    NetworkMessageMetrics: 1
     NetworkProfilingMetrics: 1
     OldPrefabList: []
   RunInBackground: 1
@@ -1455,6 +1457,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hostBtn: {fileID: 1239340800}
   _clientBtn: {fileID: 447695694}
+--- !u!114 &1264935639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264935634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c13989902294ee6ba07fe903a771f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1477817798
 GameObject:
   m_ObjectHideFlags: 0

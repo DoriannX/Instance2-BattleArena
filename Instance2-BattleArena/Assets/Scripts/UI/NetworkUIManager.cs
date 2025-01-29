@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,11 +10,11 @@ namespace UI
     public class NetworkUIManager : MonoBehaviour
     {
         [SerializeField] private Button _hostBtn, _clientBtn;
-        private NetworkManager _networkManager;
+        private RelayManager _relayManager;
 
         private void Awake()
         {
-            _networkManager = GetComponent<NetworkManager>();
+            _relayManager = GetComponent<RelayManager>();
         }
 
         private void ToggleBtns(bool state)
@@ -28,15 +29,15 @@ namespace UI
             _clientBtn.onClick.AddListener(OnClientBtnClicked);
         }
 
-        private void OnClientBtnClicked()
+        private async void OnClientBtnClicked()
         {
-            _networkManager.StartClient();
+            await _relayManager.JoinRandomRelay();
             ToggleBtns(false);
         }
 
-        private void OnHostBtnClicked()
+        private async void OnHostBtnClicked()
         {
-            _networkManager.StartHost();
+            await _relayManager.CreateRelay();
             ToggleBtns(false);
         }
     }
