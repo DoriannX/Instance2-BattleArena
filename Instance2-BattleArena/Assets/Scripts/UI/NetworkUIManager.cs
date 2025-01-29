@@ -10,11 +10,11 @@ namespace UI
     public class NetworkUIManager : MonoBehaviour
     {
         [SerializeField] private Button _hostBtn, _clientBtn;
-        private RelayManager _relayManager;
+        private NetworkManager _networkManager;
 
         private void Awake()
         {
-            _relayManager = GetComponent<RelayManager>();
+            _networkManager = NetworkManager.Singleton;
         }
 
         private void ToggleBtns(bool state)
@@ -29,15 +29,15 @@ namespace UI
             _clientBtn.onClick.AddListener(OnClientBtnClicked);
         }
 
-        private async void OnClientBtnClicked()
+        private void OnClientBtnClicked()
         {
-            await _relayManager.JoinRandomRelay();
+            _networkManager.StartClient();
             ToggleBtns(false);
         }
 
-        private async void OnHostBtnClicked()
+        private void OnHostBtnClicked()
         {
-            await _relayManager.CreateRelay();
+            _networkManager.StartHost();
             ToggleBtns(false);
         }
     }
