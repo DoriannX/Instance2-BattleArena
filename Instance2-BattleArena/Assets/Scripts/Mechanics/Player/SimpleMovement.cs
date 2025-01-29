@@ -32,9 +32,21 @@ namespace Mechanics.Player
             }
 
             Aim();
+            AskServerSpawnBulletServerRpc(_shootDir);
+        }
 
+        [ServerRpc]
+        private void AskServerSpawnBulletServerRpc(Vector3 direction)
+        {
+            SpawnBulletClientRpc(direction);
+        }
+
+        [ClientRpc]
+        private void SpawnBulletClientRpc(Vector3 direction)
+        {
             Bullet instancedBullet = Instantiate(_bulletPrefab, _transform.position, _transform.rotation);
-            instancedBullet.SetDirection(_shootDir);
+            instancedBullet.StartMove(direction);
+            Debug.Log("bullet spawned");
         }
 
         private void Aim()
