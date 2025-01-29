@@ -1,25 +1,25 @@
-using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 public class HitMele : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private InputActionReference _inputAction;
+    [SerializeField] private InputActionReference _hitMele;
 
     private void Awake()
     {        
-        Assert.IsNotNull(_inputAction, "_inputAction is missing");
+        Assert.IsNotNull(_hitMele, "_inputAction is missing");
     }
 
     private void OnEnable()
     {
-        _inputAction.action.started += Hit;
+        _hitMele.action.started += Hit;
     }
 
     private void OnDisable()
     {
-        _inputAction.action.started -= Hit;
+        _hitMele.action.started -= Hit;
     }
 
     private void Hit(InputAction.CallbackContext context)

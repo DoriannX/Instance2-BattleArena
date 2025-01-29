@@ -1,15 +1,16 @@
-using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 public class Bullet : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float _speed;
+    [SerializeField] private float _speedBullet;
+    private Transform _bulletTransform;
 
     private void Awake()
     {
-        Assert.IsNotNull(_speed, "_speed is null");
+        _bulletTransform = transform;
     }
 
     private void Update()
@@ -19,7 +20,7 @@ public class Bullet : MonoBehaviour
 
     private void Move()
     {
-        transform.position += transform.up * _speed * Time.deltaTime;
+        _bulletTransform.position += _bulletTransform.up * _speedBullet * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
