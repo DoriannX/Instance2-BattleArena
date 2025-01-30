@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -32,6 +33,14 @@ namespace UI
         private void Start()
         {
             _clientBtn.onClick.AddListener(OnClientBtnClicked);
+            _networkManager.OnClientConnectedCallback += OnClientConnected;
+
+        }
+
+        private void OnClientConnected(ulong obj)
+        {
+            ToggleBtns(false);
+            Debug.Log("connected to server");
         }
 
         private string OnRoomAddressEntered()
@@ -46,9 +55,14 @@ namespace UI
                 Debug.LogError("invalid ip address");
                 return;
             }
-            
+
+            StartCoroutine(StartClientDelay());
+        }
+
+        private IEnumerator StartClientDelay()
+        {
+            yield return new WaitForEndOfFrame();
             _networkManager.StartClient();
-            ToggleBtns(false);
         }
 
         private bool IsValidIpAddress(string ipAddress)

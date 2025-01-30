@@ -5,7 +5,7 @@ namespace Managers
 {
     public class RelayManager : MonoBehaviour
     {
-        private void Awake()
+        private void Start()
         {
             if (Application.platform == RuntimePlatform.WindowsServer || Application.platform == RuntimePlatform.LinuxServer)
             {
