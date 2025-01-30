@@ -23,10 +23,4 @@ public class Bonus : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void Respawn(Vector3 spawnPosition)
-    {
-        transform.position = spawnPosition;  
-        gameObject.SetActive(true);  
-        _isCollected = false;  
-    }
 }
