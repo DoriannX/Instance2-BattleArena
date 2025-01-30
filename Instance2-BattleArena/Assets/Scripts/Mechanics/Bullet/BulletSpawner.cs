@@ -7,14 +7,17 @@ public class BulletSpawner : MonoBehaviour
     private Shoot _shoot;
     public ObjectPool<Bullet> BulletSpawnerPool;
 
+    [Header("Settings")]
+    [SerializeField] private int _maxSaveBullet = 20;
+    [SerializeField] private int _maxBulletOverall = 50;
+
     private void Awake()
     {
         _shoot = GetComponent<Shoot>();
-        BulletSpawnerPool = new(CreateBullet, OnTakeBulletFromPool, OnReturnBulletToPool, OnDestroyBullet, true, 20, 50);
-
+        BulletSpawnerPool = new(CreateBullet, OnTakeBulletFromPool, OnReturnBulletToPool, OnDestroyBullet, true, _maxSaveBullet, _maxBulletOverall);
     }
 
-    //What it does when more object than in object pool
+    //What it does when more object than in the object pool
     private Bullet CreateBullet()
     {
         Bullet bullet = Instantiate(_shoot.BulletPrefab, _shoot.PlayerTransform.position + _shoot.PlayerTransform.up, _shoot.PlayerTransform.rotation);
