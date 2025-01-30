@@ -12,6 +12,22 @@ PrefabInstance:
       propertyPath: _speed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4951730294476030395, guid: 96fc46f57c21d4a4bbd3f7197a555268, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951730294476030395, guid: 96fc46f57c21d4a4bbd3f7197a555268, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951730294476030395, guid: 96fc46f57c21d4a4bbd3f7197a555268, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951730294476030395, guid: 96fc46f57c21d4a4bbd3f7197a555268, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5714551200278183804, guid: 96fc46f57c21d4a4bbd3f7197a555268, type: 3}
       propertyPath: m_IsTrigger
       value: 0

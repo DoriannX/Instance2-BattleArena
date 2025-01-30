@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class HealBonus : BonusEffects
 {
-    public float HealAmount = 20f;
-
+ 
     public override void ApplyEffect(GameObject player)
     {
-            Debug.Log("Soin appliqué !");
+        PlayerStats playerStats = player.GetComponent<PlayerStats>();
+
+        if (playerStats != null)
+        {
+            playerStats.ApplyHealBonus(75);
+        }
     }
 }
