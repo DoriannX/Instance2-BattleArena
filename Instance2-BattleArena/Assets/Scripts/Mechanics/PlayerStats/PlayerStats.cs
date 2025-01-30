@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public int _attack; 
-    public int _speed; 
+    public int Attack; 
+    public int Speed; 
     public void SetStats(int attack, int speed)
     {
-        _attack = attack;
-        _speed = speed;
+        Attack = attack;
+        Speed = speed;
     }
 }
