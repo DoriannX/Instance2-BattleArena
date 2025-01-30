@@ -932,7 +932,11 @@ PrefabInstance:
       objectReference: {fileID: 1936783750999267908, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
     - target: {fileID: 835077395411014173, guid: 99372c12e93896e4ead30d97365d11c1, type: 3}
       propertyPath: _playerAcceleration
-      value: 4
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946294658833881947, guid: 99372c12e93896e4ead30d97365d11c1, type: 3}
+      propertyPath: m_LinearDamping
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6030928048524732170, guid: 99372c12e93896e4ead30d97365d11c1, type: 3}
       propertyPath: _hitMele
