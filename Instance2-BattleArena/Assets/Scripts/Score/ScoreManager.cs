@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.Events;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -9,16 +9,23 @@ public class ScoreManager : MonoBehaviour
     private bool _grainReclaimed;
     private bool _enemyKilled;
     public Text ScoreText;
-    public Text HightScoreText;
+    public Text HighScoreText;
     public static int ScoreCount;
-    public static int HightScoreCount;
+    public static int HiScoreCount;
+
+    [SerializeField]
+    private TextMeshProUGUI inputScore;
+    [SerializeField]
+    private TMP_InputField inputName;
+
+    public UnityEvent<string, int> submitScoreEvent;
 
 
     void Start()
     {
-        if (PlayerPrefs.HasKey("HightScore"))
+        if (PlayerPrefs.HasKey("HighScore"))
         {
-            HightScoreCount = PlayerPrefs.GetInt("HiScore");
+            HiScoreCount = PlayerPrefs.GetInt("HiScore");
         }
     }
 
@@ -26,14 +33,14 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
 
-        if (ScoreCount > HightScoreCount)
+        if (ScoreCount > HiScoreCount)
         {
-            HightScoreCount = ScoreCount;
-            //HightScoreCount = PlayerPrefs.SetInt("Hi-Score");
+            HiScoreCount = ScoreCount;
+            PlayerPrefs.SetInt("Hi-Score", HiScoreCount);
         }
 
-        ScoreText.text = "Score" + Mathf.Round(ScoreCount);
-        HightScoreText.text = "Hi-Score" + Mathf.Round(HightScoreCount);
+        //ScoreText.text = "Score: " + ScoreCount;
+       // HighScoreText.text = "Hi-Score: " + HiScoreCount;
     }
     
     public void AddScore(int Points)
@@ -46,12 +53,18 @@ public class ScoreManager : MonoBehaviour
         if (_enemyKilled == true)
         {
             ScoreCount = ScoreCount + 200;
-        }
+       }
 
         if (_levelIncreased == true)
         {
             ScoreCount = ScoreCount + 50;
         }
+    }
+
+    public void SubmitScore()
+    {
+        submitScoreEvent.Invoke(inputName.text, int.Parse(inputScore.text));
+
     }
 
     
