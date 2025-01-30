@@ -1,20 +1,24 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.Pool;
 
 public class Shoot : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Bullet _bulletPreFab;
     [SerializeField] private InputActionReference _shoot;
-    private Transform _playerTransform;
+    [HideInInspector] public Transform PlayerTransform;
+    private BulletSpawner _bulletSpawner;
+    public Bullet BulletPrefab;
 
     private void Awake()
     {
-        Assert.IsNotNull(_bulletPreFab, "_bulletPreFab is missing");
+        Assert.IsNotNull(BulletPrefab, "_bulletPrefab is missing");
         Assert.IsNotNull(_shoot, "_inputAction is missing");
 
-        _playerTransform = transform;
+        _bulletSpawner = GetComponent<BulletSpawner>();
+
+        PlayerTransform = transform;
     }
 
     private void OnEnable()
@@ -28,7 +32,7 @@ public class Shoot : MonoBehaviour
     }
 
     private void Fire(InputAction.CallbackContext context)
-    {      
-       Bullet bullet = Instantiate(_bulletPreFab, _playerTransform.position + _playerTransform.up, _playerTransform.rotation);        
-    }    
+    {
+        _bulletSpawner.BulletSpawnerPool.Get();
+    }       
 }

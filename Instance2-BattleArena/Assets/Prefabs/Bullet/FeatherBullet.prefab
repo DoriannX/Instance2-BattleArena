@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: _speed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -2857028251752055660, guid: 96fc46f57c21d4a4bbd3f7197a555268, type: 3}
+      propertyPath: _speedBullet
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5714551200278183804, guid: 96fc46f57c21d4a4bbd3f7197a555268, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -19,6 +23,10 @@ PrefabInstance:
     - target: {fileID: 6000061442543945867, guid: 96fc46f57c21d4a4bbd3f7197a555268, type: 3}
       propertyPath: m_Name
       value: FeatherBullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100771050178672518, guid: 96fc46f57c21d4a4bbd3f7197a555268, type: 3}
+      propertyPath: m_Mass
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 7426486458414493241, guid: 96fc46f57c21d4a4bbd3f7197a555268, type: 3}
       propertyPath: m_LocalPosition.x
