@@ -5,7 +5,7 @@ public class BulletSpawner : MonoBehaviour
 {
     [Header("Reference")]
     private Shoot _shoot;
-    [SerializeField] private Transform _SpawnBullet;
+    [SerializeField] private Transform _spawnBullet;
     public ObjectPool<Bullet> BulletSpawnerPool;
 
     [Header("Settings")]

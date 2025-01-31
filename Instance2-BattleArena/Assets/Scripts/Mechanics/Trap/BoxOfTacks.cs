@@ -10,11 +10,6 @@ public class BoxOfTacks : TrapEffects
     private Coroutine _damageCoroutine;
     private bool _playerInside = false;
 
-    private void Start()
-    {
-        StartCoroutine(DestroyTrapAfterDuration()); 
-    }
-
     public override void ApplyEffect(GameObject player)
     {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
@@ -40,11 +35,6 @@ public class BoxOfTacks : TrapEffects
             playerStats.UpdateHealthBar();
             yield return new WaitForSeconds(TickInterval);
         }
-    }
-
-    private IEnumerator DestroyTrapAfterDuration()
-    {
-        yield return new WaitForSeconds(TrapDuration);
     }
 
     private void OnTriggerExit2D(Collider2D other)
