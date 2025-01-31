@@ -12,7 +12,7 @@ namespace Mechanics.Player
         {
             if (!IsOwner)
             {
-                transform.position = Vector3.SmoothDamp(transform.position, _position.Value, ref _vel, 0.01f);
+                transform.position = Vector3.SmoothDamp(transform.position, _position.Value, ref _vel, 0.05f);
             }
             else
             {
