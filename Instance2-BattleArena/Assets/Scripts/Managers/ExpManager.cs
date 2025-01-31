@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ExpManager : MonoBehaviour
 {
-    public static ExpManager instance;
+    public static ExpManager Instance;
     [Header("Character Settings")]
     private PlayerClassManager.CharacterClass _currentClass;
     private SpriteRenderer _playerSpriteRenderer;
@@ -23,7 +23,7 @@ public class ExpManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null) instance = this;
+        if(Instance == null) Instance = this;
     }
     public void Initialize(PlayerClassManager.CharacterClass selectedClass, GameObject playerPrefab)
     {

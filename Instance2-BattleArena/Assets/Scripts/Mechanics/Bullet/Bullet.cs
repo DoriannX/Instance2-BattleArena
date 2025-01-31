@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
                 playerStats.TakeDamage(playerStats.Attack);
                 if (playerStats.CurrentHealth <= 0)
                 {
-                    ExpManager.instance.GainExperience(50);
+                    ExpManager.Instance.GainExperience(50);
                 }
             }
         }
