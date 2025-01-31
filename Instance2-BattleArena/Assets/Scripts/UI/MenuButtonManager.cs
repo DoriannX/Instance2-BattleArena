@@ -26,6 +26,7 @@ public class MenuButtonManager : MonoBehaviour
 
     public void OpenSettings()
     {
+        AudioManager.Instance.PlaySFXSound(AudioType.heal);
         _settings.SetActive(true);
     }
 
@@ -51,12 +52,12 @@ public class MenuButtonManager : MonoBehaviour
         _register.SetActive(true);
         _login.SetActive(false);
     }
+
     public void OpenLoginMenu()
     {
         _login.SetActive(true);
         _register.SetActive(false);
     }
-
 
     public void Respawn()
     {
