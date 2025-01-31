@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
@@ -12,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float _speedBullet;
-    
+
     private void Awake()
     {
         _bulletRigidbody = GetComponent<Rigidbody2D>();
@@ -31,21 +29,34 @@ public class Bullet : MonoBehaviour
 
     private void SetVelocity()
     {
-        _bulletRigidbody.linearVelocity = _bulletTransform.up * _speedBullet;     
+        _bulletRigidbody.linearVelocity = _bulletTransform.up * _speedBullet; // Assurez-vous d'utiliser "velocity" et non "linearVelocity"
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-       BulletPool.Release(this);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerStats playerStats = collision.gameObject.GetComponent<PlayerStats>();
+            if (playerStats != null)
+            {
+                playerStats.TakeDamage(playerStats.Attack);
+                if (playerStats.CurrentHealth <= 0)
+                {
+                    ExpManager.instance.GainExperience(50);
+                }
+            }
+        }
+        BulletPool.Release(this);
     }
 
-    private void LimitMapDeactivate() // test system, not permanent
+    private void LimitMapDeactivate() 
     {
         Vector3 viewportPosition = Camera.main.WorldToViewportPoint(_bulletTransform.position);
-
-        if (viewportPosition.x < 0 || viewportPosition.x > 1 || viewportPosition.y < 0 || viewportPosition.y > 1) BulletPool.Release(this);
+        if (viewportPosition.x < 0 || viewportPosition.x > 1 || viewportPosition.y < 0 || viewportPosition.y > 1)
+        {
+            BulletPool.Release(this);
+        }
     }
-
     public void SetPool(ObjectPool<Bullet> pool)
     {
         BulletPool = pool;
