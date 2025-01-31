@@ -11,10 +11,11 @@ public class PlayerClassManager : MonoBehaviour
         public Sprite Level20Sprite;
         public int BaseAttack;
         public int BaseHeal;
+        public float BaseAttackSpeed;
 
         public void ApplyClassStats(PlayerStats stats)
         {
-            stats.SetStats(BaseAttack, BaseHeal);
+            stats.SetStats(BaseAttack, BaseHeal , BaseAttackSpeed);
         }
     }
 

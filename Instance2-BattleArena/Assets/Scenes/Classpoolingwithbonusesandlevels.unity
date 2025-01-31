@@ -13162,18 +13162,21 @@ MonoBehaviour:
     Level20Sprite: {fileID: -4072740820715282667, guid: 931a5bec2d33c7e56b7626ace8f130df, type: 3}
     BaseAttack: 20
     BaseHeal: 150
+    BaseAttackSpeed: 0.2
   - ClassName: Dindon artilleur
     BaseSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
     Level10Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
     Level20Sprite: {fileID: 3871612080142871573, guid: c53d4156d0746884db00d18b87bb2d97, type: 3}
     BaseAttack: 5
     BaseHeal: 100
+    BaseAttackSpeed: 0.3
   - ClassName: Port-Dindons
     BaseSprite: {fileID: 7482667652216324306, guid: c05726b5076ed8547813b2977e0c5920, type: 3}
     Level10Sprite: {fileID: 7187665122349066479, guid: e75dcde94d78181258d0108f4a28b1d1, type: 3}
     Level20Sprite: {fileID: 448724807491227562, guid: 931a5bec2d33c7e56b7626ace8f130df, type: 3}
     BaseAttack: 30
     BaseHeal: 100
+    BaseAttackSpeed: 1
   PlayerPrefab: {fileID: 8235370108955807569, guid: 11f5f7aa8ae7a3a4d8a223a88c36af70, type: 3}
   PanelSelectClass: {fileID: 1001821817}
   expManager: {fileID: 2030106547}

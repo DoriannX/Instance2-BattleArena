@@ -93,4 +93,12 @@ public class PlayerMovements : MonoBehaviour
         _playerMaxSpeed = _originalSlowMaxSpeed;
         _isSlow = false;
     }
+
+    public void ResetMovementSpeed()
+    {
+        _playerAcceleration = _originalAcceleration;
+        _playerMaxSpeed = _originalMaxSpeed;
+        _isSlow = false;
+    }
+
 }

@@ -19,14 +19,14 @@ public class Bullet : MonoBehaviour
         _bulletTransform = transform;
     }
 
+    private void Update()
+    {
+        LimitMapDeactivate();
+    }
+
     private void OnEnable()
     {
         SetVelocity();
-    }
-
-    private void Update()
-    {        
-        LimitMapDeactivate(); // test system, not permanent
     }
 
     private void SetVelocity()
@@ -36,8 +36,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Touched");
-        //BulletPool.Release(this);
+       BulletPool.Release(this);
     }
 
     private void LimitMapDeactivate() // test system, not permanent
