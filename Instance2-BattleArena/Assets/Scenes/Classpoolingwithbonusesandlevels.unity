@@ -11781,6 +11781,8 @@ MonoBehaviour:
     Quantity: 5
   - Prefab: {fileID: 6850802362017872705, guid: 6ee1494b90d3df648a40ea5449bad64e, type: 3}
     Quantity: 5
+  - Prefab: {fileID: 9151268592265706655, guid: 7a29a67aae582a7488828f54b2eae1e4, type: 3}
+    Quantity: 5
   _parentSpawn: {fileID: 412351088}
   _parentSpawnCloneBonus: {fileID: 819610277}
 --- !u!1 &774559491
