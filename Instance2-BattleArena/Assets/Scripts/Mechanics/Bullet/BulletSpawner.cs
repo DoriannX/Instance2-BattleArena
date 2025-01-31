@@ -5,6 +5,7 @@ public class BulletSpawner : MonoBehaviour
 {
     [Header("Reference")]
     private Shoot _shoot;
+    [SerializeField] private Transform _SpawnBullet;
     public ObjectPool<Bullet> BulletSpawnerPool;
 
     [Header("Settings")]
@@ -31,7 +32,7 @@ public class BulletSpawner : MonoBehaviour
     private void OnTakeBulletFromPool(Bullet bullet)
     {
         //set the transform and rotation
-        bullet.transform.position = _shoot.PlayerTransform.position + _shoot.PlayerTransform.up;
+        bullet.transform.position = _SpawnBullet.transform.position + _shoot.PlayerTransform.up;
         bullet.transform.rotation = _shoot.PlayerTransform.rotation;
 
         //activate

@@ -72,8 +72,25 @@ public class ExpManager : MonoBehaviour
     {
         if (_playerStats == null) return;
 
+        int previousMaxHealth = _playerStats.MaxHealth;
+        int previousHealth = _playerStats.CurrentHealth;
+
         _playerStats.IncreaseStats(); 
+
+        int newMaxHealth = _playerStats.MaxHealth;
+        int healthIncrease = newMaxHealth - previousMaxHealth;
+        if (previousHealth == previousMaxHealth)
+        {
+            _playerStats.CurrentHealth = newMaxHealth;
+        }
+        else
+        {
+            _playerStats.CurrentHealth += healthIncrease;
+            _playerStats.CurrentHealth = Mathf.Min(_playerStats.CurrentHealth, newMaxHealth);
+        }
+        _playerStats.UpdateHealthBar();
     }
+
 
     private void Update()
     {

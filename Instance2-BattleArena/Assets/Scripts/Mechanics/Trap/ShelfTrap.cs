@@ -33,7 +33,7 @@ public class ShelfTrap : MonoBehaviour
 
         if (playerStats != null)
         {
-            playerStats.CurrentHealth -= DamageAmount;
+            playerStats.TakeDamage(40);
         }
 
         _isTrapActive = false;
