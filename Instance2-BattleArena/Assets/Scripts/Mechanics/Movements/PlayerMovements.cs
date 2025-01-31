@@ -16,7 +16,12 @@ public class PlayerMovements : MonoBehaviour
 
     private float _originalAcceleration;
     private float _originalMaxSpeed;
+
+    private float _originalSlow;
+    private float _originalSlowMaxSpeed;
+
     private bool _isBoostActive = false;
+    private bool _isSlow = false;
 
     private void Awake()
     {       
@@ -27,6 +32,9 @@ public class PlayerMovements : MonoBehaviour
 
         _originalAcceleration = _playerAcceleration;
         _originalMaxSpeed = _playerMaxSpeed;
+
+        _originalSlow = _playerAcceleration;
+        _originalSlowMaxSpeed = _playerMaxSpeed;
     }
 
     private void Update()
@@ -64,5 +72,25 @@ public class PlayerMovements : MonoBehaviour
         _playerAcceleration = _originalAcceleration;
         _playerMaxSpeed = _originalMaxSpeed;
         _isBoostActive = false; 
+    }
+
+    public void ApplyMovementSlow()
+    {
+        if (!_isSlow)
+        {
+            _isSlow = true;
+            _playerAcceleration *= 0.5f;
+            _playerMaxSpeed *= 0.5f;
+            StartCoroutine(ResetMovementSlowAfterDuration(6f));
+        }
+    }
+
+    private IEnumerator ResetMovementSlowAfterDuration(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        _playerAcceleration = _originalSlow;
+        _playerMaxSpeed = _originalSlowMaxSpeed;
+        _isSlow = false;
     }
 }

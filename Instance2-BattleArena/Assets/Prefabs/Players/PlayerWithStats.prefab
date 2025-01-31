@@ -252,8 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0f433e54a66ac4ab78e2176e2a3700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPreFab: {fileID: 705679762438226624, guid: 5d8ec3b0dd9afce42a061de83e80cc05, type: 3}
   _shoot: {fileID: -1542052006788691458, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
+  PlayerTransform: {fileID: 0}
+  BulletPrefab: {fileID: 0}
 --- !u!114 &6030928048524732170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +312,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 8395558135472564649, guid: 931a5bec2d33c7e56b7626ace8f130df, type: 3}
+  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0.30383253, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -334,9 +335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b850ef8fe6a6c40b1b8d1a195b2228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Attack: 20
-  CurrentHealth: 150
-  MaxHealth: 150
+  Attack: 5
+  CurrentHealth: 100
+  MaxHealth: 100
 --- !u!70 &6007450625746026102
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
