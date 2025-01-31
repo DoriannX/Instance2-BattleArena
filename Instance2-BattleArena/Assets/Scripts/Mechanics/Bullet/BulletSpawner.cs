@@ -32,7 +32,7 @@ public class BulletSpawner : MonoBehaviour
     private void OnTakeBulletFromPool(Bullet bullet)
     {
         //set the transform and rotation
-        bullet.transform.position = _SpawnBullet.transform.position + _shoot.PlayerTransform.up;
+        bullet.transform.position = _spawnBullet.transform.position + _shoot.PlayerTransform.up;
         bullet.transform.rotation = _shoot.PlayerTransform.rotation;
 
         //activate

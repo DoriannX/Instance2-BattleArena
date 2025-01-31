@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class ExpManager : MonoBehaviour
 {
+    public static ExpManager Instance;
     [Header("Character Settings")]
     private PlayerClassManager.CharacterClass _currentClass;
     private SpriteRenderer _playerSpriteRenderer;
@@ -20,6 +21,10 @@ public class ExpManager : MonoBehaviour
     [SerializeField] private Slider _slider;
     [SerializeField] private TextMeshProUGUI _currentLevelText;
 
+    private void Awake()
+    {
+        if(Instance == null) Instance = this;
+    }
     public void Initialize(PlayerClassManager.CharacterClass selectedClass, GameObject playerPrefab)
     {
         _currentClass = selectedClass;

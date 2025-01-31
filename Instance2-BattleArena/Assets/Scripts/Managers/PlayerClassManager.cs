@@ -15,7 +15,7 @@ public class PlayerClassManager : MonoBehaviour
 
         public void ApplyClassStats(PlayerStats stats)
         {
-            stats.SetStats(BaseAttack, BaseHeal , BaseAttackSpeed);
+            stats.SetStats(BaseAttack, BaseHeal, BaseAttackSpeed);
         }
     }
 
@@ -23,16 +23,16 @@ public class PlayerClassManager : MonoBehaviour
     private PlayerStats _playerStats;
     public GameObject PlayerPrefab;
     public GameObject PanelSelectClass;
-    public ExpManager expManager; 
+    public ExpManager expManager;
 
     [SerializeField] private Transform _playerSpawn;
+    [SerializeField] private GameObject PlayerPrefabAlternate;  
 
     private int _selectedClassIndex = -1;
 
     void Start()
     {
         _playerStats = PlayerPrefab.GetComponent<PlayerStats>();
-
     }
 
     public void SelectClass(int classIndex)
@@ -44,16 +44,20 @@ public class PlayerClassManager : MonoBehaviour
             PlayerPrefab.GetComponent<SpriteRenderer>().sprite = selectedClass.BaseSprite;
             selectedClass.ApplyClassStats(_playerStats);
             PanelSelectClass.SetActive(false);
-            GameObject playerInstance = Instantiate(PlayerPrefab, _playerSpawn.position, Quaternion.identity);
+            GameObject playerInstance;
+
+            if (classIndex == 0)  
+            {
+                playerInstance = Instantiate(PlayerPrefabAlternate, _playerSpawn.position, Quaternion.identity);
+            }
+            else
+            {
+                playerInstance = Instantiate(PlayerPrefab, _playerSpawn.position, Quaternion.identity);
+            }
             if (expManager != null)
             {
                 expManager.Initialize(selectedClass, playerInstance);
             }
-            else
-            {
-                Debug.LogError("ExpManager n'est pas assigné !");
-            }
         }
     }
-
 }
