@@ -1,8 +1,8 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
-using System.Collections;
 using Dan.Main;
+
 
 public class LeaderBoard : MonoBehaviour
 {
@@ -12,7 +12,9 @@ public class LeaderBoard : MonoBehaviour
     private List<TextMeshProUGUI> _scores;
 
     private string _publicLeaderBoardKey =
-        "b3281035df4bdb48df8a1842c0f28cf8f0560d46d66d0f29acc5c2a0366c5aef";
+        "b2e20afac89b0a140bf70081ff72b0c69bb5a9fa3c2ff6278e1536ab7187f5ca";
+
+
 
     public void GetLeaderBoard()
     {
@@ -21,7 +23,8 @@ public class LeaderBoard : MonoBehaviour
               
             for (int i = 0; i < _names.Count; ++i)
             {
-                _names[i].text = msg[i].Username;
+                string username = msg[i].Username;
+                _names[i].text = username;
                 _scores[i].text = msg[i].Score.ToString();
             }
 
@@ -38,5 +41,5 @@ public class LeaderBoard : MonoBehaviour
             }));
     }
 
-
+    
 }
