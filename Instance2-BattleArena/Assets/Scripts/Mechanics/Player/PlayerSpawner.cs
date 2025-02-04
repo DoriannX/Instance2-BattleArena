@@ -12,7 +12,6 @@ namespace Mechanics.Player
         private void Awake()
         {
             Assert.IsNotNull(_spawnPoint, "Spawn point is not assigned");
-            Assert.IsNotNull(_playerPrefab, "Player prefab is not assigned");
         }
         
         public override void OnNetworkSpawn()
@@ -31,6 +30,7 @@ namespace Mechanics.Player
                 Transform spawnedPlayer = Instantiate(_playerPrefab, _spawnPoint.position, Quaternion.identity);
                 spawnedPlayer.GetComponent<NetworkObject>().SpawnAsPlayerObject(obj);
                 Debug.Log("spawned player");
+                Debug.Log("id : " + obj);
             }
         }
     }

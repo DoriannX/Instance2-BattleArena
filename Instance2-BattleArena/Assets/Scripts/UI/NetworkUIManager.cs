@@ -17,7 +17,7 @@ namespace UI
 
         private void Awake()
         {
-            _networkManager = NetworkManager.Singleton;
+            _networkManager = GetComponent<NetworkManager>();
             Assert.IsNotNull(_clientBtn, "Client button is not assigned");
             Assert.IsNotNull(_roomCodeInput, "Room ip address input is not assigned");
             _relayManager = _networkManager.GetComponent<RelayManager>();

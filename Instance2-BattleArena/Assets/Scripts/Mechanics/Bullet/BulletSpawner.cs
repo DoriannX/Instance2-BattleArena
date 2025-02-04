@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class BulletSpawner : MonoBehaviour
+public class BulletSpawner : NetworkBehaviour
 {
     [Header("Reference")]
     private Shoot _shoot;
@@ -50,4 +51,5 @@ public class BulletSpawner : MonoBehaviour
     {
         Destroy(bullet.gameObject);
     }
+
 }

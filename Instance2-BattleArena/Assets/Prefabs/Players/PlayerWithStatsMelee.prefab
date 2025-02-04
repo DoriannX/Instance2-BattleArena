@@ -395,11 +395,13 @@ GameObject:
   - component: {fileID: 807908450506583088}
   - component: {fileID: 3946294658833881947}
   - component: {fileID: 5727562852923132770}
+  - component: {fileID: 3200352663081755938}
   - component: {fileID: 835077395411014173}
   - component: {fileID: 6030928048524732170}
   - component: {fileID: 171698361874917076}
   - component: {fileID: 1017841782473601420}
   - component: {fileID: 6007450625746026102}
+  - component: {fileID: 5151561507002005342}
   m_Layer: 0
   m_Name: PlayerWithStatsMelee
   m_TagString: Player
@@ -485,6 +487,31 @@ MonoBehaviour:
   m_DefaultActionMap: Keyboard
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3200352663081755938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235370108955807569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1947029958
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 1
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 1
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &835077395411014173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44303869e6dbb0419085cfaa9ff603b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _playerMovement: {fileID: 1936783750999267908, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
   _playerAcceleration: 60
   _playerMaxSpeed: 10
@@ -624,6 +652,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.008338271, y: 0}
   m_Size: {x: 0.9502632, y: 1}
   m_Direction: 0
+--- !u!114 &5151561507002005342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235370108955807569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae12c1071c14faa9611a1917ae7aa3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &8283892487441827350
 GameObject:
   m_ObjectHideFlags: 0

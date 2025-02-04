@@ -1,9 +1,9 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
-using UnityEngine.Pool;
 
-public class Shoot : MonoBehaviour
+public class Shoot : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private InputActionReference _shoot;
@@ -46,17 +46,20 @@ public class Shoot : MonoBehaviour
         _shoot.action.started -= Fire;
     }
 
-    private void Update()
-    {
-        _timeSinceLastShot += Time.deltaTime;
-    }
-
     private void Fire(InputAction.CallbackContext context)
     {
-        if (_timeSinceLastShot >= _fireRate)
+        if (_timeSinceLastShot + _fireRate <= Time.time)
         {
-            _timeSinceLastShot = 0f;
-            _bulletSpawner.BulletSpawnerPool.Get();
+            Debug.Log("trying shoot");
+            _timeSinceLastShot = Time.time;
+            AskServerSpawnBullerServerRpc();
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void AskServerSpawnBullerServerRpc()
+    {
+        _bulletSpawner.BulletSpawnerPool.Get();
+        Debug.Log("shoot");
     }
 }

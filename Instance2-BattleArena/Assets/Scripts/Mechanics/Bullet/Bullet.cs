@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Bullet : MonoBehaviour
+public class Bullet : NetworkBehaviour
 {
     [Header("References")]
     private Rigidbody2D _bulletRigidbody;

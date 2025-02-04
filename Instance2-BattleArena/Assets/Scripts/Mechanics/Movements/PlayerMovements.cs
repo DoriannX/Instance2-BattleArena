@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Unity.Netcode;
 
-public class PlayerMovements : MonoBehaviour
+public class PlayerMovements : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private InputActionReference _playerMovement;
@@ -44,14 +45,17 @@ public class PlayerMovements : MonoBehaviour
 
     private void Move()
     {
-        Vector2 moveDirection = _playerMovement.action.ReadValue<Vector2>().normalized;
-        _playerRigidbody.linearVelocity += _playerAcceleration * Time.deltaTime * new Vector2(moveDirection.x, moveDirection.y);
-        if (_playerRigidbody.linearVelocity.magnitude > _playerMaxSpeed ) _playerRigidbody.linearVelocity = Vector2.ClampMagnitude(_playerRigidbody.linearVelocity, _playerMaxSpeed);
+        if (IsOwner)
+        {
+            Vector2 moveDirection = _playerMovement.action.ReadValue<Vector2>().normalized;
+            _playerRigidbody.linearVelocity += _playerAcceleration * Time.deltaTime * new Vector2(moveDirection.x, moveDirection.y);
+            if (_playerRigidbody.linearVelocity.magnitude > _playerMaxSpeed ) _playerRigidbody.linearVelocity = Vector2.ClampMagnitude(_playerRigidbody.linearVelocity, _playerMaxSpeed);
 
-        Vector3 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - _playerTransform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotZ = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-        _playerTransform.rotation = rotZ;
+            Vector3 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - _playerTransform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //Quaternion rotZ = Quaternion.AngleAxis(, Vector3.forward);
+            _playerRigidbody.rotation = angle - 90;
+        }
     }
 
     public void ApplyMovementBoost()
