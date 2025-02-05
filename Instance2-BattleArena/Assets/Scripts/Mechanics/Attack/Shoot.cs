@@ -1,65 +1,41 @@
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.InputSystem;
 
 public class Shoot : NetworkBehaviour
 {
     [Header("References")]
-    [SerializeField] private InputActionReference _shoot;
-    [HideInInspector] public Transform PlayerTransform;
+    public GameObject BulletPrefab;
+    public Transform PlayerTransform;
+
     private BulletSpawner _bulletSpawner;
-    public Bullet BulletPrefab;
 
-    private PlayerStats _playerStats;  
-    private float _fireRate; 
-    private float _timeSinceLastShot;  
-
-    private void Awake()
+    private void Start()
     {
-        Assert.IsNotNull(BulletPrefab, "_bulletPrefab is missing");
-        Assert.IsNotNull(_shoot, "_inputAction is missing");
-
         _bulletSpawner = GetComponent<BulletSpawner>();
-        PlayerTransform = transform;
-        _playerStats = GetComponent<PlayerStats>();
-        if (_playerStats != null)
+
+        if (_bulletSpawner == null)
         {
-            if (_playerStats.AttackSpeed > 0)
-            {
-                _fireRate = 1f / Mathf.Max(_playerStats.AttackSpeed, 0.1f); 
-            }
-            else
-            {
-                _fireRate = 0.1f;  
-            }
+            Debug.LogError("BulletSpawner component not found!");
         }
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        _shoot.action.started += Fire;
-    }
-
-    private void OnDisable()
-    {
-        _shoot.action.started -= Fire;
-    }
-
-    private void Fire(InputAction.CallbackContext context)
-    {
-        if (_timeSinceLastShot + _fireRate <= Time.time)
+        if (IsOwner && Input.GetButtonDown("Fire1"))
         {
-            Debug.Log("trying shoot");
-            _timeSinceLastShot = Time.time;
-            AskServerSpawnBullerServerRpc();
+            FireBullet();
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void AskServerSpawnBullerServerRpc()
+    private void FireBullet()
     {
-        _bulletSpawner.BulletSpawnerPool.Get();
-        Debug.Log("shoot");
+        if (IsServer)
+        {
+            _bulletSpawner.FireBullet();  // Call the FireBullet method directly on the server
+        }
+        else
+        {
+            _bulletSpawner.FireBulletServerRpc();  // Request the server to fire the bullet
+        }
     }
 }
