@@ -14,10 +14,11 @@ namespace UI
         [SerializeField] private TMP_InputField _roomCodeInput;
         private NetworkManager _networkManager;
         private RelayManager _relayManager;
+        [SerializeField] private RandomSpawner _randomSpawner;
 
         private void Awake()
         {
-            _networkManager = NetworkManager.Singleton;
+            _networkManager = GetComponent<NetworkManager>();
             Assert.IsNotNull(_clientBtn, "Client button is not assigned");
             Assert.IsNotNull(_roomCodeInput, "Room ip address input is not assigned");
             _relayManager = _networkManager.GetComponent<RelayManager>();
@@ -32,7 +33,23 @@ namespace UI
         private void Start()
         {
             _clientBtn.onClick.AddListener(OnClientBtnClicked);
+            _networkManager.OnServerStarted += OnServerStarted;
             _networkManager.OnClientConnectedCallback += OnClientConnected;
+        }
+
+        private void OnServerStarted()
+        {
+            Debug.Log("Server started.");
+
+            if (_randomSpawner != null && _networkManager.IsServer)
+            {
+                Debug.Log("Calling SpawnObjects on server...");
+                _randomSpawner.SpawnObjects();  
+            }
+            else
+            {
+                Debug.LogWarning("RandomSpawner is not assigned or not running on the server.");
+            }
         }
 
         private void OnClientConnected(ulong obj)

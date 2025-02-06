@@ -561,7 +561,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: c05726b5076ed8547813b2977e0c5920, type: 3}
+  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0.30383253, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -585,8 +585,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 4173174732504475282}
-  AttackSpeed: 1
-  Attack: 30
+  AttackSpeed: 0.3
+  Attack: 5
   CurrentHealth: 100
   MaxHealth: 100
 --- !u!70 &6007450625746026102
