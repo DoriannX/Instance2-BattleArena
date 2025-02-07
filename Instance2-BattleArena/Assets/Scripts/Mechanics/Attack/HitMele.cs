@@ -61,6 +61,7 @@ public class HitMele : MonoBehaviour
             if (playerStats != null)
             {
                 playerStats.TakeDamage(playerStats.Attack);
+                
             }
             timeSinceLastHit = 0f;
         }

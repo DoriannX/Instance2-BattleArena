@@ -528,8 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  BulletPrefab: {fileID: 204456282476361439, guid: 5d8ec3b0dd9afce42a061de83e80cc05, type: 3}
-  PlayerTransform: {fileID: 807908450506583088}
+  _bulletPrefab: {fileID: 705679762438226624, guid: 5d8ec3b0dd9afce42a061de83e80cc05, type: 3}
 --- !u!114 &6030928048524732170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,8 +668,6 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   bulletPrefab: {fileID: 705679762438226624, guid: 5d8ec3b0dd9afce42a061de83e80cc05, type: 3}
   bulletSpawnPoint: {fileID: 6802464193731145019}
-  maxSaveBullet: 10
-  maxBulletOverall: 20
 --- !u!114 &488331866395229585
 MonoBehaviour:
   m_ObjectHideFlags: 0

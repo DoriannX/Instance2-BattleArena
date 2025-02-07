@@ -18,19 +18,21 @@ public class BulletSpawner : NetworkBehaviour
     [ServerRpc]
     public void FireBulletServerRpc()
     {
+        Debug.Log("instantiating bullet");
         FireBullet();
     }
 
     public void FireBullet()
     {
         Bullet bullet = _bulletPool.Get();
-        bullet.GetComponent<NetworkObject>().Spawn(true);
+        NetworkObject bulletNetworkObject = bullet.GetComponent<NetworkObject>();
+        bulletNetworkObject.SpawnWithOwnership(NetworkManager.ServerClientId);
     }
 
     private Bullet CreateBullet()
     {
         Bullet bullet = Instantiate(bulletPrefab);
-        bullet.SetPool(_bulletPool);
+        //bullet.SetPool(_bulletPool);
         bullet.gameObject.SetActive(false);
         return bullet;
     }
