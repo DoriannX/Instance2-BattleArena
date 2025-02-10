@@ -37,7 +37,7 @@ public class ShelfTrap : MonoBehaviour
         }
 
         _isTrapActive = false;
-        _collider.isTrigger = false; 
+        _collider.isTrigger = false;
 
         StartCoroutine(ResetTrapAfterDelay());
     }

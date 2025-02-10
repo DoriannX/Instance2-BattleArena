@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 18a3af3983fbcde47ab06cef16e8d6b2
+guid: 58f45a6351b346b4ab2f0cb2044dc431
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3390832309896260642
-    second: desk1_0
+      213: -8790928766359183338
+    second: flower_pot_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: desk1_0
+      name: flower_pot_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 75
-        width: 226
-        height: 107
+        x: 88
+        y: 42
+        width: 406
+        height: 356
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 22ca84c3508ae0f20800000000000000
-      internalID: 3390832309896260642
+      spriteID: 610e5630dd8500680800000000000000
+      internalID: -8790928766359183338
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      desk1_0: 3390832309896260642
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

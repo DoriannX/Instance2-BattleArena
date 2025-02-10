@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 18a3af3983fbcde47ab06cef16e8d6b2
+guid: eba0823aff1cad54781548e10fee0032
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3390832309896260642
-    second: desk1_0
+      213: 1894587024598609248
+    second: IG_FANTASSIN_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: desk1_0
+      name: IG_FANTASSIN_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 75
-        width: 226
-        height: 107
+        x: 196
+        y: 133
+        width: 120
+        height: 224
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 22ca84c3508ae0f20800000000000000
-      internalID: 3390832309896260642
+      spriteID: 06da3456cdcea4a10800000000000000
+      internalID: 1894587024598609248
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      desk1_0: 3390832309896260642
+      IG_FANTASSIN_0: 1894587024598609248
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

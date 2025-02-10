@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 18a3af3983fbcde47ab06cef16e8d6b2
+guid: 896621129c3af9d41acde758077500b6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3390832309896260642
-    second: desk1_0
+      213: -6416651574311895939
+    second: Armature_ATTACK_00_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: desk1_0
+      name: Armature_ATTACK_00_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 75
-        width: 226
-        height: 107
+        x: 163
+        y: 158
+        width: 191
+        height: 257
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 22ca84c3508ae0f20800000000000000
-      internalID: 3390832309896260642
+      spriteID: d7c30b9d36973f6a0800000000000000
+      internalID: -6416651574311895939
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      desk1_0: 3390832309896260642
+      Armature_ATTACK_00_0: -6416651574311895939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
