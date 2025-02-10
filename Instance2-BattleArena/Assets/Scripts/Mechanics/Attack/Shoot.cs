@@ -5,17 +5,8 @@ namespace Mechanics.Attack
 {
     public class Shoot : NetworkBehaviour
     {
-        [Header("References")] [SerializeField]
-        private Bullet _bulletPrefab;
-
-        private Transform _transform;
-
+        [Header("References")]
         private BulletSpawner _bulletSpawner;
-
-        private void Awake()
-        {
-            _transform = transform;
-        }
 
         private void Start()
         {
@@ -34,18 +25,8 @@ namespace Mechanics.Attack
                 return;
             }
 
-            //_bulletSpawner.FireBulletServerRpc();
-            AskServerSpawnBulletServerRpc(OwnerClientId);
-        }
-
-        [ServerRpc]
-        private void AskServerSpawnBulletServerRpc(ulong ownerId)
-        {
-            Debug.Log("spawning bullet");
-            Bullet spawnedBullet = Instantiate(_bulletPrefab,
-                _transform.position + _transform.forward * _transform.localScale.magnitude, _transform.rotation);
-            NetworkObject networkBullet = spawnedBullet.GetComponent<NetworkObject>();
-            networkBullet.SpawnWithOwnership(networkBullet.OwnerClientId);
+            // Demande au serveur de tirer une balle pour ce client
+            _bulletSpawner.FireBulletServerRpc(OwnerClientId);
         }
     }
 }

@@ -1,3 +1,4 @@
+using Mechanics.Player;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -5,52 +6,21 @@ using UnityEngine.Pool;
 public class BulletSpawner : NetworkBehaviour
 {
     [Header("References")]
-    [SerializeField] private Bullet bulletPrefab;
-    [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] private Bullet_Obsolete bulletPrefab;
+    [SerializeField] private Transform bulletSpawnPoint;  // Assurez-vous que cela soit bien assigné dans l'inspecteur
 
     private ObjectPool<Bullet> _bulletPool;
 
-    private void Awake()
+    public void FireBulletServerRpc(ulong clientId)
     {
-        _bulletPool = new ObjectPool<Bullet>(CreateBullet, OnTakeBullet, OnReturnBullet, OnDestroyBullet, true, 10, 20);
-    }
-
-    [ServerRpc]
-    public void FireBulletServerRpc()
-    {
-        Debug.Log("instantiating bullet");
-        FireBullet();
-    }
-
-    public void FireBullet()
-    {
-        Bullet bullet = _bulletPool.Get();
+        Bullet_Obsolete bullet = Instantiate(bulletPrefab,bulletSpawnPoint.transform.position,Quaternion.identity);
+        bullet.StartMove(transform.up);
         NetworkObject bulletNetworkObject = bullet.GetComponent<NetworkObject>();
-        bulletNetworkObject.SpawnWithOwnership(NetworkManager.ServerClientId);
+
+        bulletNetworkObject.Spawn();  // Assigne la balle au client qui a tiré.
+        Debug.Log($"Bullet spawned for client {clientId}");
     }
 
-    private Bullet CreateBullet()
-    {
-        Bullet bullet = Instantiate(bulletPrefab);
-        //bullet.SetPool(_bulletPool);
-        bullet.gameObject.SetActive(false);
-        return bullet;
-    }
-
-    private void OnTakeBullet(Bullet bullet)
-    {
-        bullet.transform.position = bulletSpawnPoint.position;
-        bullet.transform.rotation = bulletSpawnPoint.rotation;
-        bullet.gameObject.SetActive(true);
-    }
-
-    private void OnReturnBullet(Bullet bullet)
-    {
-        bullet.gameObject.SetActive(false);
-    }
-
-    private void OnDestroyBullet(Bullet bullet)
-    {
-        Destroy(bullet.gameObject);
-    }
+    //TODO: faire la detection des collisions
+    //TODO: mourir en cas de collision
 }

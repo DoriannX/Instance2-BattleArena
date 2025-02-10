@@ -167,7 +167,7 @@ Transform:
   m_GameObject: {fileID: 2961743675264725228}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.571, z: 0}
+  m_LocalPosition: {x: 0, y: 0.856, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -528,7 +528,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  _bulletPrefab: {fileID: 705679762438226624, guid: 5d8ec3b0dd9afce42a061de83e80cc05, type: 3}
 --- !u!114 &6030928048524732170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,6 +610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b850ef8fe6a6c40b1b8d1a195b2228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _healthBar: {fileID: 4173174732504475282}
   AttackSpeed: 0.3
   Attack: 5
@@ -646,7 +646,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  bulletPrefab: {fileID: 705679762438226624, guid: 5d8ec3b0dd9afce42a061de83e80cc05, type: 3}
+  bulletPrefab: {fileID: 8138768269861263659, guid: 75accc11236941f8c89a54533c31033c, type: 3}
   bulletSpawnPoint: {fileID: 6802464193731145019}
 --- !u!114 &488331866395229585
 MonoBehaviour:

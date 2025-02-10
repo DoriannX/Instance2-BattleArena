@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.Netcode;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : NetworkBehaviour
 {
     [Header("ProgressBar UI")]
     [SerializeField] private Slider _healthBar;
@@ -90,16 +91,27 @@ public class PlayerStats : MonoBehaviour
         Attack = _initialAttack;
         _isDamageBonusActive = false;
     }
-
     public void TakeDamage(int amount)
     {
         CurrentHealth -= amount;
         UpdateHealthBar();
         _isRegenerating = false;
 
-        if(CurrentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
-            Destroy(gameObject);
+            if (IsServer)  
+            {
+                Debug.Log("Player died. Despawning...");
+                NetworkObject networkObject = GetComponent<NetworkObject>();
+                if (networkObject != null)
+                {
+                    networkObject.Despawn();
+                }
+            }
+            else
+            {
+                RequestDespawnServerRpc();
+            }
         }
     }
 
@@ -138,5 +150,15 @@ public class PlayerStats : MonoBehaviour
 
         _isRegenerating = false;
         _regenCoroutine = null;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RequestDespawnServerRpc()
+    {
+        NetworkObject networkObject = GetComponent<NetworkObject>();
+        if (networkObject != null)
+        {
+            networkObject.Despawn();
+        }
     }
 }

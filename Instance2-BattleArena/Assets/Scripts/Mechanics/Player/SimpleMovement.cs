@@ -8,7 +8,7 @@ namespace Mechanics.Player
     public class SimpleMovement : NetworkBehaviour
     {
         [SerializeField] private float _speed = 1f;
-        [SerializeField] private Bullet _bulletPrefab;
+        [SerializeField] private Bullet_Obsolete _bulletPrefab;
         private Transform _transform;
         private Vector3 _shootDir;
 
@@ -44,7 +44,7 @@ namespace Mechanics.Player
         [ClientRpc]
         private void SpawnBulletClientRpc(Vector3 direction)
         {
-            Bullet instancedBullet = Instantiate(_bulletPrefab, _transform.position, _transform.rotation);
+            Bullet_Obsolete instancedBullet = Instantiate(_bulletPrefab, _transform.position, _transform.rotation);
             instancedBullet.StartMove(direction);
             Debug.Log("bullet spawned");
         }
