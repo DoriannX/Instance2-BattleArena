@@ -44,9 +44,22 @@ public class PlayerClassManager : NetworkBehaviour
 
     public void SelectClass(int classIndex)
     {
+        _selectedClassIndex = classIndex;
         PanelSelectClass.SetActive(false);
         AskSpawnSelfServerRpc(
                _networkManager.LocalClientId, classIndex);
+    }
+
+    [ContextMenu("Respawn")]
+    public void RespawnSelf()
+    {
+        RespawnPlayer(_networkManager.LocalClientId, _selectedClassIndex);
+    }
+
+    public void RespawnPlayer(ulong clientId, int selectedClassIndex)
+    {
+        selectedClassIndex = Mathf.Clamp(selectedClassIndex, 0, CharacterClasses.Length - 1);
+        AskSpawnSelfServerRpc(clientId, selectedClassIndex);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -54,7 +67,6 @@ public class PlayerClassManager : NetworkBehaviour
 
         if (classIndex >= 0 && classIndex < CharacterClasses.Length)
         {
-            _selectedClassIndex = classIndex;
             CharacterClass selectedClass = CharacterClasses[classIndex];
             PlayerPrefab.GetComponent<SpriteRenderer>().sprite = selectedClass.BaseSprite;
             selectedClass.ApplyClassStats(_playerStats);

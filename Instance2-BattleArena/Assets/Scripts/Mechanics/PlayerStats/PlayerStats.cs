@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -5,8 +6,8 @@ using Unity.Netcode;
 
 public class PlayerStats : NetworkBehaviour
 {
-    [Header("ProgressBar UI")]
-    [SerializeField] private Slider _healthBar;
+    [Header("ProgressBar UI")] [SerializeField]
+    private Slider _healthBar;
 
     public float AttackSpeed;
     public int Attack;
@@ -14,19 +15,25 @@ public class PlayerStats : NetworkBehaviour
     public int MaxHealth;
     private int _initialAttack;
     private bool _isDamageBonusActive = false;
+    NetworkObject _networkObject;
 
     private Coroutine _regenCoroutine;
     private float _timeSinceLastHit = 0f;
     private bool _isRegenerating = false;
 
+    private void Awake()
+    {
+        _networkObject = GetComponent<NetworkObject>();
+    }
+
     private void Start()
     {
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
     }
 
     private void Update()
     {
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
 
         if (!_isRegenerating)
         {
@@ -39,21 +46,21 @@ public class PlayerStats : NetworkBehaviour
         }
     }
 
-    public void SetStats(int attack, int maxHealth ,float attackSpeed)
+    public void SetStats(int attack, int maxHealth, float attackSpeed)
     {
         AttackSpeed = attackSpeed;
         Attack = attack;
         MaxHealth = maxHealth;
         CurrentHealth = MaxHealth;
         _initialAttack = attack;
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
     }
 
     public void IncreaseStats()
     {
         Attack = Mathf.RoundToInt(Attack * 1.05f);
         MaxHealth = Mathf.RoundToInt(MaxHealth * 1.05f);
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
     }
 
     public void ResetStats(int baseAttack, int baseMaxHealth)
@@ -61,7 +68,7 @@ public class PlayerStats : NetworkBehaviour
         Attack = baseAttack;
         MaxHealth = baseMaxHealth;
         CurrentHealth = MaxHealth;
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
     }
 
     public void ApplyHealBonus(float healAmount)
@@ -70,7 +77,7 @@ public class PlayerStats : NetworkBehaviour
         {
             int healToApply = Mathf.RoundToInt(healAmount);
             CurrentHealth = Mathf.Min(CurrentHealth + healToApply, MaxHealth);
-            UpdateHealthBar();
+            AskUpdateHealthBarServerRpc();
         }
     }
 
@@ -91,43 +98,51 @@ public class PlayerStats : NetworkBehaviour
         Attack = _initialAttack;
         _isDamageBonusActive = false;
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void KillServerRpc()
+    {
+        TakeDamage(CurrentHealth);
+    }
+
+    [ContextMenu("Kill")]
+    private void Kill()
+    {
+        KillServerRpc();
+    }
+
     public void TakeDamage(int amount)
     {
         CurrentHealth -= amount;
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
         _isRegenerating = false;
 
         if (CurrentHealth <= 0)
         {
-            if (IsServer)  
-            {
-                Debug.Log("Player died. Despawning...");
-                NetworkObject networkObject = GetComponent<NetworkObject>();
-                if (networkObject != null)
-                {
-                    networkObject.Despawn();
-                }
-            }
-            else
-            {
-                RequestDespawnServerRpc();
-            }
+            Debug.Log($"Player died {_networkObject}. Despawning...");
+            //TODO: comprendre pourquoi tous les joueurs / le joueur qui a tué ne peux plus bouger
+            _networkObject.Despawn();
         }
     }
 
-    public void UpdateHealthBar()
+    [ServerRpc(RequireOwnership = false)]
+    public void AskUpdateHealthBarServerRpc()
     {
-        if (_healthBar != null)
-        {
-            _healthBar.value = (float)CurrentHealth / MaxHealth;
-        }
+        UpdateHealthBarClientRpc(CurrentHealth, MaxHealth);
+        _healthBar.value = (float)CurrentHealth / MaxHealth;
+    }
+
+    [ClientRpc]
+    private void UpdateHealthBarClientRpc(float currentHealth, float maxHealth)
+    {
+        _healthBar.value = currentHealth / maxHealth;
     }
 
     private IEnumerator WaitAndStartRegeneration()
     {
-        yield return new WaitForSeconds(5f); 
+        yield return new WaitForSeconds(5f);
 
-        if (_timeSinceLastHit >= 10f) 
+        if (_timeSinceLastHit >= 10f)
         {
             StartCoroutine(RegenerateHealth());
         }
@@ -144,21 +159,11 @@ public class PlayerStats : NetworkBehaviour
         while (CurrentHealth < MaxHealth && _isRegenerating)
         {
             CurrentHealth = Mathf.Min(CurrentHealth + 1, MaxHealth);
-            UpdateHealthBar();
+            AskUpdateHealthBarServerRpc();
             yield return new WaitForSeconds(1f);
         }
 
         _isRegenerating = false;
         _regenCoroutine = null;
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void RequestDespawnServerRpc()
-    {
-        NetworkObject networkObject = GetComponent<NetworkObject>();
-        if (networkObject != null)
-        {
-            networkObject.Despawn();
-        }
     }
 }

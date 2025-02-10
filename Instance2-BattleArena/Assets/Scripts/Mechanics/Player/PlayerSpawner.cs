@@ -13,7 +13,7 @@ namespace Mechanics.Player
         {
             Assert.IsNotNull(_spawnPoint, "Spawn point is not assigned");
         }
-        
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();

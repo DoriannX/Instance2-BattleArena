@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace Mechanics.Player
 {
-    public class Bullet_Obsolete : NetworkBehaviour  
+    public class Bullet_Obsolete : NetworkBehaviour
     {
         private Transform _transform;
         [SerializeField] private float _speed;
+        private PlayerStats _owner;
         private Vector3 _direction;
         private bool _move = false;
 
@@ -16,10 +17,11 @@ namespace Mechanics.Player
             _transform = transform;
         }
 
-        public void StartMove(Vector3 direction)
+        public void StartMove(Vector3 direction, PlayerStats owner)
         {
             _direction = direction;
             _move = true;
+            _owner = owner;
         }
 
         private void Move()
@@ -28,6 +30,7 @@ namespace Mechanics.Player
             {
                 return;
             }
+
             _transform.position += Time.deltaTime * _speed * _direction;
         }
 
@@ -43,6 +46,7 @@ namespace Mechanics.Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            Debug.Log("Bullet collided with " + collision.name);
             if (collision.CompareTag("Wall"))
             {
                 if (IsServer)
@@ -61,25 +65,15 @@ namespace Mechanics.Player
                 if (IsServer)
                 {
                     Debug.Log("Bullet hit a player.");
-                    if (!NetworkManager.Singleton.ConnectedClients.ContainsKey(OwnerClientId))
+                    int damage = _owner.Attack; // Utilise l'attaque du joueur qui a tirï¿½
+                    PlayerStats playerStats = collision.GetComponent<PlayerStats>();
+                    if (playerStats != null)
                     {
-                        Debug.LogError("Invalid OwnerClientId: " + OwnerClientId);
-                        return;
-                    }
-                    PlayerStats shooterStats = NetworkManager.Singleton.ConnectedClients[OwnerClientId].PlayerObject.GetComponent<PlayerStats>();
-
-                    if (shooterStats != null)
-                    {
-                        int damage = shooterStats.Attack;  // Utilise l'attaque du joueur qui a tiré
-                        PlayerStats playerStats = collision.GetComponent<PlayerStats>();
-                        if (playerStats != null)
-                        {
-                            playerStats.TakeDamage(damage);
-                            Debug.Log($"Bullet dealt {damage} damage to the player.");
-                        }
+                        playerStats.TakeDamage(damage);
+                        Debug.Log($"Bullet dealt {damage} damage to {playerStats.name}. He has {playerStats.CurrentHealth} health left.");
                     }
 
-                    // Détruire la balle après avoir infligé des dégâts
+                    // Dï¿½truire la balle aprï¿½s avoir infligï¿½ des dï¿½gï¿½ts
                     GetComponent<NetworkObject>().Despawn();
                 }
             }

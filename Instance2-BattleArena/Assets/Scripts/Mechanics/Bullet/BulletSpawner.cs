@@ -1,3 +1,4 @@
+using System;
 using Mechanics.Player;
 using Unity.Netcode;
 using UnityEngine;
@@ -7,17 +8,24 @@ public class BulletSpawner : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private Bullet_Obsolete bulletPrefab;
-    [SerializeField] private Transform bulletSpawnPoint;  // Assurez-vous que cela soit bien assigné dans l'inspecteur
-
+    [SerializeField] private Transform bulletSpawnPoint;  // Assurez-vous que cela soit bien assignï¿½ dans l'inspecteur
+    private PlayerStats _playerStats;
+    
     private ObjectPool<Bullet> _bulletPool;
 
+    private void Awake()
+    {
+        _playerStats = GetComponent<PlayerStats>();
+    }
+
+    [ServerRpc]
     public void FireBulletServerRpc(ulong clientId)
     {
         Bullet_Obsolete bullet = Instantiate(bulletPrefab,bulletSpawnPoint.transform.position,Quaternion.identity);
-        bullet.StartMove(transform.up);
+        bullet.StartMove(transform.up, _playerStats);
         NetworkObject bulletNetworkObject = bullet.GetComponent<NetworkObject>();
 
-        bulletNetworkObject.Spawn();  // Assigne la balle au client qui a tiré.
+        bulletNetworkObject.Spawn();  // Assigne la balle au client qui a tirï¿½.
         Debug.Log($"Bullet spawned for client {clientId}");
     }
 

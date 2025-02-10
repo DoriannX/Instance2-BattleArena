@@ -38,14 +38,14 @@ namespace Mechanics.Player
         [ServerRpc]
         private void AskServerSpawnBulletServerRpc(Vector3 direction)
         {
-            SpawnBulletClientRpc(direction);
+            //SpawnBulletClientRpc_Obsolete(direction);
         }
 
-        [ClientRpc]
-        private void SpawnBulletClientRpc(Vector3 direction)
+        [System.Obsolete("This method is deprecated. Use the new bullet spawning method instead.")]
+        private void SpawnBulletClientRpc_Obsolete(Vector3 direction)
         {
             Bullet_Obsolete instancedBullet = Instantiate(_bulletPrefab, _transform.position, _transform.rotation);
-            instancedBullet.StartMove(direction);
+            //instancedBullet.StartMove(direction);
             Debug.Log("bullet spawned");
         }
 

@@ -14,6 +14,7 @@ public class PlayerMovements : NetworkBehaviour
     [Header("Movement")]
     [SerializeField] private float _playerAcceleration = 1f;
     [SerializeField] private float _playerMaxSpeed = 1f;
+    private PlayerInput _playerInput;
 
     private float _originalAcceleration;
     private float _originalMaxSpeed;
@@ -36,6 +37,15 @@ public class PlayerMovements : NetworkBehaviour
 
         _originalSlow = _playerAcceleration;
         _originalSlowMaxSpeed = _playerMaxSpeed;
+
+        _playerInput = GetComponent<PlayerInput>();
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        _playerInput.enabled = IsOwner;
+        enabled = IsOwner;
     }
 
     private void Update()
