@@ -2,23 +2,23 @@ using UnityEngine.Assertions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using AudioSystem;
+using DG.Tweening;
 
 public class MenuButtonManager : MonoBehaviour
 {
     [SerializeField] private GameObject _settings;
     [SerializeField] private GameObject _credits;
-    [SerializeField] private GameObject _login;
-    [SerializeField] private GameObject _register;
     [SerializeField] private GameObject _controlsUI;
+    [SerializeField] private Transform _sliderSkin;
 
     [SerializeField] private SoundData _soundData;
+
+    private float _distance = 300f;
 
     public void Awake()
     {
         Assert.IsNotNull(_settings, "_settings is null");
         Assert.IsNotNull(_credits, "_credits is null");
-        Assert.IsNotNull(_login, "_login is null");
-        Assert.IsNotNull(_register, "_register is null");
         Assert.IsNotNull(_controlsUI, "_controlsUI is null");
         Assert.IsNotNull(_soundData, "_soundData is null");
     }
@@ -51,18 +51,6 @@ public class MenuButtonManager : MonoBehaviour
         _controlsUI.SetActive(true);
     }
 
-    public void OpenRegisterMenu()
-    {
-        _register.SetActive(true);
-        _login.SetActive(false);
-    }
-
-    public void OpenLoginMenu()
-    {
-        _login.SetActive(true);
-        _register.SetActive(false);
-    }
-
     public void Respawn()
     {
         SceneManager.LoadScene("DevScene");
@@ -73,13 +61,13 @@ public class MenuButtonManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void Login()
+    public void RightPanelSkin()
     {
-
+        _sliderSkin.DOMoveX(_sliderSkin.position.x - _distance, 0.1f);
     }
 
-    public void Register()
+    public void LeftPanelSkin()
     {
-
+        _sliderSkin.DOMoveX(_sliderSkin.position.x + _distance, 0.1f);
     }
 }

@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerClassManager : MonoBehaviour
 {
@@ -7,8 +9,6 @@ public class PlayerClassManager : MonoBehaviour
     {
         public string ClassName;
         public Sprite BaseSprite;
-        public Sprite Level10Sprite;
-        public Sprite Level20Sprite;
         public int BaseAttack;
         public int BaseHeal;
         public float BaseAttackSpeed;
@@ -22,13 +22,12 @@ public class PlayerClassManager : MonoBehaviour
     public CharacterClass[] CharacterClasses;
     private PlayerStats _playerStats;
     public GameObject PlayerPrefab;
+    public GameObject PlayerPrefabAlternate;
     public GameObject PanelSelectClass;
-    public ExpManager expManager;
+    public GameObject PanelSelectSkin;
 
-    [SerializeField] private Transform _playerSpawn;
-    [SerializeField] private GameObject PlayerPrefabAlternate;  
-
-    private int _selectedClassIndex = -1;
+    public int selectedClassIndex = -1;
+    public CharacterClass selectedClass;
 
     void Start()
     {
@@ -39,25 +38,12 @@ public class PlayerClassManager : MonoBehaviour
     {
         if (classIndex >= 0 && classIndex < CharacterClasses.Length)
         {
-            _selectedClassIndex = classIndex;
-            CharacterClass selectedClass = CharacterClasses[classIndex];
+            selectedClassIndex = classIndex;
+            selectedClass = CharacterClasses[classIndex];
             PlayerPrefab.GetComponent<SpriteRenderer>().sprite = selectedClass.BaseSprite;
             selectedClass.ApplyClassStats(_playerStats);
             PanelSelectClass.SetActive(false);
-            GameObject playerInstance;
-
-            if (classIndex == 0)  
-            {
-                playerInstance = Instantiate(PlayerPrefabAlternate, _playerSpawn.position, Quaternion.identity);
-            }
-            else
-            {
-                playerInstance = Instantiate(PlayerPrefab, _playerSpawn.position, Quaternion.identity);
-            }
-            if (expManager != null)
-            {
-                expManager.Initialize(selectedClass, playerInstance);
-            }
+            PanelSelectSkin.SetActive(true);
         }
     }
 }
