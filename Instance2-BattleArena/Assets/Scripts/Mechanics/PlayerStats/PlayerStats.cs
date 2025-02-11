@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 using System.Collections;
 using Unity.Netcode;
@@ -54,7 +53,6 @@ public class PlayerStats : NetworkBehaviour
         MaxHealth = maxHealth;
         CurrentHealth = MaxHealth;
         _initialAttack = attack;
-        _initialHeal = maxHealth;
         AskUpdateHealthBarServerRpc();
     }
 

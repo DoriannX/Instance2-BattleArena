@@ -28,11 +28,10 @@ public class PlayerClassManager : NetworkBehaviour
     public GameObject PanelSelectClass;
     public ExpManager expManager;
     private NetworkManager _networkManager;
+
     [SerializeField] private Transform _playerSpawn;
     [SerializeField] private GameObject PlayerPrefabAlternate;
     private GameObject _playerInstance = null;
-
-    private int _selectedClassIndex = -1;
 
     private int _selectedClassIndex = -1;
 
@@ -68,7 +67,6 @@ public class PlayerClassManager : NetworkBehaviour
 
         if (classIndex >= 0 && classIndex < CharacterClasses.Length)
         {
-            _selectedClassIndex = classIndex;
             CharacterClass selectedClass = CharacterClasses[classIndex];
             PlayerPrefab.GetComponent<SpriteRenderer>().sprite = selectedClass.BaseSprite;
             selectedClass.ApplyClassStats(_playerStats);
@@ -94,5 +92,4 @@ public class PlayerClassManager : NetworkBehaviour
         }
         Debug.Log("player is spawned" + id);
     }
-
 }

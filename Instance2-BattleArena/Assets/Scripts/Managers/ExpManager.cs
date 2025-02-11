@@ -134,6 +134,7 @@ public class ExpManager : MonoBehaviour
         {
             _playerStats.ResetStats(_currentClass.BaseAttack, _currentClass.BaseHeal);
         }
+
         UpdateUI();
     }
 }

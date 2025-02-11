@@ -25,10 +25,6 @@ public class PlayerMovements : NetworkBehaviour
     private bool _isBoostActive = false;
     private bool _isSlow = false;
 
-    private float _originalAcceleration;
-    private float _originalMaxSpeed;
-    private bool _isBoostActive = false;
-
     private void Awake()
     {       
         Assert.IsNotNull(_playerMovement, "_inputAction is missing");
