@@ -12122,7 +12122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 856416714
+  GlobalObjectIdHash: 2519057965
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -12181,6 +12181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795e17ac483be8e4f8b7f2abab63eb2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   Tilemap: {fileID: 493161298}
   BlockedTilemap: {fileID: 684474620}
   Objects:
@@ -12192,8 +12193,6 @@ MonoBehaviour:
     Quantity: 5
   - Prefab: {fileID: 9151268592265706655, guid: 7a29a67aae582a7488828f54b2eae1e4, type: 3}
     Quantity: 5
-  _parentSpawn: {fileID: 412351088}
-  _parentSpawnCloneBonus: {fileID: 819610277}
 --- !u!1 &774559491
 GameObject:
   m_ObjectHideFlags: 0
@@ -12609,6 +12608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _clientBtn: {fileID: 406937206}
   _roomCodeInput: {fileID: 525675347}
+  _randomSpawner: {fileID: 765257209}
 --- !u!114 &900756545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14041,7 +14041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3069793235
+  GlobalObjectIdHash: 2748657243
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -14400,7 +14400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2013405885
+  GlobalObjectIdHash: 2860301762
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
