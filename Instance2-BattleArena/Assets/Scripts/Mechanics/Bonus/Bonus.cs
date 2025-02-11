@@ -1,10 +1,9 @@
 using UnityEngine;
-using Unity.Netcode;
 
-public class Bonus : NetworkBehaviour
+public class Bonus : MonoBehaviour
 {
-    private BonusEffects _bonusEffect;
-    private bool _isCollected = false;
+    private BonusEffects _bonusEffect;  
+    private bool _isCollected = false; 
 
     private void Start()
     {
@@ -13,18 +12,15 @@ public class Bonus : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!_isCollected && other.CompareTag("Player") && IsServer)  // Vérifie si le serveur gère l'événement
+        if (!_isCollected && other.CompareTag("Player"))  
         {
-            _isCollected = true;
-
-            _bonusEffect?.ApplyEffect(other.gameObject);  // Applique l'effet du bonus
-
-            //if (RandomSpawner.Instance != null)
-            //{
-            //    RandomSpawner.Instance.RespawnBonusServerRpc(NetworkObjectId);  // Appelle le ServerRpc pour respawn
-            //}
-
-            NetworkObject.Despawn();  // Supprime le bonus pour tous les clients
+            _isCollected = true;  
+            if (_bonusEffect != null)
+            {
+                _bonusEffect.ApplyEffect(other.gameObject);  
+            }
+            RandomSpawner.Instance?.RespawnBonus(gameObject); 
+            Destroy(gameObject);
         }
     }
 }
