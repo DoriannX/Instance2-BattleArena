@@ -1,54 +1,77 @@
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 
-public class Bullet : MonoBehaviour
+public class Bullet : NetworkBehaviour
 {
-    [Header("References")]
+    [Header("Settings")]
+    [SerializeField] private float _speedBullet = 10f;
+    public float Speed => _speedBullet;  // Getter pour la vitesse
+
     private Rigidbody2D _bulletRigidbody;
     private Transform _bulletTransform;
-    private ObjectPool<Bullet> BulletPool;
+    private ObjectPool<Bullet> _bulletPool;
 
-    [Header("Settings")]
-    [SerializeField] private float _speedBullet;
-    
     private void Awake()
     {
         _bulletRigidbody = GetComponent<Rigidbody2D>();
         _bulletTransform = transform;
     }
 
+    public void SetPool(ObjectPool<Bullet> pool)
+    {
+        _bulletPool = pool;
+    }
+
     private void OnEnable()
     {
-        SetVelocity();
+        if (IsServer)
+        {
+            ApplyInitialVelocity();  // Applique la vélocité uniquement côté serveur
+        }
+    }
+
+    private void ApplyInitialVelocity()
+    {
+        _bulletRigidbody.linearVelocity = _bulletTransform.up * _speedBullet;  // Applique une vélocité initiale
     }
 
     private void Update()
-    {        
-        LimitMapDeactivate(); // test system, not permanent
-    }
-
-    private void SetVelocity()
     {
-        _bulletRigidbody.linearVelocity = _bulletTransform.up * _speedBullet;     
+        if (IsOwner)
+        {
+            Debug.Log(_bulletRigidbody.linearVelocity);
+            CheckOutOfBounds();
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Touched");
-        //BulletPool.Release(this);
+        if (collision.CompareTag("Wall") || collision.CompareTag("Enemy"))
+        {
+            ReturnToPool();
+        }
     }
 
-    private void LimitMapDeactivate() // test system, not permanent
+    private void CheckOutOfBounds()
     {
         Vector3 viewportPosition = Camera.main.WorldToViewportPoint(_bulletTransform.position);
-
-        if (viewportPosition.x < 0 || viewportPosition.x > 1 || viewportPosition.y < 0 || viewportPosition.y > 1) BulletPool.Release(this);
+        if (viewportPosition.x < 0 || viewportPosition.x > 1 || viewportPosition.y < 0 || viewportPosition.y > 1)
+        {
+            ReturnToPool();
+        }
     }
 
-    public void SetPool(ObjectPool<Bullet> pool)
+    private void ReturnToPool()
     {
-        BulletPool = pool;
+        _bulletRigidbody.linearVelocity= Vector2.zero;
+        _bulletPool.Release(this);  // Retourne la balle au pool
+    }
+
+    public void ResetBullet()
+    {
+        _bulletRigidbody.linearVelocity = Vector2.zero;
+        _bulletTransform.position = Vector3.zero;
+        _bulletTransform.rotation = Quaternion.identity;
     }
 }

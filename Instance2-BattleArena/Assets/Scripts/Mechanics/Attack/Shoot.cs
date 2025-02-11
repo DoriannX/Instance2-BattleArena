@@ -1,38 +1,32 @@
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.InputSystem;
-using UnityEngine.Pool;
 
-public class Shoot : MonoBehaviour
+namespace Mechanics.Attack
 {
-    [Header("References")]
-    [SerializeField] private InputActionReference _shoot;
-    [HideInInspector] public Transform PlayerTransform;
-    private BulletSpawner _bulletSpawner;
-    public Bullet BulletPrefab;
-
-    private void Awake()
+    public class Shoot : NetworkBehaviour
     {
-        Assert.IsNotNull(BulletPrefab, "_bulletPrefab is missing");
-        Assert.IsNotNull(_shoot, "_inputAction is missing");
+        [Header("References")]
+        private BulletSpawner _bulletSpawner;
 
-        _bulletSpawner = GetComponent<BulletSpawner>();
+        private void Start()
+        {
+            _bulletSpawner = GetComponent<BulletSpawner>();
 
-        PlayerTransform = transform;
+            if (_bulletSpawner == null)
+            {
+                Debug.LogError("BulletSpawner component not found!");
+            }
+        }
+
+        private void Update()
+        {
+            if (!IsOwner || !Input.GetButtonDown("Fire1"))
+            {
+                return;
+            }
+
+            // Demande au serveur de tirer une balle pour ce client
+            _bulletSpawner.FireBulletServerRpc(OwnerClientId);
+        }
     }
-
-    private void OnEnable()
-    {
-        _shoot.action.started += Fire;
-    }
-
-    private void OnDisable()
-    {
-        _shoot.action.started -= Fire;
-    }
-
-    private void Fire(InputAction.CallbackContext context)
-    {
-        _bulletSpawner.BulletSpawnerPool.Get();
-    }       
 }

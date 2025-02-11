@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Unity.Netcode;
 
-public class PlayerMovements : MonoBehaviour
+public class PlayerMovements : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private InputActionReference _playerMovement;
@@ -13,6 +14,16 @@ public class PlayerMovements : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float _playerAcceleration = 1f;
     [SerializeField] private float _playerMaxSpeed = 1f;
+    private PlayerInput _playerInput;
+
+    private float _originalAcceleration;
+    private float _originalMaxSpeed;
+
+    private float _originalSlow;
+    private float _originalSlowMaxSpeed;
+
+    private bool _isBoostActive = false;
+    private bool _isSlow = false;
 
     private float _originalAcceleration;
     private float _originalMaxSpeed;
@@ -27,6 +38,18 @@ public class PlayerMovements : MonoBehaviour
 
         _originalAcceleration = _playerAcceleration;
         _originalMaxSpeed = _playerMaxSpeed;
+
+        _originalSlow = _playerAcceleration;
+        _originalSlowMaxSpeed = _playerMaxSpeed;
+
+        _playerInput = GetComponent<PlayerInput>();
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        _playerInput.enabled = IsOwner;
+        enabled = IsOwner;
     }
 
     private void Update()
@@ -36,14 +59,17 @@ public class PlayerMovements : MonoBehaviour
 
     private void Move()
     {
-        Vector2 moveDirection = _playerMovement.action.ReadValue<Vector2>().normalized;
-        _playerRigidbody.linearVelocity += _playerAcceleration * Time.deltaTime * new Vector2(moveDirection.x, moveDirection.y);
-        if (_playerRigidbody.linearVelocity.magnitude > _playerMaxSpeed ) _playerRigidbody.linearVelocity = Vector2.ClampMagnitude(_playerRigidbody.linearVelocity, _playerMaxSpeed);
+        if (IsOwner)
+        {
+            Vector2 moveDirection = _playerMovement.action.ReadValue<Vector2>().normalized;
+            _playerRigidbody.linearVelocity += _playerAcceleration * Time.deltaTime * new Vector2(moveDirection.x, moveDirection.y);
+            if (_playerRigidbody.linearVelocity.magnitude > _playerMaxSpeed ) _playerRigidbody.linearVelocity = Vector2.ClampMagnitude(_playerRigidbody.linearVelocity, _playerMaxSpeed);
 
-        Vector3 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - _playerTransform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotZ = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-        _playerTransform.rotation = rotZ;
+            Vector3 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - _playerTransform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //Quaternion rotZ = Quaternion.AngleAxis(, Vector3.forward);
+            _playerRigidbody.rotation = angle - 90;
+        }
     }
 
     public void ApplyMovementBoost()
@@ -65,4 +91,32 @@ public class PlayerMovements : MonoBehaviour
         _playerMaxSpeed = _originalMaxSpeed;
         _isBoostActive = false; 
     }
+
+    public void ApplyMovementSlow()
+    {
+        if (!_isSlow)
+        {
+            _isSlow = true;
+            _playerAcceleration *= 0.5f;
+            _playerMaxSpeed *= 0.5f;
+            StartCoroutine(ResetMovementSlowAfterDuration(6f));
+        }
+    }
+
+    private IEnumerator ResetMovementSlowAfterDuration(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        _playerAcceleration = _originalSlow;
+        _playerMaxSpeed = _originalSlowMaxSpeed;
+        _isSlow = false;
+    }
+
+    public void ResetMovementSpeed()
+    {
+        _playerAcceleration = _originalAcceleration;
+        _playerMaxSpeed = _originalMaxSpeed;
+        _isSlow = false;
+    }
+
 }

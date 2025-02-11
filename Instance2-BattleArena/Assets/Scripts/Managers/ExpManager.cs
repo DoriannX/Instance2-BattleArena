@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class ExpManager : MonoBehaviour
 {
+    public static ExpManager Instance;
     [Header("Character Settings")]
     private PlayerClassManager.CharacterClass _currentClass;
     private SpriteRenderer _playerSpriteRenderer;
@@ -20,6 +21,10 @@ public class ExpManager : MonoBehaviour
     [SerializeField] private Slider _slider;
     [SerializeField] private TextMeshProUGUI _currentLevelText;
 
+    private void Awake()
+    {
+        if(Instance == null) Instance = this;
+    }
     public void Initialize(PlayerClassManager.CharacterClass selectedClass, GameObject playerPrefab)
     {
         _currentClass = selectedClass;
@@ -72,8 +77,25 @@ public class ExpManager : MonoBehaviour
     {
         if (_playerStats == null) return;
 
+        int previousMaxHealth = _playerStats.MaxHealth;
+        int previousHealth = _playerStats.CurrentHealth;
+
         _playerStats.IncreaseStats(); 
+
+        int newMaxHealth = _playerStats.MaxHealth;
+        int healthIncrease = newMaxHealth - previousMaxHealth;
+        if (previousHealth == previousMaxHealth)
+        {
+            _playerStats.CurrentHealth = newMaxHealth;
+        }
+        else
+        {
+            _playerStats.CurrentHealth += healthIncrease;
+            _playerStats.CurrentHealth = Mathf.Min(_playerStats.CurrentHealth, newMaxHealth);
+        }
+        _playerStats.AskUpdateHealthBarServerRpc();
     }
+
 
     private void Update()
     {
@@ -112,7 +134,6 @@ public class ExpManager : MonoBehaviour
         {
             _playerStats.ResetStats(_currentClass.BaseAttack, _currentClass.BaseHeal);
         }
-
         UpdateUI();
     }
 }
