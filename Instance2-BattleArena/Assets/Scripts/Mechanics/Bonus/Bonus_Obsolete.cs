@@ -1,9 +1,9 @@
 using UnityEngine;
 using Unity.Netcode;
 
-public class Bonus : NetworkBehaviour
+public class Bonus_Obsolete : NetworkBehaviour
 {
-    private BonusEffects _bonusEffect;
+    /*private BonusEffects _bonusEffect;
     private bool _isCollected = false;
 
     private void Start()
@@ -13,7 +13,7 @@ public class Bonus : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!_isCollected && other.CompareTag("Player") && IsServer)  // Vérifie si le serveur gère l'événement
+        if (!_isCollected && other.CompareTag("Player") && IsServer)  // Vï¿½rifie si le serveur gï¿½re l'ï¿½vï¿½nement
         {
             _isCollected = true;
 
@@ -26,5 +26,5 @@ public class Bonus : NetworkBehaviour
 
             NetworkObject.Despawn();  // Supprime le bonus pour tous les clients
         }
-    }
+    }*/
 }

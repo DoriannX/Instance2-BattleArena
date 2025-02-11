@@ -1,4 +1,5 @@
 using Managers;
+using Mechanics.Bonus;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -33,25 +34,9 @@ namespace UI
         private void Start()
         {
             _clientBtn.onClick.AddListener(OnClientBtnClicked);
-            _networkManager.OnServerStarted += OnServerStarted;
+            //_networkManager.OnServerStarted += OnServerStarted;
             _networkManager.OnClientConnectedCallback += OnClientConnected;
         }
-
-        private void OnServerStarted()
-        {
-            Debug.Log("Server started.");
-
-            if (_randomSpawner != null && _networkManager.IsServer)
-            {
-                Debug.Log("Calling SpawnObjects on server...");
-                _randomSpawner.SpawnObjects();  
-            }
-            else
-            {
-                Debug.LogWarning("RandomSpawner is not assigned or not running on the server.");
-            }
-        }
-
         private void OnClientConnected(ulong obj)
         {
             ToggleBtns(false);
@@ -60,6 +45,11 @@ namespace UI
 
         private void OnClientBtnClicked()
         {
+            if(_roomCodeInput.text == "")
+            {
+                Debug.Log("Please enter a room code");
+                return;
+            }
             _relayManager.JoinRelay(_roomCodeInput.text);
         }
     }

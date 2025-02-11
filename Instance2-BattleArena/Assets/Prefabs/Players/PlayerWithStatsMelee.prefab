@@ -400,8 +400,9 @@ GameObject:
   - component: {fileID: 6030928048524732170}
   - component: {fileID: 171698361874917076}
   - component: {fileID: 1017841782473601420}
-  - component: {fileID: 6007450625746026102}
   - component: {fileID: 5151561507002005342}
+  - component: {fileID: 5434018791187110602}
+  - component: {fileID: 7126273287522452071}
   m_Layer: 0
   m_Name: PlayerWithStatsMelee
   m_TagString: Player
@@ -540,9 +541,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5b2b1b56cc1144a958d2557908a570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitMele: {fileID: -1542052006788691458, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
-  attackDamage: 10
-  attackSpeed: 0.2
+  ShowTopMostFoldoutHeaderGroup: 1
+  _hitMelee: {fileID: -1542052006788691458, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
+  _attackDamage: 20
+  _attackSpeed: 0.2
 --- !u!212 &171698361874917076
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -610,13 +612,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b850ef8fe6a6c40b1b8d1a195b2228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _healthBar: {fileID: 4173174732504475282}
   AttackSpeed: 0.2
   Attack: 20
   CurrentHealth: 150
   MaxHealth: 150
---- !u!70 &6007450625746026102
-CapsuleCollider2D:
+--- !u!114 &5151561507002005342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235370108955807569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae12c1071c14faa9611a1917ae7aa3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+--- !u!58 &5434018791187110602
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -645,14 +661,13 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.008338271, y: 0}
-  m_Size: {x: 0.9502632, y: 1}
-  m_Direction: 0
---- !u!114 &5151561507002005342
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.2
+--- !u!114 &7126273287522452071
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -661,7 +676,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8235370108955807569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ae12c1071c14faa9611a1917ae7aa3f, type: 3}
+  m_Script: {fileID: 11500000, guid: 13fce71b6ec454ba9b6399504cecdfaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1

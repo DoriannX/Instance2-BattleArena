@@ -1,79 +1,83 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
-public class RandomSpawner : NetworkBehaviour
+namespace Mechanics.Bonus
 {
-    [System.Serializable]
-    public class SpawnItem
+    public class RandomSpawner : NetworkBehaviour
     {
-        public GameObject Prefab;
-        public int Quantity;
-    }
-
-    public Tilemap Tilemap;
-    public Tilemap BlockedTilemap;
-    public List<SpawnItem> Objects;
-
-    private List<Vector3> _validPositions = new List<Vector3>();
-
-    private void Awake()
-    {
-        Debug.Log("RandomSpawner initialized");
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        base.OnNetworkSpawn();
-        if (IsServer)
+        [Serializable]
+        public class SpawnItem
         {
-            Debug.Log("Server started, preparing to spawn objects...");
-            SpawnObjects();
+            public GameObject Prefab;
+            public int Quantity;
         }
-    }
 
-    public void SpawnObjects()
-    {
-        GetValidTilePositions();
-        Debug.Log($"Found {_validPositions.Count} valid positions for spawning.");
+        public Tilemap Tilemap;
+        public Tilemap BlockedTilemap;
+        public List<SpawnItem> Objects;
 
-        foreach (SpawnItem item in Objects)
+        private List<Vector3> _validPositions = new();
+
+        private void Start()
         {
-            for (int i = 0; i < item.Quantity && _validPositions.Count > 0; i++)
+            NetworkManager.Singleton.OnServerStarted += OnServerStarted;
+        }
+
+        private void OnServerStarted()
+        {
+            Debug.Log("server started");
+            if (IsServer)
             {
-                int randomIndex = Random.Range(0, _validPositions.Count);
-                Vector3 spawnPosition = _validPositions[randomIndex];
-
-                GameObject spawnedObject = Instantiate(item.Prefab, spawnPosition, Quaternion.identity);
-
-                if (spawnedObject.TryGetComponent(out NetworkObject networkObject))
-                {
-                    networkObject.Spawn();  
-                    Debug.Log($"Spawned {item.Prefab.name} at {spawnPosition}");
-                }
-                else
-                {
-                    Debug.LogError($"{item.Prefab.name} does not have a NetworkObject component!");
-                }
-
-                _validPositions.RemoveAt(randomIndex);
+                Debug.Log("Objects spawned.");
+                SpawnObjects();
             }
         }
-    }
 
-    private void GetValidTilePositions()
-    {
-        _validPositions.Clear();
-        BoundsInt bounds = Tilemap.cellBounds;
-
-        foreach (Vector3Int pos in bounds.allPositionsWithin)
+        public void SpawnObjects()
         {
-            if (Tilemap.HasTile(pos) && (BlockedTilemap == null || !BlockedTilemap.HasTile(pos)))
+            GetValidTilePositions();
+            Debug.Log($"Found {_validPositions.Count} valid positions for spawning.");
+
+            foreach (SpawnItem item in Objects)
             {
-                Vector3 worldPos = Tilemap.GetCellCenterWorld(pos);
-                _validPositions.Add(worldPos);
+                for (int i = 0; i < item.Quantity && _validPositions.Count > 0; i++)
+                {
+                    int randomIndex = Random.Range(0, _validPositions.Count);
+                    Vector3 spawnPosition = _validPositions[randomIndex];
+
+                    GameObject spawnedObject = Instantiate(item.Prefab, spawnPosition, Quaternion.identity);
+
+                    if (spawnedObject.TryGetComponent(out NetworkObject networkObject))
+                    {
+                        networkObject.Spawn();  
+                        Debug.Log($"Spawned {spawnedObject.name} at {spawnPosition}");
+                    }
+                    else
+                    {
+                        Debug.LogError($"{item.Prefab.name} does not have a NetworkObject component!");
+                    }
+
+                    _validPositions.RemoveAt(randomIndex);
+                }
+            }
+        }
+
+        private void GetValidTilePositions()
+        {
+            _validPositions.Clear();
+            BoundsInt bounds = Tilemap.cellBounds;
+
+            foreach (Vector3Int pos in bounds.allPositionsWithin)
+            {
+                if (Tilemap.HasTile(pos) && (BlockedTilemap == null || !BlockedTilemap.HasTile(pos)))
+                {
+                    Vector3 worldPos = Tilemap.GetCellCenterWorld(pos);
+                    _validPositions.Add(worldPos);
+                }
             }
         }
     }

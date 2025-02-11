@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UI;
 using Unity.Netcode;
 
 public class PlayerStats : NetworkBehaviour
@@ -11,7 +12,7 @@ public class PlayerStats : NetworkBehaviour
 
     public float AttackSpeed;
     public int Attack;
-    public int CurrentHealth;
+    public float CurrentHealth;
     public int MaxHealth;
     private int _initialAttack;
     private bool _isDamageBonusActive = false;
@@ -73,12 +74,10 @@ public class PlayerStats : NetworkBehaviour
 
     public void ApplyHealBonus(float healAmount)
     {
-        if (CurrentHealth < MaxHealth)
-        {
-            int healToApply = Mathf.RoundToInt(healAmount);
-            CurrentHealth = Mathf.Min(CurrentHealth + healToApply, MaxHealth);
-            AskUpdateHealthBarServerRpc();
-        }
+        Debug.Log("Healing player for " + healAmount + " health points and health is " + CurrentHealth);
+        CurrentHealth += healAmount;
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+        AskUpdateHealthBarServerRpc();
     }
 
     public void ApplyDamageBonus(float damageMultiplier, float duration)
@@ -111,7 +110,7 @@ public class PlayerStats : NetworkBehaviour
         KillServerRpc();
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         CurrentHealth -= amount;
         AskUpdateHealthBarServerRpc();
@@ -120,8 +119,18 @@ public class PlayerStats : NetworkBehaviour
         if (CurrentHealth <= 0)
         {
             Debug.Log($"Player died {_networkObject}. Despawning...");
-            //TODO: comprendre pourquoi tous les joueurs / le joueur qui a tué ne peux plus bouger
+            SendPlayerDiedMessageClientRpc(_networkObject.OwnerClientId);
             _networkObject.Despawn();
+        }
+    }
+    
+    [ClientRpc]
+    private void SendPlayerDiedMessageClientRpc(ulong clientId)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            Debug.Log($"Player died {_networkObject}. Despawning...");
+            EndMenuManager.Instance.Toggle();
         }
     }
 
