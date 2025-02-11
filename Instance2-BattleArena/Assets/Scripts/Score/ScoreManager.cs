@@ -1,7 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Events;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -11,61 +11,35 @@ public class ScoreManager : MonoBehaviour
     public Text ScoreText;
     public Text HighScoreText;
     public static int ScoreCount;
-    public static int HiScoreCount;
-
-    [SerializeField]
-    private TextMeshProUGUI inputScore;
-    [SerializeField]
-    private TMP_InputField inputName;
-
-    public UnityEvent<string, int> submitScoreEvent;
-
+    public static int HighScoreCount;
 
     void Start()
     {
         if (PlayerPrefs.HasKey("HighScore"))
         {
-            HiScoreCount = PlayerPrefs.GetInt("HiScore");
+            HighScoreCount = PlayerPrefs.GetInt("HighScore");
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        if (ScoreCount > HiScoreCount)
+        if (ScoreCount > HighScoreCount)
         {
-            HiScoreCount = ScoreCount;
-            PlayerPrefs.SetInt("Hi-Score", HiScoreCount);
+            HighScoreCount = ScoreCount;
+            PlayerPrefs.SetInt("HighScore", HighScoreCount);
         }
 
-        //ScoreText.text = "Score: " + ScoreCount;
-       // HighScoreText.text = "Hi-Score: " + HiScoreCount;
+        ScoreText.text = $"Score: {Mathf.Round(ScoreCount)}";
+        HighScoreText.text = $"High Score: {Mathf.Round(HighScoreCount)}";
     }
-    
-    public void AddScore(int Points)
+
+    public void AddScore(int points)
     {
-        if (_grainReclaimed == true)
+        ScoreCount += points;
+        if (ScoreCount > HighScoreCount)
         {
-            ScoreCount = ScoreCount + 10;
-        }
-
-        if (_enemyKilled == true)
-        {
-            ScoreCount = ScoreCount + 200;
-       }
-
-        if (_levelIncreased == true)
-        {
-            ScoreCount = ScoreCount + 50;
+            HighScoreCount = ScoreCount;
+            PlayerPrefs.SetInt("HighScore", HighScoreCount);
         }
     }
-
-    public void SubmitScore()
-    {
-        submitScoreEvent.Invoke(inputName.text, int.Parse(inputScore.text));
-
-    }
-
-    
 }
