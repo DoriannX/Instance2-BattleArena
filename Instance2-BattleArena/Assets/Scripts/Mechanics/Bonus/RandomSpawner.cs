@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class RandomSpawner : MonoBehaviour
+public class RandomSpawner : NetworkBehaviour
 {
-    public static RandomSpawner Instance { get; private set; }
-
     [System.Serializable]
     public class SpawnItem
     {
@@ -18,32 +17,53 @@ public class RandomSpawner : MonoBehaviour
     public Tilemap BlockedTilemap;
     public List<SpawnItem> Objects;
 
-    [SerializeField] private Transform _parentSpawn;
-    [SerializeField] private Transform _parentSpawnCloneBonus;
-
     private List<Vector3> _validPositions = new List<Vector3>();
 
-    private float respawnDelay = 3f;
-
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null)
+        Debug.Log("RandomSpawner initialized");
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        if (IsServer)
         {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
+            Debug.Log("Server started, preparing to spawn objects...");
+            SpawnObjects();
         }
     }
 
-    void Start()
+    public void SpawnObjects()
     {
         GetValidTilePositions();
-        SpawnObjects();
+        Debug.Log($"Found {_validPositions.Count} valid positions for spawning.");
+
+        foreach (SpawnItem item in Objects)
+        {
+            for (int i = 0; i < item.Quantity && _validPositions.Count > 0; i++)
+            {
+                int randomIndex = Random.Range(0, _validPositions.Count);
+                Vector3 spawnPosition = _validPositions[randomIndex];
+
+                GameObject spawnedObject = Instantiate(item.Prefab, spawnPosition, Quaternion.identity);
+
+                if (spawnedObject.TryGetComponent(out NetworkObject networkObject))
+                {
+                    networkObject.Spawn();  
+                    Debug.Log($"Spawned {item.Prefab.name} at {spawnPosition}");
+                }
+                else
+                {
+                    Debug.LogError($"{item.Prefab.name} does not have a NetworkObject component!");
+                }
+
+                _validPositions.RemoveAt(randomIndex);
+            }
+        }
     }
 
-    void GetValidTilePositions()
+    private void GetValidTilePositions()
     {
         _validPositions.Clear();
         BoundsInt bounds = Tilemap.cellBounds;
@@ -55,49 +75,6 @@ public class RandomSpawner : MonoBehaviour
                 Vector3 worldPos = Tilemap.GetCellCenterWorld(pos);
                 _validPositions.Add(worldPos);
             }
-        }
-    }
-
-    void SpawnObjects()
-    {
-        foreach (SpawnItem item in Objects)
-        {
-            for (int i = 0; i < item.Quantity && _validPositions.Count > 0; i++)
-            {
-                int randomIndex = Random.Range(0, _validPositions.Count);
-                GameObject spawnedObject = Instantiate(item.Prefab, _validPositions[randomIndex], Quaternion.identity);
-                spawnedObject.transform.SetParent(_parentSpawn);
-
-                _validPositions.RemoveAt(randomIndex);
-            }
-        }
-    }
-
-    public void RespawnBonus(GameObject bonusInstance)
-    {
-        if (bonusInstance != null)
-        {
-            GameObject bonusPrefab = Instantiate(bonusInstance);
-            bonusPrefab.transform.SetParent(_parentSpawnCloneBonus);
-            bonusPrefab.SetActive(false);
-
-            StartCoroutine(RespawnBonusWithDelay(bonusPrefab));
-        }
-    }
-
-    private IEnumerator RespawnBonusWithDelay(GameObject bonusPrefab)
-    {
-        yield return new WaitForSeconds(2f); 
-
-        if (bonusPrefab != null)
-        {
-            int randomIndex = Random.Range(0, _validPositions.Count);
-            Vector3 spawnPosition = _validPositions[randomIndex];
-            bonusPrefab.transform.position = spawnPosition;
-            bonusPrefab.SetActive(true);
-            bonusPrefab.transform.SetParent(_parentSpawn);
-
-            _validPositions.RemoveAt(randomIndex);
         }
     }
 }
