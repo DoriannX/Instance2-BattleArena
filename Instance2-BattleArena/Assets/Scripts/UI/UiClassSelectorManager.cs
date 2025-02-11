@@ -21,7 +21,7 @@ namespace UI
             Assert.IsNotNull(_meleeBtn, "_meleeBtn is missing");
             Assert.IsNotNull(_archerBtn, "_archerBtn is missing");
             Assert.IsNotNull(_gunnerBtn, "_gunnerBtn is missing");
-            //ToggleClassSelectorCanvas(false);
+            ToggleClassSelectorCanvas(false);
         }
 
         private void ToggleClassSelectorCanvas(bool state, bool affectTransparency = false)
