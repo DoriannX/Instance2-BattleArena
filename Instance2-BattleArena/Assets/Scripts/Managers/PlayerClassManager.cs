@@ -25,7 +25,6 @@ namespace Managers
         public CharacterClass[] CharacterClasses;
         private PlayerStats _playerStats;
         public GameObject PlayerPrefab;
-        public GameObject PanelSelectClass;
         public ExpManager expManager;
         private NetworkManager _networkManager;
 
@@ -45,7 +44,6 @@ namespace Managers
         public void SelectClass(int classIndex)
         {
             _selectedClassIndex = classIndex;
-            PanelSelectClass.SetActive(false);
             AskSpawnSelfServerRpc(
                 _networkManager.LocalClientId, classIndex);
         }
@@ -70,7 +68,6 @@ namespace Managers
                 CharacterClass selectedClass = CharacterClasses[classIndex];
                 PlayerPrefab.GetComponent<SpriteRenderer>().sprite = selectedClass.BaseSprite;
                 selectedClass.ApplyClassStats(_playerStats);
-                PanelSelectClass.SetActive(false);
 
 
                 if (classIndex == 0)

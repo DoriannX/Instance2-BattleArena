@@ -541,9 +541,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5b2b1b56cc1144a958d2557908a570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitMele: {fileID: -1542052006788691458, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
-  attackDamage: 10
-  attackSpeed: 0.2
+  ShowTopMostFoldoutHeaderGroup: 1
+  _hitMelee: {fileID: -1542052006788691458, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
+  _attackDamage: 20
+  _attackSpeed: 0.2
 --- !u!212 &171698361874917076
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -680,7 +681,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.3
+  m_Radius: 0.2
 --- !u!114 &5828200406031720883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693,6 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13fce71b6ec454ba9b6399504cecdfaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &8283892487441827350
 GameObject:
   m_ObjectHideFlags: 0

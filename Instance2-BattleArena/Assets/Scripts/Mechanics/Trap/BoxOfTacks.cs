@@ -15,6 +15,7 @@ namespace Mechanics.Trap
         private bool _playerInside = false;
         private ulong _playerId;
         private bool _trapActive = false;
+        private float _nextTickTime;
 
         [ClientRpc]
         public override void ApplyEffectClientRpc(ulong playerId)
@@ -38,14 +39,19 @@ namespace Mechanics.Trap
             }
         }
 
+        
         private void Update()
         {
             if (!_trapActive)
             {
                 return;
             }
-
-            DamagePlayerServerRpc(_playerId);
+        
+            if (Time.time >= _nextTickTime)
+            {
+                _nextTickTime = Time.time + TickInterval;
+                DamagePlayerServerRpc(_playerId);
+            }
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -57,7 +63,8 @@ namespace Mechanics.Trap
                 return;
             }
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
-            playerStats.TakeDamage(20*Time.deltaTime);
+            Debug.Log("Player is taking damage of " + DamagePerTick);
+            playerStats.TakeDamage(DamagePerTick);
             playerStats.AskUpdateHealthBarServerRpc();
         }
 

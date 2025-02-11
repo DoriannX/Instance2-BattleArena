@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UI;
 using Unity.Netcode;
 
 public class PlayerStats : NetworkBehaviour
@@ -118,8 +119,18 @@ public class PlayerStats : NetworkBehaviour
         if (CurrentHealth <= 0)
         {
             Debug.Log($"Player died {_networkObject}. Despawning...");
-            //TODO: comprendre pourquoi tous les joueurs / le joueur qui a tué ne peux plus bouger
+            SendPlayerDiedMessageClientRpc(_networkObject.OwnerClientId);
             _networkObject.Despawn();
+        }
+    }
+    
+    [ClientRpc]
+    private void SendPlayerDiedMessageClientRpc(ulong clientId)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            Debug.Log($"Player died {_networkObject}. Despawning...");
+            EndMenuManager.Instance.Toggle();
         }
     }
 
