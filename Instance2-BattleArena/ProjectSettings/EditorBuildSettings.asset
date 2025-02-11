@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Classpoolingwithbonusesandlevels.unity
     guid: 9b846ab99a4e9f8439348c3bb4e80e22
   - enabled: 1

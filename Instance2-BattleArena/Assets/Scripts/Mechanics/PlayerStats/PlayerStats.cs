@@ -11,7 +11,7 @@ public class PlayerStats : NetworkBehaviour
 
     public float AttackSpeed;
     public int Attack;
-    public int CurrentHealth;
+    public float CurrentHealth;
     public int MaxHealth;
     private int _initialAttack;
     private bool _isDamageBonusActive = false;
@@ -73,12 +73,10 @@ public class PlayerStats : NetworkBehaviour
 
     public void ApplyHealBonus(float healAmount)
     {
-        if (CurrentHealth < MaxHealth)
-        {
-            int healToApply = Mathf.RoundToInt(healAmount);
-            CurrentHealth = Mathf.Min(CurrentHealth + healToApply, MaxHealth);
-            AskUpdateHealthBarServerRpc();
-        }
+        Debug.Log("Healing player for " + healAmount + " health points and health is " + CurrentHealth);
+        CurrentHealth += healAmount;
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+        AskUpdateHealthBarServerRpc();
     }
 
     public void ApplyDamageBonus(float damageMultiplier, float duration)
@@ -111,7 +109,7 @@ public class PlayerStats : NetworkBehaviour
         KillServerRpc();
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         CurrentHealth -= amount;
         AskUpdateHealthBarServerRpc();
