@@ -93,7 +93,7 @@ public class ExpManager : MonoBehaviour
             _playerStats.CurrentHealth += healthIncrease;
             _playerStats.CurrentHealth = Mathf.Min(_playerStats.CurrentHealth, newMaxHealth);
         }
-        _playerStats.UpdateHealthBar();
+        _playerStats.AskUpdateHealthBarServerRpc();
     }
 
 

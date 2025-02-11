@@ -32,7 +32,7 @@ public class BoxOfTacks : TrapEffects
         while (_playerInside)
         {
             playerStats.TakeDamage(20);
-            playerStats.UpdateHealthBar();
+            playerStats.AskUpdateHealthBarServerRpc();
             yield return new WaitForSeconds(TickInterval);
         }
     }

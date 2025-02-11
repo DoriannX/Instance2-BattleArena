@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Boxoftacks
+  - Wall
   layers:
   - Default
   - TransparentFX

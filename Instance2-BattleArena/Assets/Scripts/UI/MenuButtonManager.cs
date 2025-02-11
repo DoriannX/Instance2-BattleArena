@@ -1,7 +1,6 @@
 using UnityEngine.Assertions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using AudioSystem;
 
 public class MenuButtonManager : MonoBehaviour
 {
@@ -11,8 +10,6 @@ public class MenuButtonManager : MonoBehaviour
     [SerializeField] private GameObject _register;
     [SerializeField] private GameObject _controlsUI;
 
-    [SerializeField] private SoundData _soundData;
-
     public void Awake()
     {
         Assert.IsNotNull(_settings, "_settings is null");
@@ -20,7 +17,6 @@ public class MenuButtonManager : MonoBehaviour
         Assert.IsNotNull(_login, "_login is null");
         Assert.IsNotNull(_register, "_register is null");
         Assert.IsNotNull(_controlsUI, "_controlsUI is null");
-        Assert.IsNotNull(_soundData, "_soundData is null");
     }
 
     public void StartGame()
@@ -30,7 +26,6 @@ public class MenuButtonManager : MonoBehaviour
 
     public void OpenSettings()
     {
-        SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
         _settings.SetActive(true);
     }
 
@@ -56,12 +51,12 @@ public class MenuButtonManager : MonoBehaviour
         _register.SetActive(true);
         _login.SetActive(false);
     }
-
     public void OpenLoginMenu()
     {
         _login.SetActive(true);
         _register.SetActive(false);
     }
+
 
     public void Respawn()
     {
