@@ -1,3 +1,4 @@
+using Events;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ namespace Mechanics.Bonus
             {
                 HealServerRpc(playerId);
                 DispawnServerRpc(NetworkObjectId);
+                
+                EventManager.OnObjectUsed?.Invoke();
             }
         }
 
