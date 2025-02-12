@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 0
-    path: Assets/Scenes/MultiTest.unity
-    guid: a47c4d94ee4d5b4338a3f86f5bd1f44f
-  - enabled: 1
     path: Assets/Scenes/Classpoolingwithbonusesandlevels.unity
     guid: 9b846ab99a4e9f8439348c3bb4e80e22
+  - enabled: 1
+    path: Assets/Scenes/Classpoolingwithbonusesandlevels-backup.unity
+    guid: 2307a3c8d5ae0f79f92a77cef0ea538a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

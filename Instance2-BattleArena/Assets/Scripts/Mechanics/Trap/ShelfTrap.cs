@@ -1,51 +1,55 @@
-using UnityEngine;
 using System.Collections;
+using Unity.Netcode;
+using UnityEngine;
 
-public class ShelfTrap : MonoBehaviour
+namespace Mechanics.Trap
 {
-    private Collider2D _collider;
-    private bool _isTrapActive = true;
-
-    public int DamageAmount = 30;
-    public float BlockDuration = 10f;
-
-    private void Start()
+    public class ShelfTrap : NetworkBehaviour
     {
-        _collider = GetComponent<Collider2D>();
-    }
+        private Collider2D _collider;
+        private bool _isTrapActive = true;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") && _isTrapActive)
+        public int DamageAmount = 30;
+        public float BlockDuration = 10f;
+
+        private void Start()
         {
-            int chance = Random.Range(1, 4); 
+            _collider = GetComponent<Collider2D>();
+        }
 
-            if (chance == 1) 
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Player") && _isTrapActive && IsServer)
             {
-                ActivateTrap(other.gameObject);
+                int chance = Random.Range(1, 4); 
+
+                if (chance == 1) 
+                {
+                    ActivateTrap(other.gameObject);
+                }
             }
         }
-    }
 
-    private void ActivateTrap(GameObject player)
-    {
-        PlayerStats playerStats = player.GetComponent<PlayerStats>();
-
-        if (playerStats != null)
+        private void ActivateTrap(GameObject player)
         {
-            playerStats.TakeDamage(40);
+            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+
+            if (playerStats != null)
+            {
+                playerStats.TakeDamage(40);
+            }
+
+            _isTrapActive = false;
+            _collider.isTrigger = false; 
+
+            StartCoroutine(ResetTrapAfterDelay());
         }
 
-        _isTrapActive = false;
-        _collider.isTrigger = false;
-
-        StartCoroutine(ResetTrapAfterDelay());
-    }
-
-    private IEnumerator ResetTrapAfterDelay()
-    {
-        yield return new WaitForSeconds(BlockDuration);
-        _isTrapActive = true;
-        _collider.isTrigger = true; 
+        private IEnumerator ResetTrapAfterDelay()
+        {
+            yield return new WaitForSeconds(BlockDuration);
+            _isTrapActive = true;
+            _collider.isTrigger = true; 
+        }
     }
 }
