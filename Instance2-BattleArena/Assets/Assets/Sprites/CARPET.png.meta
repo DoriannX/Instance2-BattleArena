@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 88d79d5e9df673049ab50f6f3a538bf0
+guid: f13482dbee8b01b4aa25c13fddf89918
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6991974838582528723
-    second: PYLON_WALL_0
+      213: 7079809629344729161
+    second: CARPET_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PYLON_WALL_0
+      name: CARPET_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 256
+        x: 470
+        y: 21
+        width: 3161
+        height: 4042
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3da4e24121c780160800000000000000
-      internalID: 6991974838582528723
+      spriteID: 9488b72f859804260800000000000000
+      internalID: 7079809629344729161
       vertices: []
       indices: 
       edges: []
