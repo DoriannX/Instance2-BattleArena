@@ -130,7 +130,7 @@ public class PlayerStats : NetworkBehaviour
         if (NetworkManager.Singleton.LocalClientId == clientId)
         {
             Debug.Log($"Player died {_networkObject}. Despawning...");
-            EndMenuManager.Instance.Toggle();
+            EndMenuManager.Instance.Toggle();            
         }
     }
 
@@ -174,5 +174,14 @@ public class PlayerStats : NetworkBehaviour
 
         _isRegenerating = false;
         _regenCoroutine = null;
+    }
+
+    [ClientRpc]
+    public void GainExperienceClientRpc(ulong id)
+    {
+        if (NetworkManager.Singleton.LocalClientId == id)
+        {
+            ExpManager.Instance.GainExperience(200);
+        }
     }
 }

@@ -64,7 +64,7 @@ namespace Mechanics.Attack
             {
                 Debug.Log("hit");
                 _timeSinceLastHit = 0f;
-                HitOnServerRpc(_playerInRangeCollider2D.GetComponent<NetworkObject>().OwnerClientId);
+                HitOnServerRpc(_playerInRangeCollider2D.GetComponent<NetworkObject>().OwnerClientId);                
             }
         }
 
@@ -84,6 +84,19 @@ namespace Mechanics.Attack
             if (playerStats != null)
             {
                 playerStats.TakeDamage(playerStats.Attack);
+                if(playerStats.CurrentHealth <= 0)
+                {
+                    GiveExperienceClientRpc(GetComponent<NetworkObject>().OwnerClientId);
+                }
+            }
+        }
+
+        [ClientRpc]
+        private void GiveExperienceClientRpc(ulong id)
+        {
+            if (NetworkManager.Singleton.LocalClientId == id)
+            {
+                ExpManager.Instance.GainExperience(200);
             }
         }
     }

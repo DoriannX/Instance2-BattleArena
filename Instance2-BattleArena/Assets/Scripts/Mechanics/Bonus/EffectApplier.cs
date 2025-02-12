@@ -24,7 +24,7 @@ namespace Mechanics.Bonus
             }
         }
         
-        private void OnTriggerEnter2D(Collider2D other)
+        public virtual void OnTriggerEnter2D(Collider2D other)
         {
             Debug.Log("Trigger enter");
             if (!_isCollected && other.CompareTag("Player") && IsServer)  // V�rifie si le serveur g�re l'�v�nement
