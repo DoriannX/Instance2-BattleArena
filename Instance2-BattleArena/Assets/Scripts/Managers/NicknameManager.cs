@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UI;
 using Unity.Netcode;
@@ -48,6 +47,7 @@ namespace Managers
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            Debug.Log("NicknameManager is active");
             _validateButton.onClick.AddListener(ValidateNickname);
             _nicknameCanvasGroup.interactable = true;
             _nicknameCanvasGroup.blocksRaycasts = true;
@@ -56,7 +56,6 @@ namespace Managers
 
         private void Start()
         {
-            
             _nicknameCanvasGroup.interactable = false;
             _nicknameCanvasGroup.blocksRaycasts = false;
             _nicknameCanvasGroup.alpha = 0;
