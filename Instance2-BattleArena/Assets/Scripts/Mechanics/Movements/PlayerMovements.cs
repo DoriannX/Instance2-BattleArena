@@ -14,6 +14,9 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float _playerAcceleration = 1f;
     [SerializeField] private float _playerMaxSpeed = 1f;
 
+    [Header("Animator")]
+    [SerializeField] private Animator _animator;
+
     private float _originalAcceleration;
     private float _originalMaxSpeed;
 
@@ -52,6 +55,12 @@ public class PlayerMovements : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotZ = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         _playerTransform.rotation = rotZ;
+        _animator.SetBool("IsMoving", true);
+
+        if(_playerRigidbody.linearVelocity.magnitude <= 3) 
+        {
+            _animator.SetBool("IsMoving", false);
+        }
     }
 
     public void ApplyMovementBoost()
@@ -100,5 +109,4 @@ public class PlayerMovements : MonoBehaviour
         _playerMaxSpeed = _originalMaxSpeed;
         _isSlow = false;
     }
-
 }

@@ -62,6 +62,18 @@ public class SkinSelectionManager : MonoBehaviour
     public void SkinSelectedButton()
     {
         PanelSelectSkin.SetActive(false);
-        _playerInstance = Instantiate(_playerClassManager.PlayerPrefab, _playerSpawn.position, Quaternion.identity);
+
+        if (_playerClassManager.selectedClassIndex == 0)
+        {
+            _playerInstance = Instantiate(_playerClassManager.PlayerPrefabShield, _playerSpawn.position, Quaternion.identity);
+        }
+        else if (_playerClassManager.selectedClassIndex == 1)
+        {
+            _playerInstance = Instantiate(_playerClassManager.PlayerPrefabSoldier, _playerSpawn.position, Quaternion.identity);
+        }
+        else if (_playerClassManager.selectedClassIndex == 2)
+        {
+            _playerInstance = Instantiate(_playerClassManager.PlayerPrefabCarrier, _playerSpawn.position, Quaternion.identity);
+        }
     }
 }

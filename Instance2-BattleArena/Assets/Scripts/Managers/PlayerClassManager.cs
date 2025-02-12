@@ -21,8 +21,9 @@ public class PlayerClassManager : MonoBehaviour
 
     public CharacterClass[] CharacterClasses;
     private PlayerStats _playerStats;
-    public GameObject PlayerPrefab;
-    public GameObject PlayerPrefabAlternate;
+    public GameObject PlayerPrefabShield;
+    public GameObject PlayerPrefabSoldier;
+    public GameObject PlayerPrefabCarrier;
     public GameObject PanelSelectClass;
     public GameObject PanelSelectSkin;
 
@@ -31,7 +32,7 @@ public class PlayerClassManager : MonoBehaviour
 
     void Start()
     {
-        _playerStats = PlayerPrefab.GetComponent<PlayerStats>();
+        _playerStats = PlayerPrefabShield.GetComponent<PlayerStats>();
     }
 
     public void SelectClass(int classIndex)
@@ -40,7 +41,7 @@ public class PlayerClassManager : MonoBehaviour
         {
             selectedClassIndex = classIndex;
             selectedClass = CharacterClasses[classIndex];
-            PlayerPrefab.GetComponent<SpriteRenderer>().sprite = selectedClass.BaseSprite;
+            PlayerPrefabShield.GetComponent<SpriteRenderer>().sprite = selectedClass.BaseSprite;
             selectedClass.ApplyClassStats(_playerStats);
             PanelSelectClass.SetActive(false);
             PanelSelectSkin.SetActive(true);

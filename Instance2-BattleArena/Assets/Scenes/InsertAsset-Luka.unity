@@ -1646,7 +1646,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 278611812}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1797656706}
+        m_TargetAssemblyTypeName: SkinSelectionManager, Assembly-CSharp
+        m_MethodName: SkinSelectedButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &292317963
 GameObject:
   m_ObjectHideFlags: 0
@@ -3809,7 +3821,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 992585514}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1797656706}
+        m_TargetAssemblyTypeName: SkinSelectionManager, Assembly-CSharp
+        m_MethodName: SkinSelectedButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &997509164
 GameObject:
   m_ObjectHideFlags: 0
@@ -7772,22 +7796,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterClasses:
   - ClassName: Turkey Shielder
-    BaseSprite: {fileID: 8395558135472564649, guid: 931a5bec2d33c7e56b7626ace8f130df, type: 3}
+    BaseSprite: {fileID: 21300000, guid: 7f41cfe909f47ba4b882beb6a1865355, type: 3}
     BaseAttack: 20
     BaseHeal: 150
-    BaseAttackSpeed: 0.2
+    BaseAttackSpeed: 1.25
   - ClassName: Turkey Soldier
-    BaseSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    BaseSprite: {fileID: -454344532276503497, guid: 989fe6a57e795904eaaa2d25b222a38e, type: 3}
     BaseAttack: 5
     BaseHeal: 100
-    BaseAttackSpeed: 0.3
+    BaseAttackSpeed: 1
   - ClassName: Turkey Carrier
-    BaseSprite: {fileID: 4988001265958779578, guid: 8116c08ec6b29fc4abc1f5737cf4d91a, type: 3}
+    BaseSprite: {fileID: 21300000, guid: 8116c08ec6b29fc4abc1f5737cf4d91a, type: 3}
     BaseAttack: 30
     BaseHeal: 100
-    BaseAttackSpeed: 1
-  PlayerPrefab: {fileID: 8235370108955807569, guid: 11f5f7aa8ae7a3a4d8a223a88c36af70, type: 3}
-  PlayerPrefabAlternate: {fileID: 0}
+    BaseAttackSpeed: 0.3
+  PlayerPrefabShield: {fileID: 8235370108955807569, guid: 1b977b7ad4505614ebf59ea8670f8358, type: 3}
+  PlayerPrefabSoldier: {fileID: 8235370108955807569, guid: 11f5f7aa8ae7a3a4d8a223a88c36af70, type: 3}
+  PlayerPrefabCarrier: {fileID: 8235370108955807569, guid: 51b0269fd8842a34585e7df9fa2de45b, type: 3}
   PanelSelectClass: {fileID: 1712869051}
   PanelSelectSkin: {fileID: 754058952}
   selectedClassIndex: -1
@@ -8352,7 +8377,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1835221165}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1797656706}
+        m_TargetAssemblyTypeName: SkinSelectionManager, Assembly-CSharp
+        m_MethodName: SkinSelectedButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1888267639
 GameObject:
   m_ObjectHideFlags: 0
@@ -9011,7 +9048,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1982289858}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1797656706}
+        m_TargetAssemblyTypeName: SkinSelectionManager, Assembly-CSharp
+        m_MethodName: SkinSelectedButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1993553858
 GameObject:
   m_ObjectHideFlags: 0

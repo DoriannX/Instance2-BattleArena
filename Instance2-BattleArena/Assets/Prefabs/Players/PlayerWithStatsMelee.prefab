@@ -400,6 +400,7 @@ GameObject:
   - component: {fileID: 171698361874917076}
   - component: {fileID: 1017841782473601420}
   - component: {fileID: 6007450625746026102}
+  - component: {fileID: 4590813544087911328}
   m_Layer: 0
   m_Name: PlayerWithStatsMelee
   m_TagString: Player
@@ -417,8 +418,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.925, y: 1.6417, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 163090565408875700}
   - {fileID: 2248391574586543961}
@@ -500,6 +501,7 @@ MonoBehaviour:
   _playerMovement: {fileID: 1936783750999267908, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
   _playerAcceleration: 60
   _playerMaxSpeed: 10
+  _animator: {fileID: 4590813544087911328}
 --- !u!114 &6030928048524732170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,6 +517,7 @@ MonoBehaviour:
   _hitMele: {fileID: -1542052006788691458, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
   attackDamage: 10
   attackSpeed: 0.2
+  _animator: {fileID: 4590813544087911328}
 --- !u!212 &171698361874917076
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -559,8 +562,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 8395558135472564649, guid: 931a5bec2d33c7e56b7626ace8f130df, type: 3}
-  m_Color: {r: 0, g: 0.30383253, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8116c08ec6b29fc4abc1f5737cf4d91a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -583,10 +586,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 4173174732504475282}
-  AttackSpeed: 0.2
-  Attack: 20
-  CurrentHealth: 150
-  MaxHealth: 150
+  AttackSpeed: 0.3
+  Attack: 30
+  CurrentHealth: 100
+  MaxHealth: 100
 --- !u!70 &6007450625746026102
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -624,6 +627,28 @@ CapsuleCollider2D:
   m_Offset: {x: -0.008338271, y: 0}
   m_Size: {x: 0.9502632, y: 1}
   m_Direction: 0
+--- !u!95 &4590813544087911328
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235370108955807569}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 031116a6e2e0bc34d9a730224871999f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8283892487441827350
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,10 @@ public class HitMele : MonoBehaviour
     [Header("References")]
     [SerializeField] private InputActionReference _hitMele;
     [SerializeField] private int attackDamage = 20;
-    [SerializeField] private float attackSpeed = 0.2f; 
+    [SerializeField] private float attackSpeed = 0.2f;
+
+    [Header("Animator")]
+    [SerializeField] private Animator _animator;
 
     private Collider2D _playerInRangeCollider2D;
     private bool _isInCollider = false;
@@ -57,12 +60,17 @@ public class HitMele : MonoBehaviour
         if (_isInCollider && _playerInRangeCollider2D != null && timeSinceLastHit >= attackSpeed)
         {
             PlayerStats playerStats = _playerInRangeCollider2D.GetComponent<PlayerStats>();
-
             if (playerStats != null)
             {
                 playerStats.TakeDamage(playerStats.Attack);
             }
             timeSinceLastHit = 0f;
         }
+        _animator.SetBool("IsAttacking", true);
+    }
+
+    private void ResetAnimFire()
+    {
+        _animator.SetBool("IsAttacking", false);
     }
 }
