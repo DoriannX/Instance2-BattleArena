@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Events;
 using Mechanics.Bonus;
 using Unity.Netcode;
 using UnityEngine;
@@ -64,7 +65,7 @@ namespace Mechanics.Trap
             }
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             Debug.Log("Player is taking damage of " + DamagePerTick);
-            playerStats.TakeDamage(DamagePerTick);
+            playerStats.TakeDamage(DamagePerTick);https://www.swisstransfer.com/d/3467507e-1913-4bcb-9601-0a0707e14da2
             playerStats.AskUpdateHealthBarServerRpc();
         }
 
@@ -78,6 +79,7 @@ namespace Mechanics.Trap
             {
                 playerMovements.ResetMovementSpeed();
                 NetworkObject.Despawn();
+                EventManager.OnObjectUsed?.Invoke();
             }
 
             //Stop
