@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      PYLON_WALL_0: 6991974838582528723
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
