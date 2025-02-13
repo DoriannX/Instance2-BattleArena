@@ -64,7 +64,7 @@ namespace Mechanics.Trap
             {
                 return;
             }
-            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            PlayerStats.PlayerStats playerStats = player.GetComponent<PlayerStats.PlayerStats>();
             Debug.Log("Player is taking damage of " + DamagePerTick);
             playerStats.TakeDamage(DamagePerTick);https://www.swisstransfer.com/d/3467507e-1913-4bcb-9601-0a0707e14da2
             playerStats.AskUpdateHealthBarServerRpc();

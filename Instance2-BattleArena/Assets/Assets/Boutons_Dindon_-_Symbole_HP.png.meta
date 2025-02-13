@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Boutons_Dindon_-_Symbole_HP_0: -7693586797324151913
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

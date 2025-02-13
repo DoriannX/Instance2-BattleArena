@@ -5,19 +5,20 @@ namespace Mechanics.Attack
 {
     public class Shoot : NetworkBehaviour
     {
-        private static readonly int _isAttacking = Animator.StringToHash("IsAttacking");
+        private static readonly int _attacking = Animator.StringToHash("Attack");
+        private static readonly int _attack = Animator.StringToHash("SwitchAttack");
         private BulletSpawner _bulletSpawner;
 
         [Header("Animator")] [SerializeField] private Animator _animator;
         private int _switchAttack;
 
-        private PlayerStats _playerStats;
+        private PlayerStats.PlayerStats _playerStats;
         private float _fireRate;
         private float _timeSinceLastShot;
 
         private void Awake()
         {
-            _playerStats = GetComponent<PlayerStats>();
+            _playerStats = GetComponent<PlayerStats.PlayerStats>();
             if (_playerStats == null)
             {
                 return;
@@ -31,11 +32,11 @@ namespace Mechanics.Attack
             {
                 _fireRate = 0.1f;
             }
+            _bulletSpawner = GetComponent<BulletSpawner>();
         }
 
         private void Start()
         {
-            _bulletSpawner = GetComponent<BulletSpawner>();
 
             if (_bulletSpawner == null)
             {
@@ -52,19 +53,26 @@ namespace Mechanics.Attack
 
             _bulletSpawner.FireBulletServerRpc(OwnerClientId);
             _timeSinceLastShot = Time.time;
-            _animator.SetBool(_isAttacking, true);
+            AskAnimateServerRpc();
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        private void AskAnimateServerRpc()
+        {
+            AnimateClientRpc();
+            _animator.SetTrigger(_attacking);
         }
 
-        private void ResetAnimFire()
+        [ClientRpc]
+        private void AnimateClientRpc()
         {
             _switchAttack++;
-            _animator.SetBool(_isAttacking, false);
             if (_switchAttack >= 2)
             {
                 _switchAttack = 0;
             }
-
-            _animator.SetInteger(_isAttacking, _switchAttack);
+            _animator.SetInteger(_attack, _switchAttack);
+            _animator.SetTrigger(_attacking);
         }
     }
 }
