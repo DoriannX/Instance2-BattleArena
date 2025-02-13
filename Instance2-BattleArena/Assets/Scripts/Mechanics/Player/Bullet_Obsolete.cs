@@ -8,7 +8,7 @@ namespace Mechanics.Player
     {
         private Transform _transform;
         [SerializeField] private float _speed;
-        private PlayerStats _owner;
+        private PlayerStats.PlayerStats _owner;
         private Vector3 _direction;
         private bool _move = false;
 
@@ -17,7 +17,7 @@ namespace Mechanics.Player
             _transform = transform;
         }
 
-        public void StartMove(Vector3 direction, PlayerStats owner)
+        public void StartMove(Vector3 direction, PlayerStats.PlayerStats owner)
         {
             _direction = direction;
             _move = true;
@@ -66,15 +66,10 @@ namespace Mechanics.Player
                 {
                     Debug.Log("Bullet hit a player.");
                     int damage = _owner.Attack; // Utilise l'attaque du joueur qui a tir�
-                    PlayerStats playerStats = collision.GetComponent<PlayerStats>();
-
+                    PlayerStats.PlayerStats playerStats = collision.GetComponent<PlayerStats.PlayerStats>();
                     if (playerStats != null)
                     {
                         playerStats.TakeDamage(damage);
-                        if(playerStats.CurrentHealth <= 0)
-                        {
-                            GiveExperienceClientRpc(_owner.GetComponent<NetworkObject>().OwnerClientId);
-                        }
                         Debug.Log($"Bullet dealt {damage} damage to {playerStats.name}. He has {playerStats.CurrentHealth} health left.");
                     }
 
@@ -84,29 +79,11 @@ namespace Mechanics.Player
             }
         }
 
-        [ClientRpc]
-        private void GiveExperienceClientRpc(ulong id)
-        {
-            if(NetworkManager.Singleton.LocalClientId == id)
-            {
-                ExpManager.Instance.GainExperience(200);
-            }
-        }
-
         [ServerRpc]
         private void DestroyBulletServerRpc()
         {
             Debug.Log("Server received request to destroy bullet.");
             GetComponent<NetworkObject>().Despawn();
-        }
-
-        [ClientRpc]
-        public void GainExperienceClientRpc(ulong id)
-        {
-            if (NetworkManager.Singleton.LocalClientId == id)
-            {
-                ExpManager.Instance.GainExperience(200);
-            }
         }
     }
 }

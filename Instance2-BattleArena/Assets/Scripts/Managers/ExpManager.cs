@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Managers;
 using System.Collections;
+using Mechanics.PlayerStats;
 
 public class ExpManager : NetworkBehaviour
 {

@@ -18,7 +18,7 @@ namespace Mechanics.Bonus
             {
                 return;
             }
-            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            PlayerStats.PlayerStats playerStats = player.GetComponent<PlayerStats.PlayerStats>();
 
             if (playerStats != null)
             {

@@ -1,5 +1,6 @@
 using System;
 using Mechanics.Player;
+using Mechanics.PlayerStats;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Pool;

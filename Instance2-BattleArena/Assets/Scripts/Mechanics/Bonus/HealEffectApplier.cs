@@ -14,7 +14,7 @@ namespace Mechanics.Bonus
             {
                 return;
             }
-            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            PlayerStats.PlayerStats playerStats = player.GetComponent<PlayerStats.PlayerStats>();
 
             if (playerStats != null)
             {
@@ -33,7 +33,7 @@ namespace Mechanics.Bonus
             {
                 return;
             }
-            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            PlayerStats.PlayerStats playerStats = player.GetComponent<PlayerStats.PlayerStats>();
             playerStats.ApplyHealBonus(75);
         }
     }
