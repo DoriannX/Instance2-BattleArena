@@ -774,6 +774,7 @@ MonoBehaviour:
   Attack: 20
   CurrentHealth: 150
   MaxHealth: 150
+  deathEffectPrefab: {fileID: 2353600328335836179, guid: b61b4a5b398d54f4085e49af0bd24b15, type: 3}
 --- !u!114 &5151561507002005342
 MonoBehaviour:
   m_ObjectHideFlags: 0
