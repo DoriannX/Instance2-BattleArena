@@ -1,57 +1,77 @@
+using Unity.Netcode;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Managers;
+using System.Collections;
+using Mechanics.PlayerStats;
 
-public class ExpManager : MonoBehaviour
+public class ExpManager : NetworkBehaviour
 {
-    public enum CharacterClass {ShieldTurkey,GunTurkey,PortTurkey }
+    public static ExpManager Instance;
 
     [Header("Character Settings")]
-    [SerializeField] private CharacterClass _characterClass; // Test
-    [SerializeField] private float _life; // Test
-    [SerializeField] private float _damage; // Test
+    private PlayerClassManager.CharacterClass _currentClass;
+    private SpriteRenderer _playerSpriteRenderer;
+    private PlayerStats _playerStats;
 
     [Header("ProgressBar Settings")]
-    [SerializeField] private int _level;
-    [SerializeField] private int _currentExp;
-    [SerializeField] private int _expToLevel;
-    [SerializeField] private int _addExpToNextLevel= 50;
-    [SerializeField] private int _maxLevel;
+    [SerializeField] private int _level = 1;
+    [SerializeField] private int _currentExp = 0;
+    [SerializeField] private int _expToLevel = 100;
+    [SerializeField] private int _addExpToNextLevel = 50;
+    [SerializeField] private int _maxLevel = 20;
 
     [Header("ProgressBar UI")]
     [SerializeField] private Slider _slider;
     [SerializeField] private TextMeshProUGUI _currentLevelText;
 
-    [Header("Character Appearance")]
-    [SerializeField] private SpriteRenderer _characterSprite; 
-    [SerializeField] private Sprite _spriteLevel10;
-    [SerializeField] private Sprite _spriteLevel20;
+    [Header("Level-Up Effect")]
+    [SerializeField] private GameObject levelUpEffectPrefab;
 
-    private Sprite _defaultSprite;
+    private bool _isLevelUpEffectActive = false;
 
-    private void Start()
+    private GameObject _playerInstance;
+
+
+    public GameObject DamageScreenFeedBack;
+    public GameObject HealScreenFeedBack;
+    public GameObject MovementBoostEffect;
+    public GameObject FeedBackIconAttack;
+    public GameObject FeedBackIconSpeed;
+    public GameObject FeedBackIconHeal;
+
+    private void Awake()
     {
-        if (_characterSprite != null)
+        if (Instance == null)
         {
-            _defaultSprite = _characterSprite.sprite;
+            Instance = this;
         }
+    }
+
+    public void Initialize(PlayerClassManager.CharacterClass selectedClass, GameObject playerPrefab)
+    {
+        _currentClass = selectedClass;
+        _playerSpriteRenderer = playerPrefab.GetComponent<SpriteRenderer>();
+        _playerStats = playerPrefab.GetComponent<PlayerStats>();
+        _playerInstance = playerPrefab;
+
+        if (_playerSpriteRenderer != null && _currentClass != null)
+        {
+            _playerSpriteRenderer.sprite = _currentClass.BaseSprite;
+        }
+
         UpdateUI();
     }
 
     public void GainExperience(int amount)
     {
         _currentExp += amount;
-        if(_currentExp >= _expToLevel)
+
+        while (_currentExp >= _expToLevel && _level < _maxLevel)
         {
-            if (_level <= _maxLevel) 
-            { 
-                LevelUp();
-            }
-            else
-            {
-                return;
-            }
-        }    
+            LevelUp();
+        }
     }
 
     private void LevelUp()
@@ -59,56 +79,90 @@ public class ExpManager : MonoBehaviour
         _level++;
         _currentExp -= _expToLevel;
         _expToLevel += _addExpToNextLevel;
-        CheckForSpriteChange();
+
+        if (IsServer && !_isLevelUpEffectActive)
+        {
+            SpawnLevelUpEffect();
+        }
+        else
+        {
+            SpawnLevelUpEffectServerRpc();
+        }
         ApplyStatsBoost();
     }
 
-    private void CheckForSpriteChange()
+    private void SpawnLevelUpEffect()
     {
-        if (_level == 10 && _spriteLevel10 != null)
+        if (levelUpEffectPrefab != null && !_isLevelUpEffectActive)
         {
-            if (_characterSprite != null)
-                _characterSprite.sprite = _spriteLevel10;
+            _isLevelUpEffectActive = true;
+            GameObject effectInstance = Instantiate(levelUpEffectPrefab, _playerInstance.transform.position, levelUpEffectPrefab.transform.rotation);
+            NetworkObject networkObject = effectInstance.GetComponent<NetworkObject>();
+
+            if (networkObject != null)
+            {
+                networkObject.Spawn();
+                effectInstance.transform.SetParent(_playerInstance.transform.GetChild(0));
+                StartCoroutine(FollowPlayerForDuration(effectInstance, 1.5f));
+            }
         }
-        else if (_level == 20 && _spriteLevel20 != null)
+    }
+
+    private IEnumerator FollowPlayerForDuration(GameObject effectInstance, float duration)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
         {
-            if (_characterSprite != null)
-                _characterSprite.sprite = _spriteLevel20;
+            if (effectInstance != null && _playerSpriteRenderer != null)
+            {
+                effectInstance.transform.position = _playerSpriteRenderer.transform.position;
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
+
+        if (effectInstance != null)
+        {
+            effectInstance.GetComponent<NetworkObject>().Despawn();
+            Destroy(effectInstance);
+            _isLevelUpEffectActive = false;
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnLevelUpEffectServerRpc()
+    {
+        SpawnLevelUpEffect();
     }
 
     private void ApplyStatsBoost()
     {
-        switch (_characterClass)
+        if (_playerStats == null) return;
+
+        int previousMaxHealth = _playerStats.MaxHealth;
+        float previousHealth = _playerStats.CurrentHealth;
+
+        _playerStats.IncreaseStats();
+
+        int newMaxHealth = _playerStats.MaxHealth;
+        int healthIncrease = newMaxHealth - previousMaxHealth;
+        if (previousHealth == previousMaxHealth)
         {
-            case CharacterClass.ShieldTurkey:
-                _life = Mathf.Round(_life * 1.05f); // Test
-                _damage = Mathf.Round(_damage * 1.05f); // Test
-                break;
-            case CharacterClass.GunTurkey:
-                _life = Mathf.Round(_life * 1.05f); // Test
-                _damage = Mathf.Round(_damage * 1.05f); // Test
-                break;
-            case CharacterClass.PortTurkey:
-                _life = Mathf.Round(_life * 1.05f); // Test
-                _damage = Mathf.Round(_damage * 1.05f); // Test
-                break;
+            _playerStats.CurrentHealth = newMaxHealth;
         }
+        else
+        {
+            _playerStats.CurrentHealth += healthIncrease;
+            _playerStats.CurrentHealth = Mathf.Min(_playerStats.CurrentHealth, newMaxHealth);
+        }
+        _playerStats.AskUpdateHealthBarServerRpc();
     }
 
     private void Update()
     {
         UpdateUI();
-
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            GainExperience(50);
-        }
-
-        if (Input.GetKeyUp(KeyCode.H)) 
-        {
-            ResetProgress();
-        }
     }
 
     private void UpdateUI()
@@ -118,29 +172,34 @@ public class ExpManager : MonoBehaviour
         _currentLevelText.text = "Level: " + _level;
     }
 
-    public void EnemyDead(int exp)
-    {
-        GainExperience(exp);  
-        //_currentScore =+ score !! 
-    }
-
-    public void CollectSeed()
-    {
-        GainExperience(5);
-    }
-
     public void ResetProgress()
     {
         _level = 1;
         _currentExp = 0;
-        _expToLevel = _addExpToNextLevel;
+        _expToLevel = 100;
 
-        if (_characterSprite != null && _defaultSprite != null)
+        if (_playerSpriteRenderer != null && _currentClass != null)
         {
-            _characterSprite.sprite = _defaultSprite;
+            _playerSpriteRenderer.sprite = _currentClass.BaseSprite;
         }
-        //resetStatsClass !!
-        UpdateUI(); 
+
+        if (_playerStats != null)
+        {
+            _playerStats.ResetStats(_currentClass.BaseAttack, _currentClass.BaseHeal);
+        }
+
+        UpdateUI();
     }
 
+    public void DisableAllFeedbacks()
+    {
+        if (HealScreenFeedBack != null)
+            HealScreenFeedBack.SetActive(false);
+
+        if (DamageScreenFeedBack != null)
+            DamageScreenFeedBack.SetActive(false);
+
+        if (MovementBoostEffect != null)
+            MovementBoostEffect.SetActive(false);
+    }
 }

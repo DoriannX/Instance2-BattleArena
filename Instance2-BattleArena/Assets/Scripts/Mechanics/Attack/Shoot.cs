@@ -1,34 +1,78 @@
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.InputSystem;
 
-public class Shoot : MonoBehaviour
+namespace Mechanics.Attack
 {
-    [Header("References")]
-    [SerializeField] private Bullet _bulletPreFab;
-    [SerializeField] private InputActionReference _shoot;
-    private Transform _playerTransform;
-
-    private void Awake()
+    public class Shoot : NetworkBehaviour
     {
-        Assert.IsNotNull(_bulletPreFab, "_bulletPreFab is missing");
-        Assert.IsNotNull(_shoot, "_inputAction is missing");
+        private static readonly int _attacking = Animator.StringToHash("Attack");
+        private static readonly int _attack = Animator.StringToHash("SwitchAttack");
+        private BulletSpawner _bulletSpawner;
 
-        _playerTransform = transform;
+        [Header("Animator")] [SerializeField] private Animator _animator;
+        private int _switchAttack;
+
+        private PlayerStats.PlayerStats _playerStats;
+        private float _fireRate;
+        private float _timeSinceLastShot;
+
+        private void Awake()
+        {
+            _playerStats = GetComponent<PlayerStats.PlayerStats>();
+            if (_playerStats == null)
+            {
+                return;
+            }
+
+            if (_playerStats.AttackSpeed > 0)
+            {
+                _fireRate = 1f / Mathf.Max(_playerStats.AttackSpeed, 0.1f);
+            }
+            else
+            {
+                _fireRate = 0.1f;
+            }
+            _bulletSpawner = GetComponent<BulletSpawner>();
+        }
+
+        private void Start()
+        {
+
+            if (_bulletSpawner == null)
+            {
+                Debug.LogError("BulletSpawner component not found!");
+            }
+        }
+
+        private void Update()
+        {
+            if (!IsOwner || !Input.GetButtonDown("Fire1") || _timeSinceLastShot + _fireRate > Time.time)
+            {
+                return;
+            }
+
+            _bulletSpawner.FireBulletServerRpc(OwnerClientId);
+            _timeSinceLastShot = Time.time;
+            AskAnimateServerRpc();
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        private void AskAnimateServerRpc()
+        {
+            AnimateClientRpc();
+            _animator.SetTrigger(_attacking);
+        }
+
+        [ClientRpc]
+        private void AnimateClientRpc()
+        {
+            _switchAttack++;
+            if (_switchAttack >= 2)
+            {
+                _switchAttack = 0;
+            }
+            _animator.SetInteger(_attack, _switchAttack);
+            _animator.SetTrigger(_attacking);
+        }
     }
-
-    private void OnEnable()
-    {
-        _shoot.action.started += Fire;
-    }
-
-    private void OnDisable()
-    {
-        _shoot.action.started -= Fire;
-    }
-
-    private void Fire(InputAction.CallbackContext context)
-    {      
-       Bullet bullet = Instantiate(_bulletPreFab, _playerTransform.position + _playerTransform.up, _playerTransform.rotation);        
-    }    
 }
