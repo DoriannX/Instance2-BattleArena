@@ -1,3 +1,4 @@
+using AudioSystem;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -9,6 +10,7 @@ namespace Mechanics.Attack
     public class HitMelee : NetworkBehaviour
     {
         private static readonly int _attack = Animator.StringToHash("Attack");
+        [SerializeField] private SoundData _soundData;
 
         [Header("References")] [SerializeField]
         private InputActionReference _hitMelee;
@@ -30,6 +32,7 @@ namespace Mechanics.Attack
         private void OnEnable()
         {
             _hitMelee.action.started += Hit;
+            SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
         }
 
         private void OnDisable()

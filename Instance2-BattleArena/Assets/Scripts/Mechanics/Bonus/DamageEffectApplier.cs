@@ -1,3 +1,4 @@
+using AudioSystem;
 using Events;
 using Unity.Netcode;
 using UnityEngine;
@@ -7,6 +8,9 @@ namespace Mechanics.Bonus
 {
     public class DamageEffectApplier : EffectApplier
     {
+
+        [SerializeField] private SoundData _soundData;
+
         [SerializeField] protected float _damageMultiplier = 1.2f;  
         [SerializeField] private float _duration = 10f;  
 
@@ -22,9 +26,10 @@ namespace Mechanics.Bonus
 
             if (playerStats != null)
             {
+                SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
                 playerStats.ApplyDamageBonus(_damageMultiplier, _duration);
                 DispawnServerRpc(NetworkObjectId);
-                
+            
                 EventManager.OnObjectUsed?.Invoke();
             }
         }
