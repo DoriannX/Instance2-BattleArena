@@ -27,7 +27,6 @@ namespace Managers
         public GameObject PlayerPrefabCarrier;
         public GameObject PanelSelectSkin;
         public ExpManager ExpManager;
-        private NetworkManager _networkManager;
 
         [SerializeField] private Transform _playerSpawn;
         private GameObject _playerInstance;
@@ -36,7 +35,6 @@ namespace Managers
 
         void Start()
         {
-            _networkManager = NetworkManager.Singleton;
             _playerStats = PlayerPrefabShield.GetComponent<PlayerStats>();
         }
 
@@ -45,7 +43,7 @@ namespace Managers
         {
             SelectedClassIndex = classIndex;
             AskSpawnSelfServerRpc(
-                _networkManager.LocalClientId, classIndex);
+                NetworkManager.Singleton.LocalClientId, classIndex);
             
             PanelSelectSkin.SetActive(true);
         }
@@ -53,7 +51,7 @@ namespace Managers
         [ContextMenu("Respawn")]
         public void RespawnSelf()
         {
-            RespawnPlayer(_networkManager.LocalClientId, SelectedClassIndex);
+            RespawnPlayer(NetworkManager.Singleton.LocalClientId, SelectedClassIndex);
         }
 
         private void RespawnPlayer(ulong clientId, int selectedClassIndex)
@@ -63,7 +61,7 @@ namespace Managers
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void AskSpawnSelfServerRpc(ulong id, int classIndex)
+        public void AskSpawnSelfServerRpc(ulong id, int classIndex)
         {
             if (classIndex >= 0 && classIndex < CharacterClasses.Length)
             {

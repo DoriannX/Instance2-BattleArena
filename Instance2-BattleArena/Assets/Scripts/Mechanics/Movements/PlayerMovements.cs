@@ -74,13 +74,26 @@ namespace Mechanics.Movements
                 Vector3 direction = _mainCam.ScreenToWorldPoint(Input.mousePosition) - _playerTransform.position;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 _playerRigidbody.rotation = angle - 90;
-                _animator.SetBool(_isMoving, true);
+                AskAnimateServerRpc(true);
 
-                if(_playerRigidbody.linearVelocity.magnitude <= 3) 
+                if(_playerRigidbody.linearVelocity.magnitude <= 3)
                 {
-                    _animator.SetBool(_isMoving, false);
+                    AskAnimateServerRpc(false);
                 }
             }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void AskAnimateServerRpc(bool state)
+        {
+            AnimateClientRpc(state);
+            _animator.SetBool(_isMoving, state);
+        }
+
+        [ClientRpc]
+        private void AnimateClientRpc(bool state)
+        {
+            _animator.SetBool(_isMoving, state);
         }
 
         public void ApplyMovementBoost()

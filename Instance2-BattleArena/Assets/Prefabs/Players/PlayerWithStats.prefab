@@ -296,7 +296,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_TargetDisplay: 0
 --- !u!114 &2181697601443124225
 MonoBehaviour:
@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 5235607602094679916}
   - component: {fileID: 5828200406031720883}
   - component: {fileID: -279421902797617864}
+  - component: {fileID: -5253915069630554894}
   m_Layer: 0
   m_Name: PlayerWithStats
   m_TagString: Player
@@ -408,7 +409,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.925, y: 1.6417, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 163090565408875700}
@@ -518,6 +519,7 @@ MonoBehaviour:
   _playerMovement: {fileID: 1936783750999267908, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
   _playerAcceleration: 60
   _playerMaxSpeed: 10
+  _animator: {fileID: -5253915069630554894}
 --- !u!114 &6133390102867121111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  _animator: {fileID: -5253915069630554894}
 --- !u!114 &6030928048524732170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +550,7 @@ MonoBehaviour:
   _hitMelee: {fileID: -1542052006788691458, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
   _attackDamage: 20
   _attackSpeed: 0.2
+  _animator: {fileID: 0}
 --- !u!212 &171698361874917076
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -592,7 +596,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0, g: 0.30383253, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -616,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _healthBar: {fileID: 4173174732504475282}
-  AttackSpeed: 0.3
+  AttackSpeed: 1
   Attack: 5
   CurrentHealth: 100
   MaxHealth: 100
@@ -633,7 +637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  bulletPrefab: {fileID: 8138768269861263659, guid: 75accc11236941f8c89a54533c31033c, type: 3}
+  bulletPrefab: {fileID: 8138768269861263659, guid: 79a14f02d788acbf28cf72f1e1bdcebe, type: 3}
   bulletSpawnPoint: {fileID: 6802464193731145019}
 --- !u!114 &488331866395229585
 MonoBehaviour:
@@ -711,6 +715,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _nicknameText: {fileID: 2259414633827813515}
+--- !u!95 &-5253915069630554894
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235370108955807569}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f72b5875291084e46954a2eb19077d58, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8283892487441827350
 GameObject:
   m_ObjectHideFlags: 0
