@@ -681,8 +681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _playerMovement: {fileID: 1936783750999267908, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
-  _playerAcceleration: 60
-  _playerMaxSpeed: 10
+  _playerAcceleration: 100
+  _playerMaxSpeed: 75
   _animator: {fileID: -7938784995791414600}
 --- !u!114 &6030928048524732170
 MonoBehaviour:
@@ -745,7 +745,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 8395558135472564649, guid: 931a5bec2d33c7e56b7626ace8f130df, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: c05726b5076ed8547813b2977e0c5920, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -770,10 +770,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _healthBar: {fileID: 4173174732504475282}
-  AttackSpeed: 0.2
-  Attack: 20
-  CurrentHealth: 150
-  MaxHealth: 150
+  AttackSpeed: 1
+  Attack: 30
+  CurrentHealth: 100
+  MaxHealth: 100
+  _deathEffectPrefab: {fileID: 2353600328335836179, guid: b61b4a5b398d54f4085e49af0bd24b15, type: 3}
 --- !u!114 &5151561507002005342
 MonoBehaviour:
   m_ObjectHideFlags: 0

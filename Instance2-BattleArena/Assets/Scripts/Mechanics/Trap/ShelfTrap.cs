@@ -32,7 +32,7 @@ namespace Mechanics.Trap
 
         private void ActivateTrap(GameObject player)
         {
-            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            PlayerStats.PlayerStats playerStats = player.GetComponent<PlayerStats.PlayerStats>();
 
             if (playerStats != null)
             {

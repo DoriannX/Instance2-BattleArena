@@ -100,7 +100,7 @@ namespace Mechanics.Attack
                 Debug.LogError("Player not found");
                 return;
             }
-            PlayerStats playerStats = playerClient.PlayerObject.GetComponent<PlayerStats>();
+            PlayerStats.PlayerStats playerStats = playerClient.PlayerObject.GetComponent<PlayerStats.PlayerStats>();
 
             if (playerStats != null)
             {

@@ -104,6 +104,14 @@ namespace Mechanics.Movements
                 _playerAcceleration *= 1.5f;  
                 _playerMaxSpeed *= 1.5f;  
                 StartCoroutine(ResetMovementBoostAfterDuration(10f));
+                ExpManager.Instance.DisableAllFeedbacks();
+                if (ExpManager.Instance.MovementBoostEffect != null)
+                {
+                    ExpManager.Instance.MovementBoostEffect.gameObject.SetActive(true);
+                    ExpManager.Instance.FeedBackIconSpeed.gameObject.SetActive(true);
+                    StartCoroutine(DeactivateEffectAfterDuration(ExpManager.Instance.MovementBoostEffect, 10f));
+                    StartCoroutine(DeactivateEffectAfterDuration(ExpManager.Instance.FeedBackIconSpeed, 10f));
+                }
             }
         }
 
@@ -142,5 +150,13 @@ namespace Mechanics.Movements
             _playerMaxSpeed = _originalMaxSpeed;
             _isSlow = false;
         }
+
+        private IEnumerator DeactivateEffectAfterDuration(GameObject effect, float duration)
+        {
+            yield return new WaitForSeconds(duration);
+            effect.gameObject.SetActive(false);
+        }
     }
+
+
 }

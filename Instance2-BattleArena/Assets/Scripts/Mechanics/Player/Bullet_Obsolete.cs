@@ -8,7 +8,7 @@ namespace Mechanics.Player
     {
         private Transform _transform;
         [SerializeField] private float _speed;
-        private PlayerStats _owner;
+        private PlayerStats.PlayerStats _owner;
         private Vector3 _direction;
         private bool _move = false;
 
@@ -17,7 +17,7 @@ namespace Mechanics.Player
             _transform = transform;
         }
 
-        public void StartMove(Vector3 direction, PlayerStats owner)
+        public void StartMove(Vector3 direction, PlayerStats.PlayerStats owner)
         {
             _direction = direction;
             _move = true;
@@ -47,7 +47,7 @@ namespace Mechanics.Player
         private void OnTriggerEnter2D(Collider2D collision)
         {
             Debug.Log("Bullet collided with " + collision.name);
-            if (collision.CompareTag("Wall"))
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
             {
                 if (IsServer)
                 {
@@ -66,7 +66,7 @@ namespace Mechanics.Player
                 {
                     Debug.Log("Bullet hit a player.");
                     int damage = _owner.Attack; // Utilise l'attaque du joueur qui a tir�
-                    PlayerStats playerStats = collision.GetComponent<PlayerStats>();
+                    PlayerStats.PlayerStats playerStats = collision.GetComponent<PlayerStats.PlayerStats>();
                     if (playerStats != null)
                     {
                         playerStats.TakeDamage(damage);

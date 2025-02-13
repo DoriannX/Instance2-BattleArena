@@ -13,13 +13,13 @@ namespace Mechanics.Attack
         [Header("Animator")] [SerializeField] private Animator _animator;
         private int _switchAttack;
 
-        private PlayerStats _playerStats;
+        private PlayerStats.PlayerStats _playerStats;
         private float _fireRate;
         private float _timeSinceLastShot;
 
         private void Awake()
         {
-            _playerStats = GetComponent<PlayerStats>();
+            _playerStats = GetComponent<PlayerStats.PlayerStats>();
             if (_playerStats == null)
             {
                 return;
