@@ -547,6 +547,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  _soundData:
+    Clip: {fileID: 8300000, guid: 62ef6ccbf6eb62a45a89a21e07618535, type: 3}
+    MixerGroup: {fileID: 7193005438074490260, guid: 1210c6ba2b7302842a6180ec26201711, type: 2}
+    Loop: 0
+    PlayOnAwake: 0
+    FrequentSound: 0
+    Mute: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    BypassReverbZones: 0
+    Priority: 128
+    Volume: 1
+    Pitch: 1
+    PanStereo: 0
+    SpatialBlend: 0
+    ReverbZoneMix: 1
+    DopplerLevel: 1
+    Spread: 0
+    MinDistance: 1
+    MaxDistance: 500
   _hitMelee: {fileID: -1542052006788691458, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
   _attackDamage: 20
   _attackSpeed: 0.2
@@ -619,6 +639,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  _soundData:
+    Clip: {fileID: 8300000, guid: 2923c282e57b3ac4283299c9b380473b, type: 3}
+    MixerGroup: {fileID: 7193005438074490260, guid: 1210c6ba2b7302842a6180ec26201711, type: 2}
+    Loop: 0
+    PlayOnAwake: 0
+    FrequentSound: 0
+    Mute: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    BypassReverbZones: 0
+    Priority: 128
+    Volume: 1
+    Pitch: 1
+    PanStereo: 0
+    SpatialBlend: 0
+    ReverbZoneMix: 1
+    DopplerLevel: 1
+    Spread: 0
+    MinDistance: 1
+    MaxDistance: 500
+  _soundData2:
+    Clip: {fileID: 8300000, guid: 96cdff3f2ea455e429321fde01946acc, type: 3}
+    MixerGroup: {fileID: 7193005438074490260, guid: 1210c6ba2b7302842a6180ec26201711, type: 2}
+    Loop: 0
+    PlayOnAwake: 0
+    FrequentSound: 0
+    Mute: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    BypassReverbZones: 0
+    Priority: 128
+    Volume: 1
+    Pitch: 1
+    PanStereo: 0
+    SpatialBlend: 0
+    ReverbZoneMix: 1
+    DopplerLevel: 1
+    Spread: 0
+    MinDistance: 1
+    MaxDistance: 500
   _healthBar: {fileID: 4173174732504475282}
   AttackSpeed: 1
   Attack: 5
@@ -638,6 +698,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  _soundData:
+    Clip: {fileID: 8300000, guid: 322623224b9ab0d48b6cf92d8e127f04, type: 3}
+    MixerGroup: {fileID: 7193005438074490260, guid: 1210c6ba2b7302842a6180ec26201711, type: 2}
+    Loop: 0
+    PlayOnAwake: 0
+    FrequentSound: 0
+    Mute: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    BypassReverbZones: 0
+    Priority: 128
+    Volume: 1
+    Pitch: 1
+    PanStereo: 0
+    SpatialBlend: 0
+    ReverbZoneMix: 1
+    DopplerLevel: 1
+    Spread: 0
+    MinDistance: 1
+    MaxDistance: 500
   bulletPrefab: {fileID: 8138768269861263659, guid: 79a14f02d788acbf28cf72f1e1bdcebe, type: 3}
   bulletSpawnPoint: {fileID: 6802464193731145019}
 --- !u!114 &488331866395229585

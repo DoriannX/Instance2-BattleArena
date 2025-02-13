@@ -7,27 +7,11 @@ using UnityEngine.UI;
 
 namespace Mechanics.PlayerStats
 {
-
-    [SerializeField] private SoundData _soundData;
-    [SerializeField] private SoundData _soundData2;
-
-    [Header("ProgressBar UI")] [SerializeField]
-    private Slider _healthBar;
-
-    public float AttackSpeed;
-    public int Attack;
-    public float CurrentHealth;
-    public int MaxHealth;
-    private int _initialAttack;
-    private bool _isDamageBonusActive = false;
-    NetworkObject _networkObject;
-
-    private Coroutine _regenCoroutine;
-    private float _timeSinceLastHit = 0f;
-    private bool _isRegenerating = false;
-
-    private void Awake()
+    public class PlayerStats : NetworkBehaviour
     {
+        [SerializeField] private SoundData _soundData;
+        [SerializeField] private SoundData _soundData2;
+
         [Header("ProgressBar UI")] [SerializeField]
         private Slider _healthBar;
 
@@ -36,16 +20,15 @@ namespace Mechanics.PlayerStats
         public float CurrentHealth;
         public int MaxHealth;
         private int _initialAttack;
-        private bool _isDamageBonusActive;
+        private bool _isDamageBonusActive = false;
         NetworkObject _networkObject;
 
         private Coroutine _regenCoroutine;
-        private float _timeSinceLastHit;
-        private bool _isRegenerating;
+        private float _timeSinceLastHit = 0f;
+        private bool _isRegenerating = false;
 
-        [Header("Death Effect Prefab")]
-        [SerializeField]
-        private GameObject _deathEffectPrefab; 
+        [Header("Death Effect Prefab")] [SerializeField]
+        private GameObject _deathEffectPrefab;
 
         private void Awake()
         {
@@ -72,83 +55,14 @@ namespace Mechanics.PlayerStats
             }
         }
 
-    public void SetStats(int attack, int maxHealth, float attackSpeed)
-    {
-        AttackSpeed = attackSpeed;
-        Attack = attack;
-        MaxHealth = maxHealth;
-        CurrentHealth = MaxHealth;
-        _initialAttack = attack;
-        AskUpdateHealthBarServerRpc();
-    }
-
-    public void IncreaseStats()
-    {
-        Attack = Mathf.RoundToInt(Attack * 1.05f);
-        MaxHealth = Mathf.RoundToInt(MaxHealth * 1.05f);
-        AskUpdateHealthBarServerRpc();
-    }
-
-    public void ResetStats(int baseAttack, int baseMaxHealth)
-    {
-        Attack = baseAttack;
-        MaxHealth = baseMaxHealth;
-        CurrentHealth = MaxHealth;
-        AskUpdateHealthBarServerRpc();
-    }
-
-    public void ApplyHealBonus(float healAmount)
-    {
-        Debug.Log("Healing player for " + healAmount + " health points and health is " + CurrentHealth);
-        CurrentHealth += healAmount;
-        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
-        AskUpdateHealthBarServerRpc();
-    }
-
-    public void ApplyDamageBonus(float damageMultiplier, float duration)
-    {
-        if (_isDamageBonusActive) return;
-
-        _isDamageBonusActive = true;
-        _initialAttack = Attack;
-        Attack = Mathf.RoundToInt(Attack * damageMultiplier);
-
-        StartCoroutine(RemoveDamageBonusAfterDuration(duration));
-    }
-
-    private IEnumerator RemoveDamageBonusAfterDuration(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        Attack = _initialAttack;
-        _isDamageBonusActive = false;
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void KillServerRpc()
-    {
-        TakeDamage(CurrentHealth);
-    }
-
-    [ContextMenu("Kill")]
-    private void Kill()
-    {
-        KillServerRpc();
-        SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
-    }
-
-    public void TakeDamage(float amount)
-    {
-        SoundManager.Instance.CreateSound().WithSoundData(_soundData2).Play();
-        CurrentHealth -= amount;
-        AskUpdateHealthBarServerRpc();
-        _isRegenerating = false;
-
-        if (CurrentHealth <= 0)
+        public void SetStats(int attack, int maxHealth, float attackSpeed)
         {
-            
-            Debug.Log($"Player died {_networkObject}. Despawning...");
-            SendPlayerDiedMessageClientRpc(_networkObject.OwnerClientId);
-            _networkObject.Despawn();
+            AttackSpeed = attackSpeed;
+            Attack = attack;
+            MaxHealth = maxHealth;
+            CurrentHealth = MaxHealth;
+            _initialAttack = attack;
+            AskUpdateHealthBarServerRpc();
         }
 
         public void IncreaseStats()
@@ -178,7 +92,7 @@ namespace Mechanics.PlayerStats
                 {
                     Send = new ClientRpcSendParams
                     {
-                        TargetClientIds = new[] { _networkObject.OwnerClientId }  
+                        TargetClientIds = new[] { _networkObject.OwnerClientId }
                     }
                 });
 
@@ -235,6 +149,7 @@ namespace Mechanics.PlayerStats
         private void Kill()
         {
             KillServerRpc();
+            SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
         }
 
         public void TakeDamage(float amount)
@@ -242,21 +157,21 @@ namespace Mechanics.PlayerStats
             if (IsServer)
             {
                 CurrentHealth -= amount;
+                SoundManager.Instance.CreateSound().WithSoundData(_soundData2).Play();
                 AskUpdateHealthBarServerRpc();
                 _isRegenerating = false;
 
                 if (CurrentHealth <= 0)
                 {
                     Debug.Log($"Player died {_networkObject}. Despawning...");
-                    GameObject deadPrefab = Instantiate(_deathEffectPrefab, _networkObject.transform.position, Quaternion.identity);
+                    GameObject deadPrefab = Instantiate(_deathEffectPrefab, _networkObject.transform.position,
+                        Quaternion.identity);
                     deadPrefab.GetComponent<NetworkObject>().Spawn();
                     SendPlayerDiedMessageClientRpc(_networkObject.OwnerClientId);
                     _networkObject.Despawn();
                 }
             }
         }
- 
-
 
 
         [ClientRpc]
@@ -265,7 +180,7 @@ namespace Mechanics.PlayerStats
             if (NetworkManager.Singleton.LocalClientId == clientId)
             {
                 Debug.Log($"Player died {_networkObject}. Despawning...");
-                EndMenuManager.Instance.Toggle();            
+                EndMenuManager.Instance.Toggle();
             }
         }
 
