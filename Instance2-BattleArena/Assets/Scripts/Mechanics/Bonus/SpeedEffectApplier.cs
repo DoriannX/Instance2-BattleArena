@@ -1,5 +1,6 @@
+using Events;
+using Mechanics.Movements;
 using Unity.Netcode;
-using UnityEngine;
 
 namespace Mechanics.Bonus
 {
@@ -18,6 +19,8 @@ namespace Mechanics.Bonus
             {
                 playerMovements.ApplyMovementBoost();
                 DispawnServerRpc(NetworkObjectId);
+                
+                EventManager.OnObjectUsed?.Invoke();
             }
         }
     }

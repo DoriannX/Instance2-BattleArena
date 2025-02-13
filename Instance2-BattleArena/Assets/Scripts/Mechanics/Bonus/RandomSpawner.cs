@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Events;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -25,6 +26,13 @@ namespace Mechanics.Bonus
         private void Start()
         {
             NetworkManager.Singleton.OnServerStarted += OnServerStarted;
+            EventManager.OnObjectUsed += SpawnOnServerRpc;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SpawnOnServerRpc()
+        {
+            SpawnSingleObject();
         }
 
         private void OnServerStarted()
@@ -37,7 +45,41 @@ namespace Mechanics.Bonus
             }
         }
 
-        public void SpawnObjects()
+        public void SpawnSingleObject()
+        {
+            GetValidTilePositions();
+            Debug.Log($"Found {_validPositions.Count} valid positions for spawning.");
+        
+            if (_validPositions.Count > 0)
+            {
+                int randomIndex = Random.Range(0, _validPositions.Count);
+                Vector3 spawnPosition = _validPositions[randomIndex];
+        
+                int randomObjectIndex = Random.Range(0, Objects.Count);
+                GameObject prefab = Objects[randomObjectIndex].Prefab;
+        
+                GameObject spawnedObject = Instantiate(prefab, spawnPosition, Quaternion.identity);
+        
+                if (spawnedObject.TryGetComponent(out NetworkObject networkObject))
+                {
+                    networkObject.Spawn();
+                    Debug.Log($"Spawned {spawnedObject.name} at {spawnPosition}");
+                }
+                else
+                {
+                    Debug.LogError($"{prefab.name} does not have a NetworkObject component!");
+                }
+        
+                _validPositions.RemoveAt(randomIndex);
+            }
+            else
+            {
+                Debug.LogWarning("No valid positions available for spawning.");
+            }
+        }
+
+        [ContextMenu("Spawn Objects")]
+        private void SpawnObjects()
         {
             GetValidTilePositions();
             Debug.Log($"Found {_validPositions.Count} valid positions for spawning.");
@@ -53,7 +95,7 @@ namespace Mechanics.Bonus
 
                     if (spawnedObject.TryGetComponent(out NetworkObject networkObject))
                     {
-                        networkObject.Spawn();  
+                        networkObject.Spawn();
                         Debug.Log($"Spawned {spawnedObject.name} at {spawnPosition}");
                     }
                     else
@@ -70,13 +112,32 @@ namespace Mechanics.Bonus
         {
             _validPositions.Clear();
             BoundsInt bounds = Tilemap.cellBounds;
+            Vector3Int min = bounds.min;
+            Vector3Int max = bounds.max;
 
-            foreach (Vector3Int pos in bounds.allPositionsWithin)
+            for (int x = min.x; x < max.x; x++)
             {
-                if (Tilemap.HasTile(pos) && (BlockedTilemap == null || !BlockedTilemap.HasTile(pos)))
+                for (int y = min.y; y < max.y; y++)
                 {
-                    Vector3 worldPos = Tilemap.GetCellCenterWorld(pos);
-                    _validPositions.Add(worldPos);
+                    Vector3Int cellPosition = new Vector3Int(x, y, 0);
+                    Vector3 worldPosition = Tilemap.CellToWorld(cellPosition) + Tilemap.tileAnchor;
+
+                    if (Tilemap.HasTile(cellPosition) && !BlockedTilemap.HasTile(cellPosition))
+                    {
+                        Collider2D[] colliders = Physics2D.OverlapCircleAll(worldPosition, 0.5f);
+                        if (colliders.Length == 0)
+                        {
+                            foreach (Collider2D item in colliders)
+                            {
+                                if (item.TryGetComponent(out EffectApplier effectApplier))
+                                {
+                                    break;
+                                }
+                            }
+
+                            _validPositions.Add(worldPosition);
+                        }
+                    }
                 }
             }
         }

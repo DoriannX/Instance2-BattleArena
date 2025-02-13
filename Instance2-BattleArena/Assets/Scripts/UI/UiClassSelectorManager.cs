@@ -21,15 +21,12 @@ namespace UI
             Assert.IsNotNull(_meleeBtn, "_meleeBtn is missing");
             Assert.IsNotNull(_archerBtn, "_archerBtn is missing");
             Assert.IsNotNull(_gunnerBtn, "_gunnerBtn is missing");
-            ToggleClassSelectorCanvas(false);
+            ToggleClassSelectorCanvas(false, true);
         }
 
-        private void ToggleClassSelectorCanvas(bool state, bool affectTransparency = false)
+        public void ToggleClassSelectorCanvas(bool state, bool visibility)
         {
-            if (affectTransparency)
-            {
-                _classSelectorCanvasGroup.alpha = (state) ? 1: 0;
-            }
+            _classSelectorCanvasGroup.alpha = (visibility) ? 1 : 0;
             _classSelectorCanvasGroup.interactable = state;
             _classSelectorCanvasGroup.blocksRaycasts = state;
         }
@@ -39,8 +36,18 @@ namespace UI
             base.OnNetworkSpawn();
             if (IsServer)
             {
-                ToggleClassSelectorCanvas(false, true);
+                ToggleClassSelectorCanvas(false, false);
             }
+
+            if (!IsServer)
+            {
+                NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
+            }
+        }
+
+        private void OnClientDisconnect(ulong obj)
+        {
+            ToggleClassSelectorCanvas(false, true);
         }
 
         private void Start()
@@ -57,13 +64,14 @@ namespace UI
             {
                 return;
             }
-            ToggleClassSelectorCanvas(true);
+
+            //ToggleClassSelectorCanvas(true, true);
         }
 
         private void SelectClass(int classIndex)
         {
             _playerClassManager.SelectClass(classIndex);
-            ToggleClassSelectorCanvas(false, true);
+            ToggleClassSelectorCanvas(false, false);
         }
     }
 }

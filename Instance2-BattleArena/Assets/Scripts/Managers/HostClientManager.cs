@@ -10,10 +10,21 @@ namespace Managers
         private void Start()
         {
             StartCoroutine(TryConnect());
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
         }
-        
+
+        private void OnClientDisconnect(ulong obj)
+        {
+            StartCoroutine(TryConnect());
+        }
+
         private IEnumerator TryConnect()
         {
+            if (NetworkManager.Singleton.IsServer)
+            {
+                yield break;
+            }
+            
             while (true)
             {
                 if (_startServer || Application.platform == RuntimePlatform.WindowsServer || Application.platform == RuntimePlatform.LinuxServer)
