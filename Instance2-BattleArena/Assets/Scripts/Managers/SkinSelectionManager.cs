@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Managers;
+using Unity.Netcode;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SkinSelectionManager : MonoBehaviour
@@ -13,10 +15,10 @@ public class SkinSelectionManager : MonoBehaviour
     [SerializeField] private PlayerClassManager _playerClassManager;
 
     [SerializeField] private Transform _playerSpawn;
-    [SerializeField] private List<Sprite> CharacterClassesShield;
-    [SerializeField] private List<Sprite> CharacterClassesSoldier;
-    [SerializeField] private List<Sprite> CharacterClassesPort;
-    [SerializeField] private List<Image> ChangeableSkin;
+    [SerializeField] private List<Sprite> _characterClassesShield;
+    [SerializeField] private List<Sprite> _characterClassesSoldier;
+    [SerializeField] private List<Sprite> _characterClassesPort;
+    [SerializeField] private List<Image> _changeableSkin;
 
     private GameObject _playerInstance;
 
@@ -26,26 +28,26 @@ public class SkinSelectionManager : MonoBehaviour
 
         if (_playerClassManager.SelectedClassIndex == 0)
         {
-            ChangeableSkin[0].sprite = CharacterClassesShield[0];
-            ChangeableSkin[1].sprite = CharacterClassesShield[1];
-            ChangeableSkin[2].sprite = CharacterClassesShield[2];
-            ChangeableSkin[3].sprite = CharacterClassesShield[3];
+            _changeableSkin[0].sprite = _characterClassesShield[0];
+            _changeableSkin[1].sprite = _characterClassesShield[1];
+            _changeableSkin[2].sprite = _characterClassesShield[2];
+            _changeableSkin[3].sprite = _characterClassesShield[3];
         }
 
         else if (_playerClassManager.SelectedClassIndex == 1)
         {
-            ChangeableSkin[0].sprite = CharacterClassesSoldier[0];
-            ChangeableSkin[1].sprite = CharacterClassesSoldier[1];
-            ChangeableSkin[2].sprite = CharacterClassesSoldier[2];
-            ChangeableSkin[3].sprite = CharacterClassesSoldier[3];
+            _changeableSkin[0].sprite = _characterClassesSoldier[0];
+            _changeableSkin[1].sprite = _characterClassesSoldier[1];
+            _changeableSkin[2].sprite = _characterClassesSoldier[2];
+            _changeableSkin[3].sprite = _characterClassesSoldier[3];
         }
 
         else if (_playerClassManager.SelectedClassIndex == 2)
         {
-            ChangeableSkin[0].sprite = CharacterClassesPort[0];
-            ChangeableSkin[1].sprite = CharacterClassesPort[1];
-            ChangeableSkin[2].sprite = CharacterClassesPort[2];
-            ChangeableSkin[3].sprite = CharacterClassesPort[3];
+            _changeableSkin[0].sprite = _characterClassesPort[0];
+            _changeableSkin[1].sprite = _characterClassesPort[1];
+            _changeableSkin[2].sprite = _characterClassesPort[2];
+            _changeableSkin[3].sprite = _characterClassesPort[3];
         }
 
         if (ExpManager != null)
@@ -54,27 +56,14 @@ public class SkinSelectionManager : MonoBehaviour
         }
     }
 
-    public void SkinBackButton() 
-    { 
+    public void SkinBackButton()
+    {
         PanelSelectClass.SetActive(true);
         PanelSelectSkin.SetActive(false);
     }
 
-    public void SkinSelectedButton()
+    private void SelectSkin(int index)
     {
-        PanelSelectSkin.SetActive(false);
-
-        if (_playerClassManager.SelectedClassIndex == 0)
-        {
-            _playerInstance = Instantiate(_playerClassManager.PlayerPrefabShield, _playerSpawn.position, Quaternion.identity);
-        }
-        else if (_playerClassManager.SelectedClassIndex == 1)
-        {
-            _playerInstance = Instantiate(_playerClassManager.PlayerPrefabSoldier, _playerSpawn.position, Quaternion.identity);
-        }
-        else if (_playerClassManager.SelectedClassIndex == 2)
-        {
-            _playerInstance = Instantiate(_playerClassManager.PlayerPrefabCarrier, _playerSpawn.position, Quaternion.identity);
-        }
+        //TODO: refaire script entier logique changement de skin
     }
 }

@@ -47,7 +47,7 @@ namespace Mechanics.Player
         private void OnTriggerEnter2D(Collider2D collision)
         {
             Debug.Log("Bullet collided with " + collision.name);
-            if (collision.CompareTag("Wall"))
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
             {
                 if (IsServer)
                 {

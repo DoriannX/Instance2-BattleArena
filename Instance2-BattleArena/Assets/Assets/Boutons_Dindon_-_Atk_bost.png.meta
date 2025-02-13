@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Boutons_Dindon_-_Atk_bost_0: -7572724281910973606
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

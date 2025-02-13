@@ -8,11 +8,14 @@ namespace Mechanics.Attack
     [RequireComponent(typeof(NetworkObject))]
     public class HitMelee : NetworkBehaviour
     {
+        private static readonly int _attack = Animator.StringToHash("Attack");
+
         [Header("References")] [SerializeField]
         private InputActionReference _hitMelee;
 
         [SerializeField] private int _attackDamage = 20;
         [SerializeField] private float _attackSpeed = 0.2f;
+        [SerializeField] private Animator _animator;
 
         private Collider2D _playerInRangeCollider2D;
         private bool _isInCollider;
@@ -60,12 +63,27 @@ namespace Mechanics.Attack
         private void Hit(InputAction.CallbackContext context)
         {
             Debug.Log("trying to hit");
+            AskAnimateServerRpc();
             if (_isInCollider && _playerInRangeCollider2D != null && _timeSinceLastHit >= _attackSpeed)
             {
                 Debug.Log("hit");
                 _timeSinceLastHit = 0f;
                 HitOnServerRpc(_playerInRangeCollider2D.GetComponent<NetworkObject>().OwnerClientId);                
             }
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        private void AskAnimateServerRpc()
+        {
+            AnimateClientRpc();
+            _animator.SetTrigger(_attack);
+        }
+
+        [ClientRpc]
+        private void AnimateClientRpc()
+        {
+            Debug.Log("attacking animation");
+            _animator.SetTrigger(_attack);
         }
 
         [ServerRpc(RequireOwnership = false)]
