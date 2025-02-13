@@ -22,6 +22,10 @@ public class PlayerStats : NetworkBehaviour
     private float _timeSinceLastHit = 0f;
     private bool _isRegenerating = false;
 
+    [Header("Death Effect Prefab")]
+    [SerializeField]
+    private GameObject _deathEffectPrefab; 
+
     private void Awake()
     {
         _networkObject = GetComponent<NetworkObject>();
@@ -74,10 +78,35 @@ public class PlayerStats : NetworkBehaviour
 
     public void ApplyHealBonus(float healAmount)
     {
-        Debug.Log("Healing player for " + healAmount + " health points and health is " + CurrentHealth);
-        CurrentHealth += healAmount;
-        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
-        AskUpdateHealthBarServerRpc();
+        if (IsServer)
+        {
+            CurrentHealth += healAmount;
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+            AskUpdateHealthBarServerRpc();
+
+            ShowHealEffectClientRpc(new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new[] { _networkObject.OwnerClientId }  
+                }
+            });
+
+            Debug.Log("Healing player for " + healAmount + " health points.");
+        }
+    }
+
+    [ClientRpc]
+    private void ShowHealEffectClientRpc(ClientRpcParams clientRpcParams = default)
+    {
+        ExpManager.Instance.DisableAllFeedbacks();
+        if (ExpManager.Instance.HealScreenFeedBack != null)
+        {
+            ExpManager.Instance.HealScreenFeedBack.gameObject.SetActive(true);
+            ExpManager.Instance.FeedBackIconHeal.gameObject.SetActive(true);
+            StartCoroutine(DeactivateEffectAfterDuration(ExpManager.Instance.HealScreenFeedBack, 2f));
+            StartCoroutine(DeactivateEffectAfterDuration(ExpManager.Instance.FeedBackIconHeal, 2f));
+        }
     }
 
     public void ApplyDamageBonus(float damageMultiplier, float duration)
@@ -89,6 +118,14 @@ public class PlayerStats : NetworkBehaviour
         Attack = Mathf.RoundToInt(Attack * damageMultiplier);
 
         StartCoroutine(RemoveDamageBonusAfterDuration(duration));
+        ExpManager.Instance.DisableAllFeedbacks();
+        if (ExpManager.Instance.DamageScreenFeedBack != null)
+        {
+            ExpManager.Instance.DamageScreenFeedBack.gameObject.SetActive(true);
+            ExpManager.Instance.FeedBackIconAttack.gameObject.SetActive(true);
+            StartCoroutine(DeactivateEffectAfterDuration(ExpManager.Instance.DamageScreenFeedBack, duration));
+            StartCoroutine(DeactivateEffectAfterDuration(ExpManager.Instance.FeedBackIconAttack, duration));
+        }
     }
 
     private IEnumerator RemoveDamageBonusAfterDuration(float duration)
@@ -112,18 +149,26 @@ public class PlayerStats : NetworkBehaviour
 
     public void TakeDamage(float amount)
     {
-        CurrentHealth -= amount;
-        AskUpdateHealthBarServerRpc();
-        _isRegenerating = false;
-
-        if (CurrentHealth <= 0)
+        if (IsServer)
         {
-            Debug.Log($"Player died {_networkObject}. Despawning...");
-            SendPlayerDiedMessageClientRpc(_networkObject.OwnerClientId);
-            _networkObject.Despawn();
+            CurrentHealth -= amount;
+            AskUpdateHealthBarServerRpc();
+            _isRegenerating = false;
+
+            if (CurrentHealth <= 0)
+            {
+                Debug.Log($"Player died {_networkObject}. Despawning...");
+                GameObject DeadPrefab = Instantiate(_deathEffectPrefab, _networkObject.transform.position, Quaternion.identity);
+                DeadPrefab.GetComponent<NetworkObject>().Spawn();
+                SendPlayerDiedMessageClientRpc(_networkObject.OwnerClientId);
+                _networkObject.Despawn();
+            }
         }
     }
-    
+ 
+
+
+
     [ClientRpc]
     private void SendPlayerDiedMessageClientRpc(ulong clientId)
     {
@@ -174,5 +219,11 @@ public class PlayerStats : NetworkBehaviour
 
         _isRegenerating = false;
         _regenCoroutine = null;
+    }
+
+    private IEnumerator DeactivateEffectAfterDuration(GameObject effect, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        effect.gameObject.SetActive(false);
     }
 }
