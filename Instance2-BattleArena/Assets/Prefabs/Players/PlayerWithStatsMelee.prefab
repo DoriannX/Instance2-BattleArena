@@ -420,7 +420,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.925, y: 1.6417, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 163090565408875700}
@@ -618,6 +618,7 @@ MonoBehaviour:
   Attack: 20
   CurrentHealth: 150
   MaxHealth: 150
+  deathEffectPrefab: {fileID: 2353600328335836179, guid: b61b4a5b398d54f4085e49af0bd24b15, type: 3}
 --- !u!114 &5151561507002005342
 MonoBehaviour:
   m_ObjectHideFlags: 0

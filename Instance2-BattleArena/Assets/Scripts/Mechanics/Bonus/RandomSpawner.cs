@@ -49,7 +49,7 @@ namespace Mechanics.Bonus
                     int randomIndex = Random.Range(0, _validPositions.Count);
                     Vector3 spawnPosition = _validPositions[randomIndex];
 
-                    GameObject spawnedObject = Instantiate(item.Prefab, spawnPosition, Quaternion.identity);
+                    GameObject spawnedObject = Instantiate(item.Prefab, spawnPosition, item.Prefab.transform.rotation);
 
                     if (spawnedObject.TryGetComponent(out NetworkObject networkObject))
                     {
