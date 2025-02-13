@@ -517,8 +517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _playerMovement: {fileID: 1936783750999267908, guid: 6d027cec8a667ed4da020f246932f8f1, type: 3}
-  _playerAcceleration: 60
-  _playerMaxSpeed: 10
+  _playerAcceleration: 100
+  _playerMaxSpeed: 75
   _animator: {fileID: -5253915069630554894}
 --- !u!114 &6133390102867121111
 MonoBehaviour:
