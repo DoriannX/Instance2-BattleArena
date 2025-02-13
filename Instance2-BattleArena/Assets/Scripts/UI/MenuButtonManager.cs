@@ -44,12 +44,14 @@ namespace UI
 
         public void OpenCredits()
         {
+            SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
             _credits.SetActive(true);
             _controlsUI.SetActive(false);
         }
 
         public void CloseCredits()
         {
+            SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
             _credits.SetActive(false);
             _controlsUI.SetActive(true);
         }

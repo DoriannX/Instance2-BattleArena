@@ -1,11 +1,16 @@
+using AudioSystem;
 using Events;
 using Mechanics.Movements;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace Mechanics.Bonus
 {
     public class SpeedEffectApplier : EffectApplier
     {
+
+        [SerializeField] private SoundData _soundData;
+
         [ClientRpc]
         public override void ApplyEffectClientRpc(ulong playerId)
         {
@@ -17,6 +22,7 @@ namespace Mechanics.Bonus
             PlayerMovements playerMovements = player.GetComponent<PlayerMovements>();
             if (playerMovements != null)
             {
+                SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
                 playerMovements.ApplyMovementBoost();
                 DispawnServerRpc(NetworkObjectId);
                 

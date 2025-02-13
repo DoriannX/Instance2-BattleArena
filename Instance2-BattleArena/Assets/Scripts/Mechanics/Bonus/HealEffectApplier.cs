@@ -1,3 +1,4 @@
+using AudioSystem;
 using Events;
 using Unity.Netcode;
 using UnityEngine;
@@ -6,6 +7,9 @@ namespace Mechanics.Bonus
 {
     public class HealEffectApplier : EffectApplier
     {
+
+        [SerializeField] private SoundData _soundData;
+
         [ClientRpc]
         public override void ApplyEffectClientRpc(ulong playerId)
         {
@@ -18,6 +22,7 @@ namespace Mechanics.Bonus
 
             if (playerStats != null)
             {
+                SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
                 HealServerRpc(playerId);
                 DispawnServerRpc(NetworkObjectId);
                 

@@ -1,3 +1,4 @@
+using AudioSystem;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.UI;
 
 public class ExpManager : MonoBehaviour
 {
+
+    [SerializeField] private SoundData _soundData;
     public static ExpManager Instance;
     [Header("Character Settings")]
     private PlayerClassManager.CharacterClass _currentClass;
@@ -54,6 +57,7 @@ public class ExpManager : MonoBehaviour
     private void LevelUp()
     {
         _level++;
+        SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
         _currentExp -= _expToLevel;
         _expToLevel += _addExpToNextLevel;
 

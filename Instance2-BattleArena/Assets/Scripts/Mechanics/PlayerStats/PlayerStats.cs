@@ -4,9 +4,14 @@ using UnityEngine.UI;
 using System.Collections;
 using UI;
 using Unity.Netcode;
+using AudioSystem;
 
 public class PlayerStats : NetworkBehaviour
 {
+
+    [SerializeField] private SoundData _soundData;
+    [SerializeField] private SoundData _soundData2;
+
     [Header("ProgressBar UI")] [SerializeField]
     private Slider _healthBar;
 
@@ -108,16 +113,19 @@ public class PlayerStats : NetworkBehaviour
     private void Kill()
     {
         KillServerRpc();
+        SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
     }
 
     public void TakeDamage(float amount)
     {
+        SoundManager.Instance.CreateSound().WithSoundData(_soundData2).Play();
         CurrentHealth -= amount;
         AskUpdateHealthBarServerRpc();
         _isRegenerating = false;
 
         if (CurrentHealth <= 0)
         {
+            
             Debug.Log($"Player died {_networkObject}. Despawning...");
             SendPlayerDiedMessageClientRpc(_networkObject.OwnerClientId);
             _networkObject.Despawn();

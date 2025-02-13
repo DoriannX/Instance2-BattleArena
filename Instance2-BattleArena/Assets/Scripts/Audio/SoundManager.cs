@@ -69,7 +69,7 @@ namespace AudioSystem
             activeSoundEmitters.Remove(soundEmitter);
         }
 
-        private void OntakeFromPool(SoundEmitter soundEmitter)
+        private void OnTakeFromPool(SoundEmitter soundEmitter)
         {
             soundEmitter.gameObject.SetActive(true);
             activeSoundEmitters.Add(soundEmitter);
@@ -86,7 +86,7 @@ namespace AudioSystem
         {
             soundEmitterPool = new ObjectPool<SoundEmitter>(
                 CreateSoundEmitter,
-                OntakeFromPool,
+                OnTakeFromPool,
                 OnReturnedToPool,
                 OnDestroyPoolObject,
                 _collectionCheck,
