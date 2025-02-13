@@ -1,31 +1,40 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UI;
+using Unity.Netcode;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : NetworkBehaviour
 {
-    [Header("ProgressBar UI")]
-    [SerializeField] private Slider _healthBar;
+    [Header("ProgressBar UI")] [SerializeField]
+    private Slider _healthBar;
 
     public float AttackSpeed;
     public int Attack;
-    public int CurrentHealth;
+    public float CurrentHealth;
     public int MaxHealth;
     private int _initialAttack;
     private bool _isDamageBonusActive = false;
+    NetworkObject _networkObject;
 
     private Coroutine _regenCoroutine;
     private float _timeSinceLastHit = 0f;
     private bool _isRegenerating = false;
 
+    private void Awake()
+    {
+        _networkObject = GetComponent<NetworkObject>();
+    }
+
     private void Start()
     {
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
     }
 
     private void Update()
     {
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
 
         if (!_isRegenerating)
         {
@@ -38,21 +47,21 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public void SetStats(int attack, int maxHealth ,float attackSpeed)
+    public void SetStats(int attack, int maxHealth, float attackSpeed)
     {
         AttackSpeed = attackSpeed;
         Attack = attack;
         MaxHealth = maxHealth;
         CurrentHealth = MaxHealth;
         _initialAttack = attack;
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
     }
 
     public void IncreaseStats()
     {
         Attack = Mathf.RoundToInt(Attack * 1.05f);
         MaxHealth = Mathf.RoundToInt(MaxHealth * 1.05f);
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
     }
 
     public void ResetStats(int baseAttack, int baseMaxHealth)
@@ -60,17 +69,15 @@ public class PlayerStats : MonoBehaviour
         Attack = baseAttack;
         MaxHealth = baseMaxHealth;
         CurrentHealth = MaxHealth;
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
     }
 
     public void ApplyHealBonus(float healAmount)
     {
-        if (CurrentHealth < MaxHealth)
-        {
-            int healToApply = Mathf.RoundToInt(healAmount);
-            CurrentHealth = Mathf.Min(CurrentHealth + healToApply, MaxHealth);
-            UpdateHealthBar();
-        }
+        Debug.Log("Healing player for " + healAmount + " health points and health is " + CurrentHealth);
+        CurrentHealth += healAmount;
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+        AskUpdateHealthBarServerRpc();
     }
 
     public void ApplyDamageBonus(float damageMultiplier, float duration)
@@ -91,31 +98,60 @@ public class PlayerStats : MonoBehaviour
         _isDamageBonusActive = false;
     }
 
-    public void TakeDamage(int amount)
+    [ServerRpc(RequireOwnership = false)]
+    private void KillServerRpc()
+    {
+        TakeDamage(CurrentHealth);
+    }
+
+    [ContextMenu("Kill")]
+    private void Kill()
+    {
+        KillServerRpc();
+    }
+
+    public void TakeDamage(float amount)
     {
         CurrentHealth -= amount;
-        UpdateHealthBar();
+        AskUpdateHealthBarServerRpc();
         _isRegenerating = false;
 
-        if(CurrentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
-            Destroy(gameObject);
+            Debug.Log($"Player died {_networkObject}. Despawning...");
+            SendPlayerDiedMessageClientRpc(_networkObject.OwnerClientId);
+            _networkObject.Despawn();
+        }
+    }
+    
+    [ClientRpc]
+    private void SendPlayerDiedMessageClientRpc(ulong clientId)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            Debug.Log($"Player died {_networkObject}. Despawning...");
+            EndMenuManager.Instance.Toggle();
         }
     }
 
-    public void UpdateHealthBar()
+    [ServerRpc(RequireOwnership = false)]
+    public void AskUpdateHealthBarServerRpc()
     {
-        if (_healthBar != null)
-        {
-            _healthBar.value = (float)CurrentHealth / MaxHealth;
-        }
+        UpdateHealthBarClientRpc(CurrentHealth, MaxHealth);
+        _healthBar.value = (float)CurrentHealth / MaxHealth;
+    }
+
+    [ClientRpc]
+    private void UpdateHealthBarClientRpc(float currentHealth, float maxHealth)
+    {
+        _healthBar.value = currentHealth / maxHealth;
     }
 
     private IEnumerator WaitAndStartRegeneration()
     {
-        yield return new WaitForSeconds(5f); 
+        yield return new WaitForSeconds(5f);
 
-        if (_timeSinceLastHit >= 10f) 
+        if (_timeSinceLastHit >= 10f)
         {
             StartCoroutine(RegenerateHealth());
         }
@@ -132,7 +168,7 @@ public class PlayerStats : MonoBehaviour
         while (CurrentHealth < MaxHealth && _isRegenerating)
         {
             CurrentHealth = Mathf.Min(CurrentHealth + 1, MaxHealth);
-            UpdateHealthBar();
+            AskUpdateHealthBarServerRpc();
             yield return new WaitForSeconds(1f);
         }
 

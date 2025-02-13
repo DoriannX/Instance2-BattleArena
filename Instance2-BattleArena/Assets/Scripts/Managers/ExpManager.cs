@@ -1,3 +1,4 @@
+using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -64,7 +65,7 @@ public class ExpManager : MonoBehaviour
         if (_playerStats == null) return;
 
         int previousMaxHealth = _playerStats.MaxHealth;
-        int previousHealth = _playerStats.CurrentHealth;
+        float previousHealth = _playerStats.CurrentHealth;
 
         _playerStats.IncreaseStats(); 
 
@@ -79,7 +80,7 @@ public class ExpManager : MonoBehaviour
             _playerStats.CurrentHealth += healthIncrease;
             _playerStats.CurrentHealth = Mathf.Min(_playerStats.CurrentHealth, newMaxHealth);
         }
-        _playerStats.UpdateHealthBar();
+        _playerStats.AskUpdateHealthBarServerRpc();
     }
 
 

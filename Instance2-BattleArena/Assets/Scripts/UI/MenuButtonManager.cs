@@ -36,6 +36,7 @@ public class MenuButtonManager : MonoBehaviour
 
     public void CloseSettings()
     {
+        SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
         _settings.SetActive(false);
     }
 
@@ -53,13 +54,16 @@ public class MenuButtonManager : MonoBehaviour
 
     public void Respawn()
     {
+        SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
         SceneManager.LoadScene("DevScene");
     }
 
     public void MainMenu()
     {
+        SoundManager.Instance.CreateSound().WithSoundData(_soundData).Play();
         SceneManager.LoadScene("MainMenu");
     }
+
 
     public void RightPanelSkin()
     {

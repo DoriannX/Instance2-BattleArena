@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Unity.Netcode;
 
-public class PlayerMovements : MonoBehaviour
+public class PlayerMovements : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private InputActionReference _playerMovement;
@@ -13,6 +14,7 @@ public class PlayerMovements : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float _playerAcceleration = 1f;
     [SerializeField] private float _playerMaxSpeed = 1f;
+    private PlayerInput _playerInput;
 
     [Header("Animator")]
     [SerializeField] private Animator _animator;
@@ -38,6 +40,15 @@ public class PlayerMovements : MonoBehaviour
 
         _originalSlow = _playerAcceleration;
         _originalSlowMaxSpeed = _playerMaxSpeed;
+
+        _playerInput = GetComponent<PlayerInput>();
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        _playerInput.enabled = IsOwner;
+        enabled = IsOwner;
     }
 
     private void Update()
@@ -47,19 +58,22 @@ public class PlayerMovements : MonoBehaviour
 
     private void Move()
     {
-        Vector2 moveDirection = _playerMovement.action.ReadValue<Vector2>().normalized;
-        _playerRigidbody.linearVelocity += _playerAcceleration * Time.deltaTime * new Vector2(moveDirection.x, moveDirection.y);
-        if (_playerRigidbody.linearVelocity.magnitude > _playerMaxSpeed ) _playerRigidbody.linearVelocity = Vector2.ClampMagnitude(_playerRigidbody.linearVelocity, _playerMaxSpeed);
-
-        Vector3 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - _playerTransform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotZ = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-        _playerTransform.rotation = rotZ;
-        _animator.SetBool("IsMoving", true);
-
-        if(_playerRigidbody.linearVelocity.magnitude <= 3) 
+        if (IsOwner)
         {
-            _animator.SetBool("IsMoving", false);
+            Vector2 moveDirection = _playerMovement.action.ReadValue<Vector2>().normalized;
+            _playerRigidbody.linearVelocity += _playerAcceleration * Time.deltaTime * new Vector2(moveDirection.x, moveDirection.y);
+            if (_playerRigidbody.linearVelocity.magnitude > _playerMaxSpeed ) _playerRigidbody.linearVelocity = Vector2.ClampMagnitude(_playerRigidbody.linearVelocity, _playerMaxSpeed);
+
+            Vector3 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - _playerTransform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //Quaternion rotZ = Quaternion.AngleAxis(, Vector3.forward);
+            _playerRigidbody.rotation = angle - 90;
+            _animator.SetBool("IsMoving", true);
+
+            if(_playerRigidbody.linearVelocity.magnitude <= 3) 
+            {
+                _animator.SetBool("IsMoving", false);
+            }
         }
     }
 
