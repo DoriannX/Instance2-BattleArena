@@ -1,0 +1,1274 @@
+fileFormatVersion: 2
+guid: 43e6bd6781b279b4a91a4176314fe52b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 583533030667600825
+    second: punaise_0
+  - first:
+      213: 8271007318710741288
+    second: punaise_1
+  - first:
+      213: -1558071765162294017
+    second: punaise_2
+  - first:
+      213: -6248644993954446018
+    second: punaise_3
+  - first:
+      213: 3486676199456741039
+    second: punaise_4
+  - first:
+      213: 5421502924571262311
+    second: punaise_5
+  - first:
+      213: 1980160628521029075
+    second: punaise_6
+  - first:
+      213: -8539044810670615421
+    second: punaise_7
+  - first:
+      213: -5462952197437647556
+    second: punaise_8
+  - first:
+      213: 5577711104097181427
+    second: punaise_9
+  - first:
+      213: 1980581713963076324
+    second: punaise_10
+  - first:
+      213: 4635581794323620936
+    second: punaise_11
+  - first:
+      213: 3018825774922382425
+    second: punaise_12
+  - first:
+      213: 7113376143545539511
+    second: punaise_13
+  - first:
+      213: -1771406766386086298
+    second: punaise_14
+  - first:
+      213: 2585303895478769277
+    second: punaise_15
+  - first:
+      213: -6359011805669996440
+    second: punaise_16
+  - first:
+      213: 6754146901817360457
+    second: punaise_17
+  - first:
+      213: -9175833077877252094
+    second: punaise_18
+  - first:
+      213: -7986979663712542008
+    second: punaise_19
+  - first:
+      213: 8529150563897711888
+    second: punaise_20
+  - first:
+      213: -1327628274341906691
+    second: punaise_21
+  - first:
+      213: 3580241201875995868
+    second: punaise_22
+  - first:
+      213: 2073422218024244782
+    second: punaise_23
+  - first:
+      213: 1312989280134412176
+    second: punaise_24
+  - first:
+      213: 3871535582148115956
+    second: punaise_25
+  - first:
+      213: -2905578957362801437
+    second: punaise_26
+  - first:
+      213: 1127379442458355346
+    second: punaise_27
+  - first:
+      213: 853547846379390764
+    second: punaise_28
+  - first:
+      213: 3746363151671597290
+    second: punaise_29
+  - first:
+      213: 8657434836373672060
+    second: punaise_30
+  - first:
+      213: -2364632527059511438
+    second: punaise_31
+  - first:
+      213: -1944545279182471968
+    second: punaise_32
+  - first:
+      213: -8355843062042854836
+    second: punaise_33
+  - first:
+      213: -8126079416003658022
+    second: punaise_34
+  - first:
+      213: -8447464994666676959
+    second: punaise_35
+  - first:
+      213: -8943519415484605358
+    second: punaise_36
+  - first:
+      213: 462935229289421812
+    second: punaise_37
+  - first:
+      213: -2394834405815846339
+    second: punaise_38
+  - first:
+      213: -134546071076940158
+    second: punaise_39
+  - first:
+      213: 6629437773568282253
+    second: punaise_40
+  - first:
+      213: -3428958774701062063
+    second: punaise_41
+  - first:
+      213: 9069283417801448314
+    second: punaise_42
+  - first:
+      213: 5307238635330475473
+    second: punaise_43
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: punaise_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 365
+        width: 137
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b346af1330291800800000000000000
+      internalID: 583533030667600825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_1
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 460
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 829e86ea55588c270800000000000000
+      internalID: 8271007318710741288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_2
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 444
+        width: 36
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff48fee0cfd906ae0800000000000000
+      internalID: -1558071765162294017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_3
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 453
+        width: 29
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3582d71c7a5849a0800000000000000
+      internalID: -6248644993954446018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_4
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 459
+        width: 28
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa69d6bb789236030800000000000000
+      internalID: 3486676199456741039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_5
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 461
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76dbfcf7f2c0d3b40800000000000000
+      internalID: 5421502924571262311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_6
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 425
+        width: 32
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ddc53da991fa7b10800000000000000
+      internalID: 1980160628521029075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_7
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 426
+        width: 34
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 384d5da8cf73f7980800000000000000
+      internalID: -8539044810670615421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_8
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 357
+        width: 35
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c351ace9be1bf24b0800000000000000
+      internalID: -5462952197437647556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_9
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 351
+        width: 28
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fed67b72b2086d40800000000000000
+      internalID: 5577711104097181427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_10
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 363
+        width: 27
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ea476543907c7b10800000000000000
+      internalID: 1980581713963076324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_11
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 337
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8446de1e415e45040800000000000000
+      internalID: 4635581794323620936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_12
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 354
+        width: 29
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95cba014c0605e920800000000000000
+      internalID: 3018825774922382425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_13
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 358
+        width: 35
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bb15cd0ae9c7b260800000000000000
+      internalID: 7113376143545539511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_14
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 352
+        width: 26
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66e75d86ee2ba67e0800000000000000
+      internalID: -1771406766386086298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_15
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 322
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7612760238d0e320800000000000000
+      internalID: 2585303895478769277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_16
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 314
+        width: 29
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8684688447040c7a0800000000000000
+      internalID: -6359011805669996440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_17
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 295
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94001ab72dc8bbd50800000000000000
+      internalID: 6754146901817360457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_18
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 275
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 200e8da6e64e8a080800000000000000
+      internalID: -9175833077877252094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_19
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 286
+        width: 31
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c2252c005c882190800000000000000
+      internalID: -7986979663712542008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_20
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 270
+        width: 29
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01d12fc9f31ad5670800000000000000
+      internalID: 8529150563897711888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_21
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 243
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df6f51a5e11539de0800000000000000
+      internalID: -1327628274341906691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_22
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 238
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdc490877629fa130800000000000000
+      internalID: 3580241201875995868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_23
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 255
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e26dcb6958646cc10800000000000000
+      internalID: 2073422218024244782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_24
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 243
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 097be443bcca83210800000000000000
+      internalID: 1312989280134412176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_25
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 201
+        width: 32
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fd393589157ab530800000000000000
+      internalID: 3871535582148115956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_26
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 207
+        width: 29
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e45a8b255f4da7d0800000000000000
+      internalID: -2905578957362801437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_27
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 216
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 296eeca31a145af00800000000000000
+      internalID: 1127379442458355346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_28
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 205
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c274e367e3968db00800000000000000
+      internalID: 853547846379390764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_29
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 197
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae89ff6ff61cdf330800000000000000
+      internalID: 3746363151671597290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_30
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 159
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7015285d13652870800000000000000
+      internalID: 8657434836373672060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_31
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 156
+        width: 28
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2779848be332f2fd0800000000000000
+      internalID: -2364632527059511438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_32
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 162
+        width: 29
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ec7aa80f569305e0800000000000000
+      internalID: -1944545279182471968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_33
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 178
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4af50891051a0c80800000000000000
+      internalID: -8355843062042854836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_34
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 133
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adefc7033dd5a3f80800000000000000
+      internalID: -8126079416003658022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_35
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 114
+        width: 26
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12d785c085394ca80800000000000000
+      internalID: -8447464994666676959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_36
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 139
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25c1b36f97c32e380800000000000000
+      internalID: -8943519415484605358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_37
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 82
+        width: 29
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fb5fc7632dac6600800000000000000
+      internalID: 462935229289421812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_38
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 64
+        width: 27
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3a7679dbc6d3ced0800000000000000
+      internalID: -2394834405815846339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_39
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 79
+        width: 29
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 286d88baf0ff12ef0800000000000000
+      internalID: -134546071076940158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_40
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 47
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8e0812e78e700c50800000000000000
+      internalID: 6629437773568282253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_41
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 31
+        width: 35
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1580c7c6924e960d0800000000000000
+      internalID: -3428958774701062063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_42
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 50
+        width: 35
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7b5565a7319cdd70800000000000000
+      internalID: 9069283417801448314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: punaise_43
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 30
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d51a1d7b6917a940800000000000000
+      internalID: 5307238635330475473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      punaise_0: 583533030667600825
+      punaise_1: 8271007318710741288
+      punaise_10: 1980581713963076324
+      punaise_11: 4635581794323620936
+      punaise_12: 3018825774922382425
+      punaise_13: 7113376143545539511
+      punaise_14: -1771406766386086298
+      punaise_15: 2585303895478769277
+      punaise_16: -6359011805669996440
+      punaise_17: 6754146901817360457
+      punaise_18: -9175833077877252094
+      punaise_19: -7986979663712542008
+      punaise_2: -1558071765162294017
+      punaise_20: 8529150563897711888
+      punaise_21: -1327628274341906691
+      punaise_22: 3580241201875995868
+      punaise_23: 2073422218024244782
+      punaise_24: 1312989280134412176
+      punaise_25: 3871535582148115956
+      punaise_26: -2905578957362801437
+      punaise_27: 1127379442458355346
+      punaise_28: 853547846379390764
+      punaise_29: 3746363151671597290
+      punaise_3: -6248644993954446018
+      punaise_30: 8657434836373672060
+      punaise_31: -2364632527059511438
+      punaise_32: -1944545279182471968
+      punaise_33: -8355843062042854836
+      punaise_34: -8126079416003658022
+      punaise_35: -8447464994666676959
+      punaise_36: -8943519415484605358
+      punaise_37: 462935229289421812
+      punaise_38: -2394834405815846339
+      punaise_39: -134546071076940158
+      punaise_4: 3486676199456741039
+      punaise_40: 6629437773568282253
+      punaise_41: -3428958774701062063
+      punaise_42: 9069283417801448314
+      punaise_43: 5307238635330475473
+      punaise_5: 5421502924571262311
+      punaise_6: 1980160628521029075
+      punaise_7: -8539044810670615421
+      punaise_8: -5462952197437647556
+      punaise_9: 5577711104097181427
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,3 +1,4 @@
+using Events;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -23,6 +24,8 @@ namespace Mechanics.Bonus
             {
                 playerStats.ApplyDamageBonus(_damageMultiplier, _duration);
                 DispawnServerRpc(NetworkObjectId);
+                
+                EventManager.OnObjectUsed?.Invoke();
             }
         }
     }
