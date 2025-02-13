@@ -5,12 +5,11 @@ namespace Mechanics.Attack
 {
     public class Shoot : NetworkBehaviour
     {
-        [Header("References")] private BulletSpawner _bulletSpawner;
-        [HideInInspector] public Transform PlayerTransform;
-        public Bullet BulletPrefab;
+        private static readonly int _isAttacking = Animator.StringToHash("IsAttacking");
+        private BulletSpawner _bulletSpawner;
 
         [Header("Animator")] [SerializeField] private Animator _animator;
-        private int _switchAttack = 0;
+        private int _switchAttack;
 
         private PlayerStats _playerStats;
         private float _fireRate;
@@ -18,9 +17,6 @@ namespace Mechanics.Attack
 
         private void Awake()
         {
-            PlayerTransform = transform;
-            _playerStats = GetComponent<PlayerStats>();
-            PlayerTransform = transform;
             _playerStats = GetComponent<PlayerStats>();
             if (_playerStats == null)
             {
@@ -49,26 +45,26 @@ namespace Mechanics.Attack
 
         private void Update()
         {
-            if (!IsOwner || !Input.GetButtonDown("Fire1"))
+            if (!IsOwner || !Input.GetButtonDown("Fire1") || _timeSinceLastShot + _fireRate > Time.time)
             {
                 return;
             }
 
-            // Demande au serveur de tirer une balle pour ce client
             _bulletSpawner.FireBulletServerRpc(OwnerClientId);
-            _animator.SetBool("IsAttacking", true);
+            _timeSinceLastShot = Time.time;
+            _animator.SetBool(_isAttacking, true);
         }
 
         private void ResetAnimFire()
         {
             _switchAttack++;
-            _animator.SetBool("IsAttacking", false);
+            _animator.SetBool(_isAttacking, false);
             if (_switchAttack >= 2)
             {
                 _switchAttack = 0;
             }
 
-            _animator.SetInteger("SwitchAttack", _switchAttack);
+            _animator.SetInteger(_isAttacking, _switchAttack);
         }
     }
 }

@@ -1,8 +1,5 @@
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
-using UnityEngine.Serialization;
 
 namespace Managers
 {
@@ -33,11 +30,9 @@ namespace Managers
         private NetworkManager _networkManager;
 
         [SerializeField] private Transform _playerSpawn;
-        private GameObject _playerInstance = null;
-
-        private int _selectedClassIndex = -1;
-        public int SelectedClassIndex = -1;
-        public CharacterClass SelectedClass;
+        private GameObject _playerInstance;
+        public int SelectedClassIndex { get; private set; } = -1;
+         public CharacterClass SelectedClass;
 
         void Start()
         {
@@ -48,7 +43,7 @@ namespace Managers
 
         public void SelectClass(int classIndex)
         {
-            _selectedClassIndex = classIndex;
+            SelectedClassIndex = classIndex;
             AskSpawnSelfServerRpc(
                 _networkManager.LocalClientId, classIndex);
             
@@ -58,10 +53,10 @@ namespace Managers
         [ContextMenu("Respawn")]
         public void RespawnSelf()
         {
-            RespawnPlayer(_networkManager.LocalClientId, _selectedClassIndex);
+            RespawnPlayer(_networkManager.LocalClientId, SelectedClassIndex);
         }
 
-        public void RespawnPlayer(ulong clientId, int selectedClassIndex)
+        private void RespawnPlayer(ulong clientId, int selectedClassIndex)
         {
             selectedClassIndex = Mathf.Clamp(selectedClassIndex, 0, CharacterClasses.Length - 1);
             AskSpawnSelfServerRpc(clientId, selectedClassIndex);
@@ -72,28 +67,26 @@ namespace Managers
         {
             if (classIndex >= 0 && classIndex < CharacterClasses.Length)
             {
-                CharacterClass selectedClass = CharacterClasses[classIndex];
-                PlayerPrefabShield.GetComponent<SpriteRenderer>().sprite = selectedClass.BaseSprite;
-                selectedClass.ApplyClassStats(_playerStats);
+                SelectedClass = CharacterClasses[classIndex];
+                PlayerPrefabShield.GetComponent<SpriteRenderer>().sprite = SelectedClass.BaseSprite;
+                SelectedClass.ApplyClassStats(_playerStats);
 
-
-                if (classIndex == 0)
+                GameObject playerPrefab = classIndex switch
                 {
-                    GameObject playerInstance =
-                        Instantiate(PlayerPrefabAlternate, _playerSpawn.position, Quaternion.identity);
-                    playerInstance.GetComponent<NetworkObject>().SpawnAsPlayerObject(id);
-                    _playerInstance = playerInstance;
-                }
-                else
-                {
-                    GameObject playerInstance = Instantiate(PlayerPrefab, _playerSpawn.position, Quaternion.identity);
-                    playerInstance.GetComponent<NetworkObject>().SpawnAsPlayerObject(id);
-                    _playerInstance = playerInstance;
-                }
+                    0 => PlayerPrefabShield,
+                    1 => PlayerPrefabSoldier,
+                    2 => PlayerPrefabCarrier,
+                    _ => PlayerPrefabShield
+                };
+                
+                GameObject playerInstance =
+                    Instantiate(playerPrefab, _playerSpawn.position, Quaternion.identity);
+                playerInstance.GetComponent<NetworkObject>().SpawnAsPlayerObject(id);
+                _playerInstance = playerInstance;
 
                 if (ExpManager != null)
                 {
-                    ExpManager.Initialize(selectedClass, _playerInstance);
+                    ExpManager.Initialize(SelectedClass, _playerInstance);
                 }
             }
 

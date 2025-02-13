@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine.UI;
 
 public class SkinSelectionManager : MonoBehaviour
@@ -21,9 +22,9 @@ public class SkinSelectionManager : MonoBehaviour
 
     public void SelectSkinCharacter()
     {
-        _playerClassManager.SelectClass(_playerClassManager.selectedClassIndex);
+        _playerClassManager.SelectClass(_playerClassManager.SelectedClassIndex);
 
-        if (_playerClassManager.selectedClassIndex == 0)
+        if (_playerClassManager.SelectedClassIndex == 0)
         {
             ChangeableSkin[0].sprite = CharacterClassesShield[0];
             ChangeableSkin[1].sprite = CharacterClassesShield[1];
@@ -31,7 +32,7 @@ public class SkinSelectionManager : MonoBehaviour
             ChangeableSkin[3].sprite = CharacterClassesShield[3];
         }
 
-        else if (_playerClassManager.selectedClassIndex == 1)
+        else if (_playerClassManager.SelectedClassIndex == 1)
         {
             ChangeableSkin[0].sprite = CharacterClassesSoldier[0];
             ChangeableSkin[1].sprite = CharacterClassesSoldier[1];
@@ -39,7 +40,7 @@ public class SkinSelectionManager : MonoBehaviour
             ChangeableSkin[3].sprite = CharacterClassesSoldier[3];
         }
 
-        else if (_playerClassManager.selectedClassIndex == 2)
+        else if (_playerClassManager.SelectedClassIndex == 2)
         {
             ChangeableSkin[0].sprite = CharacterClassesPort[0];
             ChangeableSkin[1].sprite = CharacterClassesPort[1];
@@ -49,7 +50,7 @@ public class SkinSelectionManager : MonoBehaviour
 
         if (ExpManager != null)
         {
-            ExpManager.Initialize(_playerClassManager.selectedClass, _playerInstance);
+            ExpManager.Initialize(_playerClassManager.SelectedClass, _playerInstance);
         }
     }
 
@@ -63,15 +64,15 @@ public class SkinSelectionManager : MonoBehaviour
     {
         PanelSelectSkin.SetActive(false);
 
-        if (_playerClassManager.selectedClassIndex == 0)
+        if (_playerClassManager.SelectedClassIndex == 0)
         {
             _playerInstance = Instantiate(_playerClassManager.PlayerPrefabShield, _playerSpawn.position, Quaternion.identity);
         }
-        else if (_playerClassManager.selectedClassIndex == 1)
+        else if (_playerClassManager.SelectedClassIndex == 1)
         {
             _playerInstance = Instantiate(_playerClassManager.PlayerPrefabSoldier, _playerSpawn.position, Quaternion.identity);
         }
-        else if (_playerClassManager.selectedClassIndex == 2)
+        else if (_playerClassManager.SelectedClassIndex == 2)
         {
             _playerInstance = Instantiate(_playerClassManager.PlayerPrefabCarrier, _playerSpawn.position, Quaternion.identity);
         }
